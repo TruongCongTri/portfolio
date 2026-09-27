@@ -27,6 +27,7 @@
 }
 
 .shot {
+  position: relative; /* frame for the fill image */
   width: 100%;
   height: 100%;
 }

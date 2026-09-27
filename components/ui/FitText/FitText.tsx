@@ -3,7 +3,10 @@
 import { useEffect, useRef } from 'react';
 import styles from './FitText.module.css';
 
-/** Single-line text whose font size is scaled so it spans exactly the container's width. */
+/** Share of the width to fill: accents and overhangs (e.g. the mark on "í") reach past the measured width. */
+const FILL = 0.97;
+
+/** Single-line text whose font size is scaled so it spans (almost) exactly the container's width. */
 export default function FitText({ children, className }: { children: React.ReactNode; className?: string }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -13,7 +16,7 @@ export default function FitText({ children, className }: { children: React.React
     const text = textRef.current!;
     const fit = () => {
       text.style.fontSize = '100px';
-      const scale = box.clientWidth / text.scrollWidth;
+      const scale = (box.clientWidth * FILL) / text.scrollWidth;
       text.style.fontSize = `${100 * scale}px`;
     };
     fit();

@@ -41,6 +41,11 @@ const fragmentShader = /* glsl */ `
   uniform float uDrag;
   varying vec2 vUv;
 
+  // Luminance: the portrait renders in greyscale, while the offset R/G/B samples still fringe in colour.
+  float luma(vec4 c) {
+    return dot(c.rgb, vec3(0.299, 0.587, 0.114));
+  }
+
   float hash(vec2 p) {
     return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
   }
@@ -62,15 +67,25 @@ const fragmentShader = /* glsl */ `
     vec4 b = texture2D(uTexture, uv - shift);
 
     float alpha = max(max(r.a, g.a), b.a);
-    vec3 color = vec3(r.r, g.g, b.b);
+    vec3 color = vec3(luma(r), luma(g), luma(b));
     color += (hash(vUv * 900.0 + uTime) - 0.5) * 0.06 * alpha;
 
     gl_FragColor = vec4(color, alpha);
   }
 `;
 
-/** Cut-out portrait with a chromatic-aberration distortion that follows the cursor. */
-export default function ChromaticPortrait({ src, alt }: { src: string; alt: string }) {
+type ChromaticPortraitProps = {
+  src: string;
+  alt: string;
+  /** Called once the texture has loaded and the first frame is on screen. */
+  onReady?: () => void;
+};
+
+/**
+ * Greyscale cut-out portrait with a chromatic-aberration distortion that follows the cursor.
+ * Fills its parent, which sets the size (and must match the image's aspect ratio).
+ */
+export default function ChromaticPortrait({ src, alt, onReady }: ChromaticPortraitProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -85,7 +100,9 @@ export default function ChromaticPortrait({ src, alt }: { src: string; alt: stri
     container.appendChild(renderer.domElement);
 
     // Left in NoColorSpace: this ShaderMaterial outputs sampled values as-is, so no decode/encode round trip.
-    const texture = new THREE.TextureLoader().load(src);
+    let loaded = false;
+    let reported = false;
+    const texture = new THREE.TextureLoader().load(src, () => (loaded = true));
     texture.minFilter = THREE.LinearFilter;
 
     const uniforms = {
@@ -135,6 +152,10 @@ export default function ChromaticPortrait({ src, alt }: { src: string; alt: stri
       uniforms.uHover.value += (hoverTarget - uniforms.uHover.value) * 0.08;
       uniforms.uTime.value = time * 0.001;
       renderer.render(scene, camera);
+      if (loaded && !reported) {
+        reported = true;
+        onReady?.();
+      }
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
@@ -149,6 +170,8 @@ export default function ChromaticPortrait({ src, alt }: { src: string; alt: stri
       texture.dispose();
       renderer.dispose();
     };
+    // onReady is only read once, when the first frame lands.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src]);
 
   return <div ref={containerRef} className={styles.portrait} role="img" aria-label={alt} />;

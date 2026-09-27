@@ -1,13 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
+import type { ProjectImage } from '@/lib/projects';
 import styles from './HoverPreview.module.css';
 
 const OFFSET = 24;
 
 type HoverPreviewProps = {
-  src: string | null;
+  src: ProjectImage | null;
   /** Card color behind the inset screenshot. */
   color?: string;
 };
@@ -47,8 +49,11 @@ export default function HoverPreview({ src, color }: HoverPreviewProps) {
 
   return (
     <div ref={ref} className={styles.preview} style={{ backgroundColor: shown.color }} aria-hidden>
-      {/* eslint-disable-next-line @next/next/no-img-element -- remote placeholder images */}
-      {shown.src && <img src={shown.src} alt="" className={styles.image} />}
+      {shown.src && (
+        <span className={styles.frame}>
+          <Image src={shown.src} alt="" fill sizes="300px" className={styles.image} />
+        </span>
+      )}
     </div>
   );
 }

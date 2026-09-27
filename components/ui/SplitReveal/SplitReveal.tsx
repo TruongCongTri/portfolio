@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, type ElementType } from 'react';
-import { gsap, SplitText, useGSAP } from '@/lib/gsap';
+import { gsap, MASK_START, PLAY_ONCE, roomyMasks, SplitText, useGSAP } from '@/lib/gsap';
 import { isSeamlessNavigation } from '@/lib/transition';
 import styles from './SplitReveal.module.css';
 
@@ -46,17 +46,18 @@ export default function SplitReveal({
         mask: split,
         autoSplit: true,
         onSplit(self) {
+          roomyMasks(self.masks);
           const targets = self[split];
           // Re-splits after the intro (resize, font swap) must not replay it.
           if (skip || played) return;
           return gsap.from(targets, {
-            yPercent: 110,
+            yPercent: MASK_START,
             duration,
             stagger,
             delay,
             ease: 'expo.out',
             onComplete: () => (played = true),
-            scrollTrigger: on === 'scroll' ? { trigger: el, start: 'top 88%', once: true } : undefined,
+            scrollTrigger: on === 'scroll' ? { trigger: el, start: 'top 88%', ...PLAY_ONCE } : undefined,
           });
         },
       });

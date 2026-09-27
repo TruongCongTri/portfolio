@@ -1,4 +1,7 @@
+import type { Metadata } from 'next';
 import { getProjects } from '@/lib/projects';
+import { pageMetadata, websiteSchema } from '@/lib/seo';
+import { site } from '@/lib/site';
 import { localizePath } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale } from '@/lib/i18n/server';
@@ -9,7 +12,20 @@ import SectionHeader from '@/components/ui/SectionHeader/SectionHeader';
 import PillButton from '@/components/ui/PillButton/PillButton';
 import ProjectList from '@/components/work/ProjectList/ProjectList';
 import Footer from '@/components/layout/Footer/Footer';
+import JsonLd from '@/components/seo/JsonLd/JsonLd';
 import styles from './page.module.css';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  return pageMetadata({
+    locale,
+    path: '/',
+    shareTitle: `${site.name} — ${t.meta.title}`,
+    description: t.meta.description,
+    type: 'profile',
+  });
+}
 
 export default async function HomePage() {
   const locale = await getLocale();
@@ -19,6 +35,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={websiteSchema(locale, t)} />
       <main>
         <Hero />
         <IntroStatement />

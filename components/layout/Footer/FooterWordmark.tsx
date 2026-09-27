@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap, SplitText, useGSAP } from '@/lib/gsap';
+import { gsap, MASK_START, PLAY_ONCE, roomyMasks, SplitText, useGSAP } from '@/lib/gsap';
 import FitText from '@/components/ui/FitText/FitText';
 import styles from './Footer.module.css';
 
@@ -12,12 +12,13 @@ export default function FooterWordmark({ text }: { text: string }) {
   useGSAP(
     () => {
       const split = SplitText.create(ref.current!.querySelector('span')!, { type: 'chars', mask: 'chars' });
+      roomyMasks(split.masks);
       gsap.from(split.chars, {
-        yPercent: 100,
+        yPercent: MASK_START,
         duration: 1.2,
         ease: 'expo.out',
         stagger: 0.035,
-        scrollTrigger: { trigger: ref.current, start: 'top 95%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 95%', ...PLAY_ONCE },
       });
     },
     { scope: ref },

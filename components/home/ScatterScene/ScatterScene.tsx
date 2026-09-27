@@ -1,10 +1,12 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef } from 'react';
 import { gsap, SplitText, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
-import type { Project } from '@/lib/projects';
+import { blurPlaceholder, type Project } from '@/lib/projects';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
+import getInTouch from '../../../public/get-in-touch.webp';
 import styles from './ScatterScene.module.css';
 
 /** Where each card sits (percent of the stage) and the direction it flies when scattered. */
@@ -19,7 +21,7 @@ const CARD_LAYOUT = [
 
 /**
  * Pinned scroll scene in three beats:
- * 1. project cards scatter outward while a dark frame grows behind the centered line,
+ * 1. project cards scatter outward while the get-in-touch image grows behind the centered line,
  *    whose words light up one by one;
  * 2. the frame expands to fill the screen;
  * 3. the call-to-action rises in.
@@ -74,12 +76,21 @@ export default function ScatterScene({ projects }: { projects: Project[] }) {
           style={{ left: `${left}%`, top: `${top}%`, backgroundColor: project.color }}
           aria-hidden
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- remote placeholder images */}
-          <img src={project.images[0]} alt="" />
+          <Image
+            src={project.images[0]}
+            alt=""
+            width={1600}
+            height={1000}
+            sizes="190px"
+            placeholder={blurPlaceholder(project.images[0])}
+          />
         </div>
       ))}
 
-      <div className={styles.frame} aria-hidden />
+      {/* Enlarged + sharpened by `npm run images`; quality 85 keeps that crispness. */}
+      <div className={styles.frame} aria-hidden>
+        <Image src={getInTouch} alt="" fill sizes="100vw" quality={85} className={styles.frameImage} />
+      </div>
 
       <p className={styles.line}>{t.home.scatterLine}</p>
 

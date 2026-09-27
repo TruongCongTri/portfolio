@@ -1,16 +1,23 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
 import { site } from '@/lib/site';
 import Marquee from '@/components/ui/Marquee/Marquee';
-import ChromaticPortrait from '../ChromaticPortrait/ChromaticPortrait';
 import styles from './Hero.module.css';
+
+// WebGL (three.js) only loads in the browser, after the page has painted: the static image below is
+// what renders first (and what search engines see).
+const ChromaticPortrait = dynamic(() => import('../ChromaticPortrait/ChromaticPortrait'), { ssr: false });
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const fallbackRef = useRef<HTMLImageElement>(null);
   const { t } = useI18n();
+  const { width, height } = site.portrait;
 
   useGSAP(
     () => {
@@ -48,8 +55,27 @@ export default function Hero() {
         <Marquee text={t.hero.marquee} />
       </div>
 
-      <div className={styles.portrait}>
-        <ChromaticPortrait src={site.portrait} alt={site.name} />
+      <div className={styles.portrait} style={{ aspectRatio: `${width} / ${height}` }}>
+        {/*
+          Shown until the WebGL version is ready. The page's largest image, so it's preloaded.
+          `unoptimized`: it's already an optimized WebP, and serving it from its own (hashed) URL
+          lets the WebGL texture below reuse the same download instead of fetching a second copy.
+        */}
+        <Image
+          ref={fallbackRef}
+          src={site.portrait}
+          alt={site.name}
+          preload
+          fetchPriority="high"
+          unoptimized
+          sizes="(max-width: 768px) 90vw, 60vh"
+          className={styles.portraitImage}
+        />
+        <ChromaticPortrait
+          src={site.portrait.src}
+          alt={site.name}
+          onReady={() => gsap.to(fallbackRef.current, { autoAlpha: 0, duration: 0.3 })}
+        />
       </div>
 
       <div className={styles.bottom}>

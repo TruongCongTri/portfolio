@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import styles from './MetaBar.module.css';
 
 type MetaBarProps = {
@@ -27,7 +27,7 @@ export default function MetaBar({ start, center, columns = false, className }: M
   useGSAP(
     () => {
       gsap
-        .timeline({ scrollTrigger: { trigger: ref.current, start: 'top 92%', once: true } })
+        .timeline({ scrollTrigger: { trigger: ref.current, start: 'top 92%', ...PLAY_ONCE } })
         .from(`.${styles.rule}`, { scaleX: 0, duration: 1.4, ease: 'expo.inOut' })
         .from(`.${styles.inner}`, { yPercent: 110, duration: 1, ease: 'expo.out', stagger: 0.08 }, 0.5);
     },

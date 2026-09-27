@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 
 type RevealProps = {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export default function Reveal({ children, className, stagger = 0.1 }: RevealPro
         duration: 0.9,
         stagger,
         ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', ...PLAY_ONCE },
       });
     },
     { scope: ref },

@@ -19,7 +19,18 @@
   left: 50%;
   bottom: 0;
   z-index: 3;
+  /* Height-led; the width follows the image's own aspect ratio (set inline) — never squashed */
+  height: min(80svh, 120vw);
   translate: -50% 0;
+}
+
+.portraitImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
 }
 
 .bottom {

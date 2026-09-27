@@ -1,13 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
+import { blurPlaceholder, imageUrl, type ProjectImage } from '@/lib/projects';
 import SplitReveal from '@/components/ui/SplitReveal/SplitReveal';
 import styles from './HorizontalGallery.module.css';
 
 type HorizontalGalleryProps = {
-  images: string[];
+  images: ProjectImage[];
   title: string;
   caption: string;
 };
@@ -55,7 +57,7 @@ export default function HorizontalGallery({ images, title, caption }: Horizontal
         duration: 1.2,
         ease: 'expo.out',
         stagger: 0.1,
-        scrollTrigger: { trigger: ref.current, start: 'top 70%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 70%', ...PLAY_ONCE },
       });
     },
     { scope: ref },
@@ -74,9 +76,15 @@ export default function HorizontalGallery({ images, title, caption }: Horizontal
 
       <div ref={trackRef} className={styles.track}>
         {images.map((src, i) => (
-          <figure key={src} className={styles.slide}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote placeholder images */}
-            <img src={src} alt={`${t.project.screen} ${i + 1}`} className={styles.image} />
+          <figure key={imageUrl(src)} className={styles.slide}>
+            <Image
+              src={src}
+              alt={`${t.project.screen} ${i + 1}`}
+              fill
+              sizes="(max-width: 768px) 82vw, 52vw"
+              placeholder={blurPlaceholder(src)}
+              className={styles.image}
+            />
           </figure>
         ))}
       </div>

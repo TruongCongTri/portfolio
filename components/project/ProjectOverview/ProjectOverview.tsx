@@ -19,9 +19,14 @@ export default async function ProjectOverview({ project }: { project: Project })
 
       <div className={styles.grid}>
         <div className={styles.intro}>
-          <SplitReveal as="h2" className={styles.headline}>
-            {project.title} — {project.overview}
-          </SplitReveal>
+          <div className={styles.titleGroup}>
+            <SplitReveal as="h2" className={styles.headline}>
+              {project.title}
+            </SplitReveal>
+            <SplitReveal as="p" className={styles.summary} delay={0.1}>
+              {project.overview}
+            </SplitReveal>
+          </div>
           {project.url && (
             <Reveal>
               <div>
@@ -38,17 +43,21 @@ export default async function ProjectOverview({ project }: { project: Project })
             <SplitReveal as="h3" className={styles.heading} split="words">
               {t.challenge}
             </SplitReveal>
-            <SplitReveal as="p" className={styles.text} delay={0.1}>
-              {project.challenge}
-            </SplitReveal>
+            {project.challenge.map((paragraph, i) => (
+              <SplitReveal key={i} as="p" className={styles.text} delay={0.1}>
+                {paragraph}
+              </SplitReveal>
+            ))}
           </div>
           <div className={styles.block}>
             <SplitReveal as="h3" className={styles.heading} split="words">
               {t.approach}
             </SplitReveal>
-            <SplitReveal as="p" className={styles.text} delay={0.1}>
-              {project.approach}
-            </SplitReveal>
+            {project.approach.map((paragraph, i) => (
+              <SplitReveal key={i} as="p" className={styles.text} delay={0.1}>
+                {paragraph}
+              </SplitReveal>
+            ))}
           </div>
         </div>
       </div>

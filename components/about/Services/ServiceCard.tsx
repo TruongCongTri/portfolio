@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import styles from './Services.module.css';
 
 type ServiceCardProps = {
@@ -20,7 +20,7 @@ export default function ServiceCard({ index, title, description, highlight }: Se
       const tl = gsap
         .timeline({
           delay: index * 0.12,
-          scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+          scrollTrigger: { trigger: ref.current, start: 'top 85%', ...PLAY_ONCE },
         })
         .from(`.${styles.rule}`, { scaleX: 0, duration: 1.4, ease: 'expo.inOut' })
         .from(`.${styles.index}, .${styles.cardTitle}, .${styles.description}`, {

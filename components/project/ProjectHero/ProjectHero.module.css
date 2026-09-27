@@ -36,6 +36,11 @@
   line-height: 1;
 }
 
+.titlePart {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .service {
   display: flex;
   flex-direction: column;
@@ -68,20 +73,15 @@
 
 .cover {
   position: relative;
+  display: block;
   aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7% 9%;
   overflow: hidden;
   background: rgb(0 0 0 / 0.28);
 }
 
+/* The hero image fills the cover edge to edge */
 .coverImage {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.6);
 }
 
 .coverLink {

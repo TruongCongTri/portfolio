@@ -1,6 +1,31 @@
 export const en = {
   meta: {
-    description: 'Developer and designer building fast, expressive web products.',
+    /** Role shown in the default <title> and share cards. */
+    title: "Full-stack Developer",
+    description: "Full-stack developer building enterprise systems, e-learning and digital twin platforms with Node.js, NestJS, Express.js, React and Next.js — from database performance and RBAC/ABAC security to load-tested delivery.",
+    workDescription: "Selected work: an enterprise ERP, a video e-learning platform with online payments, airport and campus digital twins on ArcGIS, and a scroll-driven company site.",
+    keywords: [
+      "Full-stack developer",
+      "Node.js",
+      "TypeScript",
+      "NestJS",
+      "Express.js",
+      "React",
+      "Next.js",
+      "Redux",
+      "Redis",
+      "WebSocket",
+      "REST API",
+      "RBAC",
+      "ABAC",
+      "ERP",
+      "E-learning",
+      "Digital twin",
+      "ArcGIS",
+      "Performance testing",
+      "GSAP",
+      "Vietnam",
+    ],
   },
   nav: {
     home: 'Home',
@@ -22,9 +47,9 @@ export const en = {
   },
   hero: {
     marquee: 'Designing and building for the web —',
-    roles: ['Frontend Developer', 'UI Engineer', 'Motion & Interaction'],
-    locatedIn: 'Based in :',
-    location: 'Your City, Country',
+    roles: ['End-to-end Full-stack Developer', 'Database Engineer', 'Motion & Interaction'],
+    locatedIn: 'Based in : Vietnam',
+    location: 'Vietnam',
   },
   home: {
     statement:
@@ -76,22 +101,36 @@ export const en = {
     phone: 'Phone',
   },
   about: {
-    lead: 'I’m a developer and designer building digital products that feel effortless to use. I care about clean architecture, expressive motion and interfaces that get out of the way.',
-    side: 'I’ve worked with startups, agencies and independent founders — shipping marketing sites, dashboards and apps from first sketch to production.',
+    lead: "A full-stack developer who owns the entire software development lifecycle end to end, with a solid foundation in the Node.js/TypeScript ecosystem (NestJS, Express.js) and modern front-end technologies (React, Next.js).",
+    /** Paragraphs in the right-hand column. */
+    side: [
+      "Hands-on experience optimising data performance: designing relational schemas, indexing, refactoring database queries, trimming RESTful API payloads and implementing multi-layer caching with Redis to keep latency to a minimum.",
+      "A firm grasp of security architecture, with the ability to design in-depth authentication and role- and attribute-based authorisation (RBAC/ABAC), controlling access tightly from the whole system down to individual features.",
+      "Above all, I hold a strict engineering standard — not only through unit and integration testing during development, but by setting up and running load, stress, spike and performance tests measured precisely against each acceptance criterion before anything goes into production.",
+      "With a strong sense of responsibility and clear systems thinking, I’m looking to take on a Full-stack Developer role: building, customising and scaling enterprise management modules and digital operations platforms that are stable, handle high load and last.",
+    ],
     imageAlt: 'Workspace',
-    helpWith: 'What I can do for you',
+    helpWith: "Every stage, from design to delivery",
     services: [
       {
-        title: 'Interface design',
-        description: 'Layouts, systems and prototypes that make complex products feel simple and look distinct.',
+        title: "Interface design",
+        description: "Wireframes, design systems and interactive prototypes that turn requirements into clear, usable flows before any code is written.",
       },
       {
-        title: 'Front-end engineering',
-        description: 'Accessible, fast and animated front ends in React and Next.js, built to be maintained.',
+        title: "Database design",
+        description: "Relational schemas, indexing and query tuning, with multi-layer Redis caching, so data stays consistent and fast under load.",
       },
       {
-        title: 'End-to-end delivery',
-        description: 'From the first workshop to launch and beyond — one person accountable for the whole thing.',
+        title: "Back-end engineering",
+        description: "Secure NestJS and Express.js services: lean RESTful APIs, RBAC/ABAC authorisation, and WebSockets and webhooks for real-time, connected systems.",
+      },
+      {
+        title: "Front-end engineering",
+        description: "Fast, accessible React and Next.js interfaces with Redux state, real-time updates and motion that serves the content.",
+      },
+      {
+        title: "End-to-end delivery",
+        description: "Unit and integration tests, then load, stress, spike and performance testing against every acceptance criterion before launch, and support after it.",
       },
     ],
   },
@@ -103,11 +142,10 @@ export const en = {
     list: 'List',
     grid: 'Grid',
     categories: {
-      fintech: 'Fintech',
-      architecture: 'Architecture',
-      ecommerce: 'E-commerce',
-      saas: 'SaaS',
-      wellness: 'Wellness',
+      corporate: 'Corporate',
+      enterprise: 'Enterprise / ERP',
+      eLearning: 'E-learning',
+      digitalTwin: 'Digital Twin',
     },
   },
   project: {
@@ -127,9 +165,24 @@ export const en = {
     next: 'Keep scrolling for the next project',
   },
   notFound: {
-    title: 'Page not found',
-    body: "The page you're looking for doesn't exist or has moved.",
-    back: 'Back home',
+    code: "404",
+    title: "Page not found",
+    body: "The page you’re looking for doesn’t exist or has moved. Check the address, or pick up from one of these.",
+    back: "Back home",
+    work: "View work",
+  },
+  projectNotFound: {
+    title: "Project not found",
+    body: "There’s no project at this address — it may have been renamed or removed. Here’s what I’ve built instead:",
+    all: "All work",
+  },
+  error: {
+    code: "Error",
+    title: "Something went wrong",
+    body: "An unexpected error stopped this page from loading. Try again, or head back to the home page.",
+    retry: "Try again",
+    home: "Back home",
+    reference: "Reference",
   },
 };
 

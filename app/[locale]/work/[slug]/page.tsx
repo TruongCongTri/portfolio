@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAdjacentProjects, getProject, projectSlugs } from '@/lib/projects';
+import { getAdjacentProjects, getProject, imageUrl, projectSlugs } from '@/lib/projects';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale } from '@/lib/i18n/server';
+import { pageMetadata, projectSchema } from '@/lib/seo';
+import { site } from '@/lib/site';
+import JsonLd from '@/components/seo/JsonLd/JsonLd';
 import ProjectColors from '@/components/project/ProjectColors/ProjectColors';
 import ProjectHero from '@/components/project/ProjectHero/ProjectHero';
 import ProjectOverview from '@/components/project/ProjectOverview/ProjectOverview';
@@ -10,7 +13,9 @@ import HorizontalGallery from '@/components/project/HorizontalGallery/Horizontal
 import PrevProjectPrompt from '@/components/project/PrevProjectPrompt/PrevProjectPrompt';
 import NextProjectTrigger from '@/components/project/NextProjectTrigger/NextProjectTrigger';
 
-export const dynamicParams = false;
+// Known projects are prerendered; an unknown slug still runs the page, whose notFound() renders
+// this segment's not-found.tsx (with `false`, Next would answer with a generic 404 instead).
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return projectSlugs.map((slug) => ({ slug }));
@@ -18,7 +23,26 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<'/[locale]/work/[slug]'>): Promise<Metadata> {
   const { slug } = await params;
-  return { title: getProject(slug, await getLocale())?.title };
+  const locale = await getLocale();
+  const project = getProject(slug, locale);
+  if (!project) return {}; // not-found.tsx supplies its own metadata
+  return pageMetadata({
+    locale,
+    path: `/work/${slug}`,
+    title: project.title,
+    shareTitle: `${project.title} — ${site.name}`,
+    description: project.overview,
+    type: 'article',
+    images: [
+      {
+        url: imageUrl(project.images[0]),
+        // Real dimensions for imported screenshots; the remote placeholders are 1600×1000.
+        width: typeof project.images[0] === 'string' ? 1600 : project.images[0].width,
+        height: typeof project.images[0] === 'string' ? 1000 : project.images[0].height,
+        alt: project.title,
+      },
+    ],
+  });
 }
 
 // No footer: the page ends by handing off to the next project's hero; pulling up past the top opens the previous one.
@@ -28,11 +52,13 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/work/
   const project = getProject(slug, locale);
   if (!project) notFound();
 
-  const t = getDictionary(locale).project;
+  const dictionary = getDictionary(locale);
+  const t = dictionary.project;
   const { prev, next } = getAdjacentProjects(slug, locale);
 
   return (
     <main>
+      <JsonLd data={projectSchema(locale, dictionary, project)} />
       <ProjectColors project={project} />
       <ProjectHero project={project} leading={<PrevProjectPrompt project={prev} />} />
       <ProjectOverview project={project} />

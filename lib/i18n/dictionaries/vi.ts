@@ -2,7 +2,32 @@ import type { Dictionary } from './en';
 
 export const vi: Dictionary = {
   meta: {
-    description: 'Lập trình viên kiêm nhà thiết kế, xây dựng sản phẩm web nhanh và giàu cảm xúc.',
+    /** Role shown in the default <title> and share cards. */
+    title: "Lập trình viên Full-stack",
+    description: "Lập trình viên Full-stack xây dựng hệ thống quản trị doanh nghiệp, nền tảng học trực tuyến và bản sao số với Node.js, NestJS, Express.js, React và Next.js — từ tối ưu hiệu năng cơ sở dữ liệu, bảo mật RBAC/ABAC đến triển khai đã kiểm thử tải.",
+    workDescription: "Dự án tiêu biểu: hệ thống ERP doanh nghiệp, nền tảng học trực tuyến có phát video và thanh toán online, bản sao số sân bay và khuôn viên trường trên ArcGIS, cùng website doanh nghiệp kể chuyện theo cuộn trang.",
+    keywords: [
+      "Lập trình viên Full-stack",
+      "Node.js",
+      "TypeScript",
+      "NestJS",
+      "Express.js",
+      "React",
+      "Next.js",
+      "Redux",
+      "Redis",
+      "WebSocket",
+      "REST API",
+      "RBAC",
+      "ABAC",
+      "ERP",
+      "Học trực tuyến",
+      "Bản sao số",
+      "ArcGIS",
+      "Kiểm thử hiệu năng",
+      "GSAP",
+      "Việt Nam",
+    ],
   },
   nav: {
     home: 'Trang chủ',
@@ -24,9 +49,9 @@ export const vi: Dictionary = {
   },
   hero: {
     marquee: 'Thiết kế và xây dựng cho web —',
-    roles: ['Lập trình viên Frontend', 'Kỹ sư giao diện', 'Chuyển động & Tương tác'],
-    locatedIn: 'Sống tại :',
-    location: 'Thành phố, Quốc gia',
+    roles: ['Lập trình viên Full-stack End-to-End', 'Kỹ sư Cơ sở dữ liệu', 'Chuyển động & Tương tác'],
+    locatedIn: 'Sống tại : Việt Nam',
+    location: 'Việt Nam',
   },
   home: {
     statement:
@@ -78,22 +103,36 @@ export const vi: Dictionary = {
     phone: 'Điện thoại',
   },
   about: {
-    lead: 'Tôi là lập trình viên kiêm nhà thiết kế, xây dựng những sản phẩm số dễ dùng một cách tự nhiên. Tôi coi trọng kiến trúc gọn gàng, chuyển động giàu biểu cảm và giao diện không cản trở người dùng.',
-    side: 'Tôi đã làm việc với các startup, agency và nhà sáng lập độc lập — hoàn thiện website, dashboard và ứng dụng từ bản phác thảo đầu tiên đến khi ra mắt.',
+    lead: "Lập trình viên phát triển toàn diện (Full-stack) với năng lực làm chủ trọn vẹn vòng đời phát triển phần mềm từ đầu đến cuối, sở hữu nền tảng chuyên môn vững chắc về hệ sinh thái Node.js/TypeScript (NestJS, Express.js) cùng các công nghệ giao diện người dùng hiện đại (React, Next.js).",
+    /** Paragraphs in the right-hand column. */
+    side: [
+      "Có kinh nghiệm thực tế trong việc tối ưu hóa hiệu năng dữ liệu: thiết kế lược đồ quan hệ, đánh chỉ mục, tái cấu trúc câu truy vấn cơ sở dữ liệu, tinh giản khối lượng dữ liệu truyền tải của giao tiếp RESTful API và triển khai chiến lược lưu bộ nhớ đệm đa tầng với Redis nhằm giảm thiểu độ trễ tối đa.",
+      "Nắm vững kiến trúc an toàn thông tin với khả năng thiết kế hệ thống xác thực và phân quyền chuyên sâu theo vai trò cùng thuộc tính (RBAC/ABAC), kiểm soát quyền truy cập chặt chẽ từ cấp độ hệ thống tổng thể đến từng chức năng chi tiết.",
+      "Đặc biệt, luôn duy trì tiêu chuẩn kỹ thuật khắt khe không chỉ qua khâu kiểm thử đơn vị và kiểm thử tích hợp trong môi trường phát triển, mà còn trực tiếp thiết lập, thực thi các kịch bản kiểm thử tải, kiểm thử áp lực, kiểm thử đột biến lưu lượng và kiểm thử hiệu năng đối chiếu chuẩn xác theo từng tiêu chí nghiệm thu trước khi đưa vào vận hành thực tế.",
+      "Với tinh thần trách nhiệm và tư duy hệ thống mạch lạc, tôi mong muốn đảm nhận vị trí Lập trình viên Full-stack để xây dựng, tùy biến và mở rộng các phân hệ quản trị doanh nghiệp cùng các nền tảng số hóa vận hành ổn định, chịu tải cao và bền vững.",
+    ],
     imageAlt: 'Góc làm việc',
-    helpWith: 'Tôi có thể giúp gì cho bạn',
+    helpWith: "Mọi giai đoạn, từ thiết kế đến vận hành",
     services: [
       {
-        title: 'Thiết kế giao diện',
-        description: 'Bố cục, hệ thống và prototype giúp sản phẩm phức tạp trở nên đơn giản và khác biệt.',
+        title: "Thiết kế giao diện",
+        description: "Wireframe, hệ thống thiết kế và prototype tương tác, biến yêu cầu thành luồng sử dụng rõ ràng, dễ dùng trước khi viết dòng mã đầu tiên.",
       },
       {
-        title: 'Kỹ thuật frontend',
-        description: 'Frontend nhanh, dễ tiếp cận và giàu chuyển động với React và Next.js, dễ bảo trì lâu dài.',
+        title: "Thiết kế cơ sở dữ liệu",
+        description: "Lược đồ quan hệ, đánh chỉ mục và tối ưu truy vấn, kết hợp bộ nhớ đệm đa tầng với Redis để dữ liệu luôn nhất quán và nhanh khi chịu tải.",
       },
       {
-        title: 'Trọn gói từ đầu đến cuối',
-        description: 'Từ buổi workshop đầu tiên đến khi ra mắt và sau đó — một người chịu trách nhiệm toàn bộ.',
+        title: "Kỹ thuật backend",
+        description: "Dịch vụ NestJS và Express.js bảo mật: RESTful API gọn nhẹ, phân quyền RBAC/ABAC, cùng WebSocket và webhook cho hệ thống kết nối theo thời gian thực.",
+      },
+      {
+        title: "Kỹ thuật frontend",
+        description: "Giao diện React và Next.js nhanh, dễ tiếp cận, quản lý trạng thái bằng Redux, cập nhật thời gian thực và chuyển động phục vụ nội dung.",
+      },
+      {
+        title: "Triển khai trọn gói",
+        description: "Kiểm thử đơn vị và tích hợp, sau đó kiểm thử tải, áp lực, đột biến lưu lượng và hiệu năng theo từng tiêu chí nghiệm thu trước khi ra mắt, và đồng hành sau đó.",
       },
     ],
   },
@@ -105,11 +144,10 @@ export const vi: Dictionary = {
     list: 'Danh sách',
     grid: 'Lưới',
     categories: {
-      fintech: 'Tài chính',
-      architecture: 'Kiến trúc',
-      ecommerce: 'Thương mại điện tử',
-      saas: 'SaaS',
-      wellness: 'Sức khỏe',
+      corporate: 'Doanh nghiệp',
+      enterprise: 'Quản trị / ERP',
+      eLearning: 'Học trực tuyến',
+      digitalTwin: 'Bản sao số',
     },
   },
   project: {
@@ -129,8 +167,23 @@ export const vi: Dictionary = {
     next: 'Tiếp tục cuộn để xem dự án tiếp theo',
   },
   notFound: {
-    title: 'Không tìm thấy trang',
-    body: 'Trang bạn tìm không tồn tại hoặc đã được di chuyển.',
-    back: 'Về trang chủ',
+    code: "404",
+    title: "Không tìm thấy trang",
+    body: "Trang bạn tìm không tồn tại hoặc đã được di chuyển. Hãy kiểm tra lại địa chỉ, hoặc tiếp tục từ một trong các trang sau.",
+    back: "Về trang chủ",
+    work: "Xem dự án",
+  },
+  projectNotFound: {
+    title: "Không tìm thấy dự án",
+    body: "Không có dự án nào ở địa chỉ này — có thể dự án đã được đổi tên hoặc gỡ bỏ. Đây là những dự án tôi đã thực hiện:",
+    all: "Tất cả dự án",
+  },
+  error: {
+    code: "Lỗi",
+    title: "Đã có lỗi xảy ra",
+    body: "Một lỗi không mong muốn khiến trang này không thể tải. Hãy thử lại, hoặc quay về trang chủ.",
+    retry: "Thử lại",
+    home: "Về trang chủ",
+    reference: "Mã tham chiếu",
   },
 };

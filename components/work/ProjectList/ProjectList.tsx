@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import type { Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import HoverPreview from '@/components/ui/HoverPreview/HoverPreview';
@@ -25,7 +25,7 @@ export default function ProjectList({ projects, withPreview = true }: ProjectLis
       // Rules draw in left to right, then each row's content rises.
       gsap.utils.toArray<HTMLElement>(`.${styles.row}, .${styles.head}`).forEach((row) => {
         gsap
-          .timeline({ scrollTrigger: { trigger: row, start: 'top 92%', once: true } })
+          .timeline({ scrollTrigger: { trigger: row, start: 'top 92%', ...PLAY_ONCE } })
           .from(row.querySelector(`.${styles.rule}`), { scaleX: 0, duration: 1.4, ease: 'expo.inOut' })
           .from(row.querySelectorAll(`.${styles.cell}`), { yPercent: 60, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.05 }, 0.2);
       });

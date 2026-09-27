@@ -3,27 +3,31 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-ink);
-  color: var(--color-ink-fg);
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
 }
 
-.mask {
+.svg {
   display: block;
-  overflow: hidden;
-  padding: 0 var(--gutter) 0.12em;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
+.ink {
+  fill: var(--color-ink);
+}
+
+/*
+ * Heavy sans: thick strokes make a good window to dive through.
+ * No letter-spacing: the zoom point is found by drawing the same text on a canvas, which must match.
+ */
 .label {
-  display: block;
-  font-family: var(--font-serif), serif;
-  font-size: clamp(3rem, 8vw, 7.5rem);
-  font-weight: 300;
-  line-height: 1.1;
-  text-align: center;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 700;
+}
+
+.fill {
+  fill: var(--color-ink-fg);
 }

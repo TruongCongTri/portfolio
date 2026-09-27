@@ -1,14 +1,17 @@
 import type { Dictionary } from './i18n/dictionaries';
+import portrait from '../public/portrait.webp';
 
 /**
- * Personal details — replace these placeholders with your own.
- * `portrait` should be a cut-out (transparent background) PNG/WebP in /public; roughly 9:8 works best.
+ * Personal details.
+ * `portrait` is a cut-out (transparent background) image, generated from public/portrait.png by
+ * `npm run images`. Imported statically: Next reads its size and serves it under a hashed URL that
+ * can be cached forever.
  */
 export const site = {
-  name: 'Your Name',
-  email: 'hello@example.com',
-  phone: { display: '+00 000 000 000', href: 'tel:+00000000000' },
-  portrait: '/portrait-placeholder.svg',
+  name: 'Trương Công Trí',
+  email: 'tri.tcong@gmail.com',
+  phone: { display: '+84 933 048 894', href: 'tel:+84933048894' },
+  portrait,
 };
 
 /**
@@ -23,7 +26,7 @@ export const navLinks: { key: keyof Dictionary['nav']; path: string; action?: 'c
 ];
 
 export const socialLinks = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'GitHub', href: '#' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/trí-trương-công-35b174406' },
+  { label: 'GitHub', href: 'https://github.com/TruongCongTri' },
   { label: 'Instagram', href: '#' },
 ];

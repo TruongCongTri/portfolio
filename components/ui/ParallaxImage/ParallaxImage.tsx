@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
+import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import styles from './ParallaxImage.module.css';
 
 type ParallaxImageProps = {
@@ -23,7 +24,7 @@ export default function ParallaxImage({ src, alt, className, strength = 14 }: Pa
         clipPath: 'inset(100% 0% 0% 0%)',
         duration: 1.6,
         ease: 'expo.inOut',
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', ...PLAY_ONCE },
       });
       gsap.fromTo(
         img,
@@ -41,8 +42,7 @@ export default function ParallaxImage({ src, alt, className, strength = 14 }: Pa
 
   return (
     <div ref={ref} className={`${styles.frame} ${className ?? ''}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- remote placeholder images */}
-      <img src={src} alt={alt} className={styles.image} />
+      <Image src={src} alt={alt} fill sizes="100vw" className={styles.image} />
     </div>
   );
 }

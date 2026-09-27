@@ -1,0 +1,36 @@
+.list {
+  width: 100%;
+  list-style: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 500;
+  transition: padding-left 0.5s var(--ease-out-expo);
+}
+
+.item:hover {
+  padding-left: 0.6rem;
+}
+
+.swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 1.1rem;
+}
+
+.meta {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}

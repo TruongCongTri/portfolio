@@ -1,6 +1,7 @@
 .box {
   width: 100%;
-  overflow: hidden;
+  /* Not hidden: accents and descenders can reach past the line box */
+  overflow: visible;
 }
 
 .text {
