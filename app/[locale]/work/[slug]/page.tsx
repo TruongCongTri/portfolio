@@ -10,7 +10,7 @@ import ProjectColors from '@/components/project/ProjectColors/ProjectColors';
 import ProjectHero from '@/components/project/ProjectHero/ProjectHero';
 import ProjectOverview from '@/components/project/ProjectOverview/ProjectOverview';
 import HorizontalGallery from '@/components/project/HorizontalGallery/HorizontalGallery';
-import PrevProjectPrompt from '@/components/project/PrevProjectPrompt/PrevProjectPrompt';
+import PrevProjectTrigger from '@/components/project/PrevProjectTrigger/PrevProjectTrigger';
 import NextProjectTrigger from '@/components/project/NextProjectTrigger/NextProjectTrigger';
 
 // Known projects are prerendered; an unknown slug still runs the page, whose notFound() renders
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/work/[sl
   });
 }
 
-// No footer: the page ends by handing off to the next project's hero; pulling up past the top opens the previous one.
+// No footer: the page ends by handing off to the next project's hero; pulling up past the top brings the previous project's hero down over it.
 export default async function ProjectPage({ params }: PageProps<'/[locale]/work/[slug]'>) {
   const { slug } = await params;
   const locale = await getLocale();
@@ -60,7 +60,8 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/work/
     <main>
       <JsonLd data={projectSchema(locale, dictionary, project)} />
       <ProjectColors project={project} />
-      <ProjectHero project={project} leading={<PrevProjectPrompt project={prev} />} />
+      <PrevProjectTrigger project={prev} />
+      <ProjectHero project={project} />
       <ProjectOverview project={project} />
       <HorizontalGallery images={project.images} title={t.galleryTitle} caption={t.galleryCaption} />
       <NextProjectTrigger project={next} />

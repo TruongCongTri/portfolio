@@ -1,0 +1,23 @@
+/*
+ * The previous project's hero, painted with its palette, parked one viewport above the page.
+ * Fixed, so while the body is translated down (see PrevProjectTrigger) it rides along with it and
+ * lands exactly where the previous page's first screen sits when the offset reaches 100vh.
+ */
+.handoff {
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.bar {
+  position: absolute;
+  top: 1.5rem; /* same as NextProjectTrigger's bar */
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 1;
+}

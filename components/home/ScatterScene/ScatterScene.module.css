@@ -11,16 +11,13 @@
   position: absolute;
   width: clamp(140px, 12vw, 190px);
   aspect-ratio: 8 / 7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7%;
+  overflow: hidden;
 }
 
+/* The screenshot covers the whole card (cropped to its shape); the card color shows only while it loads */
 .card img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
 }
 

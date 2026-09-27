@@ -163,6 +163,7 @@ export const vi: Dictionary = {
     viewLive: 'Xem trực tiếp',
     overviewTag: '/Tổng quan',
     scrollNext: '/Cuộn để xem dự án tiếp',
+    scrollPrev: '/Cuộn lên để xem dự án trước',
     prev: 'Cuộn lên để xem dự án trước',
     next: 'Tiếp tục cuộn để xem dự án tiếp theo',
   },

@@ -20,7 +20,7 @@ const CARD_LAYOUT = [
 ];
 
 /**
- * Pinned scroll scene in three beats:
+ * Pinned scroll scene in three beats (pass up to 6 projects, one card each — see CARD_LAYOUT):
  * 1. project cards scatter outward while the get-in-touch image grows behind the centered line,
  *    whose words light up one by one;
  * 2. the frame expands to fill the screen;
@@ -29,7 +29,8 @@ const CARD_LAYOUT = [
 export default function ScatterScene({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLElement>(null);
   const { t } = useI18n();
-  const cards = CARD_LAYOUT.map((layout, i) => ({ ...layout, project: projects[i % projects.length] }));
+  // One card per project, no repeats: with fewer projects than slots, the later slots stay empty.
+  const cards = projects.slice(0, CARD_LAYOUT.length).map((project, i) => ({ ...CARD_LAYOUT[i], project }));
 
   useGSAP(
     () => {
@@ -44,7 +45,7 @@ export default function ScatterScene({ projects }: { projects: Project[] }) {
 
       // 1 — scatter + grow + words light up
       gsap.utils.toArray<HTMLElement>(`.${styles.card}`).forEach((card, i) => {
-        const { dx, dy } = CARD_LAYOUT[i];
+        const { dx, dy } = cards[i];
         tl.to(card, { x: dx * vw * 0.35, y: dy * vh * 0.35, scale: 1.5, autoAlpha: 0, duration: 1 }, 0);
       });
       tl.fromTo(
@@ -69,9 +70,9 @@ export default function ScatterScene({ projects }: { projects: Project[] }) {
 
   return (
     <section ref={ref} className={styles.scene}>
-      {cards.map(({ left, top, project }, i) => (
+      {cards.map(({ left, top, project }) => (
         <div
-          key={i}
+          key={project.slug}
           className={styles.card}
           style={{ left: `${left}%`, top: `${top}%`, backgroundColor: project.color }}
           aria-hidden

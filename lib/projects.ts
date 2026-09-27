@@ -284,6 +284,15 @@ export function getProjects(locale: Locale) {
   return sources.map((p) => localize(p, locale));
 }
 
+/** The `count` most recent projects (by year; list order breaks ties, so newest-first within a year). */
+export function getLatestProjects(locale: Locale, count: number) {
+  return sources
+    .map((source, index) => ({ source, index }))
+    .sort((a, b) => Number(b.source.year) - Number(a.source.year) || a.index - b.index)
+    .slice(0, count)
+    .map(({ source }) => localize(source, locale));
+}
+
 export function getProject(slug: string, locale: Locale) {
   const source = sources.find((p) => p.slug === slug);
   return source && localize(source, locale);

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getProjects } from '@/lib/projects';
+import { getLatestProjects, getProjects } from '@/lib/projects';
 import { pageMetadata, websiteSchema } from '@/lib/seo';
 import { site } from '@/lib/site';
 import { localizePath } from '@/lib/i18n/config';
@@ -52,7 +52,7 @@ export default async function HomePage() {
             </PillButton>
           </div>
         </section>
-        <ScatterScene projects={projects} />
+        <ScatterScene projects={getLatestProjects(locale, 6)} />
       </main>
       <Footer />
     </>

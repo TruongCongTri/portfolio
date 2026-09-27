@@ -161,6 +161,7 @@ export const en = {
     viewLive: 'View live',
     overviewTag: '/Overview',
     scrollNext: '/Scroll for next work',
+    scrollPrev: '/Scroll up for previous work',
     prev: 'Scroll up for previous',
     next: 'Keep scrolling for the next project',
   },
