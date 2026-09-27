@@ -40,7 +40,10 @@ export default function ServiceCard({ index, title, description, highlight }: Se
     <article ref={ref} className={styles.card}>
       <div className={styles.cardTop}>
         <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
-        <span className={styles.rule} />
+        <span className={styles.rule}>
+          {/* Filled in turn by ServicesGrid's 01 → 05 loop */}
+          <span className={styles.progress} />
+        </span>
       </div>
       <h3 className={styles.cardTitle}>
         {highlight && (

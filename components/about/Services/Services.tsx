@@ -2,6 +2,7 @@ import { getT } from '@/lib/i18n/server';
 import SplitReveal from '@/components/ui/SplitReveal/SplitReveal';
 import TypingDots from '@/components/ui/TypingDots/TypingDots';
 import ServiceCard from './ServiceCard';
+import ServicesGrid from './ServicesGrid';
 import styles from './Services.module.css';
 
 /** Dark band (in both themes) listing what's on offer. */
@@ -17,7 +18,7 @@ export default async function Services() {
         <TypingDots />
       </div>
 
-      <div className={styles.grid}>
+      <ServicesGrid>
         {t.services.map((service, i) => (
           <ServiceCard
             key={service.title}
@@ -27,7 +28,7 @@ export default async function Services() {
             highlight={i === t.services.length - 1}
           />
         ))}
-      </div>
+      </ServicesGrid>
     </section>
   );
 }

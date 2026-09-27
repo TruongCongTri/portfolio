@@ -9,5 +9,6 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-fg);
+  /* Surrounding text color: the dots also sit on the always-dark Services band, where --color-fg is dark in light mode */
+  background: currentColor;
 }

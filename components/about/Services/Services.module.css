@@ -43,9 +43,19 @@
 }
 
 .rule {
+  position: relative;
   flex: 1;
   height: 1px;
   background: rgb(243 243 243 / 0.2);
+  transform-origin: left;
+}
+
+/* Progress over the rule: fills while its card is the active step of the 01 → 05 loop */
+.progress {
+  position: absolute;
+  inset: -0.5px 0; /* 2px, a touch bolder than the 1px track */
+  background: currentColor;
+  transform: scaleX(0);
   transform-origin: left;
 }
 
