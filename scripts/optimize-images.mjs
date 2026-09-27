@@ -22,8 +22,10 @@ const ICON = 'public/8-bit pixel portrait.jpg';
 
 await mkdir('public/icons', { recursive: true });
 
-// 1. Hero portrait: keep the alpha channel, cap the height at 2× the largest on-screen size.
+// 1. Hero portrait: keep the alpha channel, trim the empty transparent margins (so the person fills
+//    the hero's portrait box, which is sized by the image), cap the height at 2× the largest on-screen size.
 const portrait = await sharp(PORTRAIT)
+  .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 10 })
   .resize({ height: 1400, withoutEnlargement: true })
   .webp({ quality: 82, alphaQuality: 90, effort: 6 })
   .toFile('public/portrait.webp');

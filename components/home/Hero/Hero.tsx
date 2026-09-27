@@ -108,7 +108,7 @@ export default function Hero() {
             preload
             fetchPriority="high"
             unoptimized
-            sizes="(max-width: 1023px) 100vw, 485px"
+            sizes="50vh"
             className={styles.portraitImage}
           />
           {withEffect && (
