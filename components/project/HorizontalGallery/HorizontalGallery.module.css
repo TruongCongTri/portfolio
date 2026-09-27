@@ -82,3 +82,25 @@
   position: absolute;
   right: 0;
 }
+
+/* The whole screen is the button that opens it large */
+.open {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.open .image {
+  transition: transform 0.9s var(--ease-out-expo);
+}
+
+.open:hover .image {
+  transform: scale(1.03);
+}
+
+.open:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: -4px;
+}

@@ -8,9 +8,29 @@
 
 .controls {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+/* The filters take the free width and wrap onto more rows as categories grow; the view switch stays top-right */
+.controls > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.controls > :last-child {
+  flex-shrink: 0;
+}
+
+/* Small screens: the filters get the full width, the view switch goes on the row below */
+@media (max-width: 768px) {
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .controls > :first-child {
+    flex-basis: 100%;
+  }
 }

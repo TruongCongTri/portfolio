@@ -18,6 +18,16 @@ import chinhNam02 from '../public/projects/chinh-nam-portfolio/02.png';
 import chinhNam03 from '../public/projects/chinh-nam-portfolio/03.png';
 import chinhNam04 from '../public/projects/chinh-nam-portfolio/04.png';
 import chinhNam05 from '../public/projects/chinh-nam-portfolio/05.png';
+import chinhNamErpHero from '../public/projects/chinh-nam-erp/hero.png';
+import chinhNamErp01 from '../public/projects/chinh-nam-erp/01.png';
+import chinhNamErp02 from '../public/projects/chinh-nam-erp/02.png';
+import chinhNamErp03 from '../public/projects/chinh-nam-erp/03.png';
+import chinhNamErp04 from '../public/projects/chinh-nam-erp/04.png';
+import chinhNamErp05 from '../public/projects/chinh-nam-erp/05.png';
+import chinhNamErp06 from '../public/projects/chinh-nam-erp/06.png';
+import chinhNamErp07 from '../public/projects/chinh-nam-erp/07.png';
+import chinhNamErp08 from '../public/projects/chinh-nam-erp/08.png';
+import chinhNamErp10 from '../public/projects/chinh-nam-erp/10.png';
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
 export type ProjectImage = StaticImageData | string;
@@ -81,6 +91,126 @@ function placeholderShots(title: string, color: string, count: number, textColor
 // TODO: confirm each project's year and add `url` once the live sites are public.
 const sources: ProjectSource[] = [
   {
+    slug: 'pizza-piatto',
+    title: 'Pizza Piatto',
+    titleParts: ['Pizza', 'Piatto'],
+    category: 'foodBeverage',
+    year: '2026',
+    // Navy and gold from the Pizza Piatto logo.
+    color: '#151d32',
+    tone: 'light',
+    textColor: '#f2b950',
+    images: placeholderShots('Pizza Piatto', '#151d32', 4, '#f2b950'),
+    copy: {
+      en: {
+        services: 'Design + Development',
+        overview:
+          'A restaurant site for Pizza Piatto that shows off its kitchen, ingredients and menu, and takes table reservations online.',
+        challenge: [
+          "Pizza Piatto’s appeal is in the details — the dough, the toppings, the ingredients it sources — but a menu list alone doesn’t make anyone hungry.",
+          "Guests also had to phone to book a table, so the site needed to turn interest into a reservation without sending them anywhere else.",
+        ],
+        approach: [
+          "The site leads with the food: ingredient stories and a browsable menu, set in the navy and gold of the Pizza Piatto logo, with motion that brings each dish forward as you scroll.",
+          "A reservation flow sits one click from every page: guests pick a date, time and party size, and the restaurant receives each booking straight away.",
+        ],
+      },
+      vi: {
+        services: 'Thiết kế + Phát triển',
+        overview:
+          'Website nhà hàng cho Pizza Piatto, giới thiệu căn bếp, nguyên liệu và thực đơn, đồng thời cho phép đặt bàn trực tuyến.',
+        challenge: [
+          "Sức hút của Pizza Piatto nằm ở từng chi tiết — đế bánh, nhân bánh, nguồn nguyên liệu — nhưng chỉ một danh sách món ăn thì không khiến ai thấy thèm.",
+          "Khách còn phải gọi điện để đặt bàn, nên website cần biến sự quan tâm thành một lượt đặt bàn mà không phải chuyển sang nơi khác.",
+        ],
+        approach: [
+          "Website đặt món ăn lên trước: câu chuyện nguyên liệu và thực đơn dễ duyệt, trong tông xanh navy và vàng của logo Pizza Piatto, cùng chuyển động đưa từng món ăn nổi bật khi cuộn trang.",
+          "Luồng đặt bàn luôn cách mọi trang một cú nhấp: khách chọn ngày, giờ và số người, và nhà hàng nhận được từng lượt đặt ngay lập tức.",
+        ],
+      },
+    },
+  },
+  {
+    slug: 'skincare-ecommerce',
+    title: 'Skincare E-commerce',
+    titleParts: ['Skincare', 'E-commerce'],
+    category: 'eCommerce',
+    year: '2026',
+    // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
+    color: '#1f1c17',
+    tone: 'light',
+    textColor: '#c5a25d',
+    images: placeholderShots('Skincare', '#fefbf4', 4, '#1f1c17'),
+    copy: {
+      en: {
+        services: 'Design + Development',
+        overview:
+          'An online skincare store where modern GSAP motion gives every product the unhurried feel of a boutique counter.',
+        challenge: [
+          "Skincare is bought on trust and texture, and a flat grid of product photos can’t convey either.",
+          "The store had to feel as considered as the products — calm, premium and tactile — while staying quick to browse, compare and check out.",
+        ],
+        approach: [
+          "Modern GSAP carries the experience: ScrollTrigger-driven reveals, product images that ease into place and smooth transitions between collections, all tuned to feel slow and deliberate rather than busy.",
+          "The espresso, antique-gold and cream palette frames each product like a boutique shelf, and the motion always steps aside for the essentials — clear prices, ingredients and a short path to checkout.",
+        ],
+      },
+      vi: {
+        services: 'Thiết kế + Phát triển',
+        overview:
+          'Cửa hàng mỹ phẩm chăm sóc da trực tuyến, nơi chuyển động GSAP hiện đại mang lại cảm giác thong thả như tại quầy boutique cho từng sản phẩm.',
+        challenge: [
+          "Mỹ phẩm chăm sóc da được mua bằng sự tin tưởng và cảm nhận về kết cấu, điều mà một lưới ảnh sản phẩm phẳng không thể truyền tải.",
+          "Cửa hàng phải mang cảm giác chỉn chu như chính sản phẩm — tĩnh lặng, cao cấp và giàu xúc cảm — mà vẫn nhanh khi duyệt, so sánh và thanh toán.",
+        ],
+        approach: [
+          "GSAP hiện đại dẫn dắt trải nghiệm: nội dung hiện dần theo ScrollTrigger, ảnh sản phẩm nhẹ nhàng vào vị trí và chuyển cảnh mượt giữa các bộ sưu tập, tất cả được tinh chỉnh để chậm rãi và có chủ đích thay vì rối mắt.",
+          "Bảng màu nâu espresso, vàng cổ điển và kem đặt mỗi sản phẩm như trên kệ boutique, còn chuyển động luôn nhường chỗ cho điều cốt yếu — giá rõ ràng, thành phần và đường đi ngắn đến thanh toán.",
+        ],
+      },
+    },
+  },
+  {
+    slug: 'studio-portfolio',
+    title: 'Studio Portfolio',
+    titleParts: ['Studio', 'Portfolio'],
+    category: 'creativeStudio',
+    year: '2026',
+    // Funky pairing: acid-lime page with electric-violet type (reversed on the shots).
+    color: '#c6ff3d',
+    tone: 'dark',
+    textColor: '#5b21ff',
+    images: placeholderShots('Studio Portfolio', '#5b21ff', 4, '#c6ff3d'),
+    copy: {
+      en: {
+        services: 'Design + Development',
+        overview:
+          'A portfolio for a creative studio that puts its whole body of work on show and lets clients commission a project.',
+        challenge: [
+          "The studio’s range was its selling point, but a long archive of projects made it hard for visitors to see that range at a glance.",
+          "Commissions arrived through scattered emails and messages, usually missing the details the studio needed to quote.",
+        ],
+        approach: [
+          "The site shows the whole archive through filters and bold, playful motion in an acid-lime and electric-violet palette that is as loud as the studio’s work.",
+          "A commission flow guides clients through the project type, scope, timeline and budget, so every brief reaches the studio complete and ready to quote.",
+        ],
+      },
+      vi: {
+        services: 'Thiết kế + Phát triển',
+        overview:
+          'Website portfolio cho một studio sáng tạo, trưng bày toàn bộ tác phẩm và cho phép khách hàng đặt hàng dự án.',
+        challenge: [
+          "Sự đa dạng là thế mạnh của studio, nhưng một kho dự án dài khiến người xem khó thấy được sự đa dạng ấy chỉ trong một cái nhìn.",
+          "Yêu cầu đặt hàng đến qua email và tin nhắn rời rạc, thường thiếu những thông tin studio cần để báo giá.",
+        ],
+        approach: [
+          "Website trưng bày toàn bộ kho tác phẩm qua bộ lọc cùng chuyển động táo bạo, vui nhộn trong bảng màu xanh chanh neon và tím điện, nổi bật như chính tác phẩm của studio.",
+          "Luồng đặt hàng hướng dẫn khách chọn loại dự án, phạm vi, thời gian và ngân sách, để mỗi yêu cầu đến tay studio đầy đủ và sẵn sàng báo giá.",
+        ],
+      },
+    },
+  },
+  {
     slug: 'chinh-nam-portfolio',
     title: 'Chinh Nam Portfolio',
     titleParts: ['Chinh Nam', 'Portfolio'],
@@ -129,7 +259,8 @@ const sources: ProjectSource[] = [
     // No brand color given — a neutral slate to set the internal tool apart from the public site.
     color: '#2b313c',
     tone: 'light',
-    images: placeholderShots('Chinh Nam ERP', '#2b313c', 4),
+    hero: chinhNamErpHero,
+    images: [chinhNamErp01, chinhNamErp02, chinhNamErp03, chinhNamErp04, chinhNamErp05, chinhNamErp06, chinhNamErp07, chinhNamErp08, chinhNamErp10],
     copy: {
       en: {
         services: 'Full-stack Development',
