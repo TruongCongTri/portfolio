@@ -1,0 +1,87 @@
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.4s var(--ease-out-expo), border-color 0.4s;
+}
+
+/* Fill that wipes up from the bottom on hover */
+.pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.pill:hover::before {
+  transform: translateY(0);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.lg {
+  padding: 1.25rem 3rem;
+  font-size: 1.15rem;
+}
+
+.outline {
+  border: 1px solid var(--color-fg);
+  color: var(--color-fg);
+}
+
+.outline::before {
+  background: var(--color-fg);
+}
+
+.outline:hover {
+  color: var(--color-bg);
+}
+
+.solid {
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-fg);
+  /* Keeps the pill's edge visible once the page-colored fill has wiped over it */
+  border: 1px solid var(--color-inverse-bg);
+}
+
+.solid::before {
+  background: var(--color-bg);
+}
+
+.solid:hover {
+  color: var(--color-fg);
+}
+
+.count {
+  align-self: flex-start;
+  margin-left: 0.1rem;
+  font-size: 0.65em;
+  opacity: 0.6;
+}
+
+.arrow {
+  font-size: 0.85em;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.pill:hover .arrow {
+  transform: translate(2px, -2px);
+}

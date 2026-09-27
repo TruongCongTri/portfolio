@@ -1,0 +1,60 @@
+.indicator {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-fg);
+  pointer-events: none;
+}
+
+.concealed {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.track,
+.progress {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.track {
+  stroke: rgb(var(--color-fg-rgb) / 0.25);
+}
+
+.progress {
+  stroke: currentColor;
+  stroke-linecap: round;
+  /* pathLength=100 (not 1): GSAP rounds px values, so the offset needs whole-number resolution */
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.arrow {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.up .arrow {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .indicator {
+    width: 56px;
+    height: 56px;
+  }
+}

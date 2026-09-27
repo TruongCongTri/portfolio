@@ -1,26 +1,188 @@
-@import "tailwindcss";
-
+/*
+ * Light is the default (and the no-JS fallback); <html data-theme="dark"> swaps the palette.
+ * Project pages override --color-bg / --color-fg-rgb / muted tokens inline with the project's brand
+ * colors (see ProjectColors), so everything built on these tokens follows automatically.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #f3f3f3;
+  --color-bg-deep: #ebebeb;
+  --color-surface: #fafafa;
+  --color-surface-raised: #ffffff;
+  --color-placeholder: #e2e2e2;
+  /* Space-separated channels so alpha variants can be derived: rgb(var(--color-fg-rgb) / 0.5) */
+  --color-fg-rgb: 26 26 26;
+  --color-fg: rgb(var(--color-fg-rgb));
+  --color-muted: rgb(var(--color-fg-rgb) / 0.5);
+  --color-soft: rgb(var(--color-fg-rgb) / 0.62);
+  --color-subtle: rgb(var(--color-fg-rgb) / 0.7);
+  --color-lead: rgb(var(--color-fg-rgb) / 0.85);
+  --color-hover: rgb(var(--color-fg-rgb) / 0.6);
+  --color-border: rgb(var(--color-fg-rgb) / 0.14);
+  --color-border-faint: rgb(var(--color-fg-rgb) / 0.08);
+  --color-border-strong: rgb(var(--color-fg-rgb) / 0.3);
+  --color-inverse-bg: #1a1a1a;
+  --color-inverse-fg: #f3f3f3;
+  --color-overlay: rgba(20, 20, 20, 0.3);
+  --color-scrollbar: #cfcfcf;
+  --color-scrollbar-hover: #a3a3a3;
+  /* Sections that stay dark in both themes (services band, CTA) */
+  --color-ink: #1a1a1a;
+  --color-ink-fg: #f3f3f3;
+  /* Site chrome (header, menu): follows the theme only — project pages never override these */
+  --chrome-bg: #f3f3f3;
+  --chrome-fg-rgb: 26 26 26;
+  --color-danger: #d23b3b;
+
+  --gutter: clamp(1.5rem, 5.5vw, 5rem);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root[data-theme='dark'] {
+  --color-bg: #0c0c0c;
+  --color-bg-deep: #080808;
+  --color-surface: #121212;
+  --color-surface-raised: #1b1b1b;
+  --color-placeholder: #1c1c1c;
+  --color-fg-rgb: 240 240 240;
+  --color-inverse-bg: #f0f0f0;
+  --color-inverse-fg: #111111;
+  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-scrollbar: #2a2a2a;
+  --color-scrollbar-hover: #444444;
+  --color-ink: #161616;
+  --chrome-bg: #0c0c0c;
+  --chrome-fg-rgb: 240 240 240;
+  --color-danger: #ff6b6b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * data-chrome re-points the color tokens at the chrome (theme-only) palette:
+ * - the side panel ("panel") always keeps the theme's colors;
+ * - the header ("header") does too, except on project pages, where it follows the brand colors
+ *   like the rest of the page (ProjectColors renders the [data-project-colors] marker).
+ */
+[data-chrome='panel'],
+:root:not(:has([data-project-colors])) [data-chrome='header'] {
+  --color-bg: var(--chrome-bg);
+  --color-fg-rgb: var(--chrome-fg-rgb);
+  --color-fg: rgb(var(--color-fg-rgb));
+  --color-muted: rgb(var(--color-fg-rgb) / 0.5);
+  --color-soft: rgb(var(--color-fg-rgb) / 0.62);
+  --color-subtle: rgb(var(--color-fg-rgb) / 0.7);
+  --color-hover: rgb(var(--color-fg-rgb) / 0.6);
+  --color-border: rgb(var(--color-fg-rgb) / 0.14);
+  --color-border-faint: rgb(var(--color-fg-rgb) / 0.08);
+  --color-border-strong: rgb(var(--color-fg-rgb) / 0.3);
+  --color-inverse-bg: rgb(var(--color-fg-rgb));
+  --color-inverse-fg: var(--chrome-bg);
+  color: var(--color-fg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  transition: color 0.3s;
+  color: var(--color-fg);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-hover);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Toggle buttons (filters, view switch, language/theme): same motion as the "About me" pill —
+ * a fill wipes up from the bottom on hover and the label inverts. The pressed/active button is
+ * the filled (reversed) state, so selecting one wipes its fill in.
+ * Buttons need a border-radius; the fill inherits it.
+ */
+.wipe {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.45s var(--ease-out-expo), border-color 0.45s var(--ease-out-expo);
+}
+
+.wipe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-fg);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.wipe:hover,
+.wipe[aria-pressed='true'] {
+  color: var(--color-bg);
+  border-color: var(--color-fg);
+}
+
+.wipe:hover::before,
+.wipe[aria-pressed='true']::before {
+  transform: translateY(0);
 }

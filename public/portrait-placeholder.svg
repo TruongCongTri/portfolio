@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="800" viewBox="0 0 900 800">
+  <!-- Placeholder portrait: a generic head-and-shoulders silhouette. Replace with your own cut-out photo. -->
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a4a4a"/>
+      <stop offset="1" stop-color="#1f1f1f"/>
+    </linearGradient>
+    <radialGradient id="head" cx="0.42" cy="0.38" r="0.7">
+      <stop offset="0" stop-color="#8a8a8a"/>
+      <stop offset="0.6" stop-color="#5c5c5c"/>
+      <stop offset="1" stop-color="#3a3a3a"/>
+    </radialGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a2a"/>
+      <stop offset="1" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <path d="M120 800 C130 640 230 560 340 530 L560 530 C670 560 770 640 780 800 Z" fill="url(#body)"/>
+  <path d="M395 470 L505 470 L520 560 C490 590 410 590 380 560 Z" fill="#454545"/>
+  <ellipse cx="450" cy="330" rx="135" ry="165" fill="url(#head)"/>
+  <path d="M312 318 C300 190 380 140 450 140 C540 140 610 195 590 320 C575 250 530 222 450 225 C375 228 330 255 312 318 Z" fill="url(#hair)"/>
+  <path d="M420 560 L450 640 L480 560" fill="none" stroke="#6a6a6a" stroke-width="6" stroke-linecap="round"/>
+</svg>

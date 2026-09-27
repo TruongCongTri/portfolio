@@ -1,0 +1,87 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.marqueeMask {
+  position: absolute;
+  top: clamp(5rem, 13vh, 9rem);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.portrait {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 3;
+  translate: -50% 0;
+}
+
+.bottom {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 2rem;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 2.5rem;
+}
+
+.rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border-strong);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.right {
+  text-align: right;
+}
+
+.metaMask {
+  display: block;
+  overflow: hidden;
+}
+
+.metaInner {
+  display: block;
+}
+
+/* Soft shade along the bottom edge, above the portrait */
+.fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  height: 5rem;
+  pointer-events: none;
+  background: linear-gradient(to top, rgb(var(--color-fg-rgb) / 0.08), transparent);
+}
+
+@media (max-width: 768px) {
+  .meta {
+    font-size: 0.85rem;
+  }
+
+  .bottom {
+    z-index: 4;
+  }
+}

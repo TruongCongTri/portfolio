@@ -1,0 +1,29 @@
+/* Stays dark in both themes and on brand-colored project pages (--color-ink isn't overridden) */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  color: var(--color-ink-fg);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+  padding: 0 var(--gutter) 0.12em;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  text-align: center;
+}

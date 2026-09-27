@@ -1,0 +1,136 @@
+import type { Dictionary } from './en';
+
+export const vi: Dictionary = {
+  meta: {
+    description: 'Lập trình viên kiêm nhà thiết kế, xây dựng sản phẩm web nhanh và giàu cảm xúc.',
+  },
+  nav: {
+    home: 'Trang chủ',
+    about: 'Giới thiệu',
+    work: 'Dự án',
+    contact: 'Liên hệ',
+  },
+  menu: {
+    open: 'Mở menu',
+    close: 'Đóng menu',
+    socials: 'Mạng xã hội',
+    preferences: 'Tùy chỉnh',
+  },
+  preferences: {
+    language: 'Ngôn ngữ',
+    theme: 'Giao diện',
+    dark: 'Tối',
+    light: 'Sáng',
+  },
+  hero: {
+    marquee: 'Thiết kế và xây dựng cho web —',
+    roles: ['Lập trình viên Frontend', 'Kỹ sư giao diện', 'Chuyển động & Tương tác'],
+    locatedIn: 'Sống tại :',
+    location: 'Thành phố, Quốc gia',
+  },
+  home: {
+    statement:
+      'Tôi biến những ý tưởng tham vọng thành sản phẩm web nhanh và chỉn chu — xây dựng tận tâm, chuyển động có chủ đích và bền vững theo thời gian.',
+    intro:
+      'Chuyển động, typography, hiệu năng và những khoảnh khắc nhỏ khiến giao diện trở nên sống động là nơi tôi dành nhiều thời gian nhất.',
+    aboutMe: 'Về tôi',
+    selectedWork: 'Dự án tiêu biểu',
+    viewAll: 'Xem tất cả',
+    moreWork: 'Xem thêm',
+    columns: { client: 'Khách hàng', category: 'Lĩnh vực', services: 'Dịch vụ', year: 'Năm' },
+    scatterLine: 'ý tưởng đáng được hiện thực',
+  },
+  contact: {
+    ctaLine1: 'Bạn đang có ý tưởng?',
+    ctaLine2: 'Cùng biến nó thành',
+    ctaLink: 'hiện thực',
+    email: 'Email',
+    phone: 'Điện thoại',
+  },
+  contactPanel: {
+    title: 'Trò chuyện nhé',
+    intro: 'Hãy chia sẻ đôi chút về dự án của bạn, tôi sẽ phản hồi trong vòng hai ngày làm việc.',
+    close: 'Đóng biểu mẫu liên hệ',
+    name: 'Họ tên',
+    namePlaceholder: 'Tên của bạn',
+    email: 'Email',
+    emailPlaceholder: 'ban@congty.com',
+    message: 'Lời nhắn',
+    messagePlaceholder: 'Bạn đang xây dựng điều gì?',
+    submit: 'Gửi lời nhắn',
+    errors: {
+      nameRequired: 'Bạn cho tôi biết tên nhé.',
+      emailRequired: 'Tôi cần email để phản hồi bạn.',
+      emailInvalid: 'Email này có vẻ chưa đúng.',
+      messageRequired: 'Thêm vài dòng về dự án của bạn nhé.',
+    },
+    successTitle: 'Cảm ơn bạn',
+    successBody: 'Ứng dụng email của bạn sẽ mở ra với lời nhắn đã soạn sẵn.',
+    again: 'Viết lời nhắn khác',
+  },
+  transition: {
+    loading: 'Đang tải',
+  },
+  footer: {
+    menu: 'Menu',
+    social: 'Mạng xã hội',
+    contact: 'Liên hệ',
+    phone: 'Điện thoại',
+  },
+  about: {
+    lead: 'Tôi là lập trình viên kiêm nhà thiết kế, xây dựng những sản phẩm số dễ dùng một cách tự nhiên. Tôi coi trọng kiến trúc gọn gàng, chuyển động giàu biểu cảm và giao diện không cản trở người dùng.',
+    side: 'Tôi đã làm việc với các startup, agency và nhà sáng lập độc lập — hoàn thiện website, dashboard và ứng dụng từ bản phác thảo đầu tiên đến khi ra mắt.',
+    imageAlt: 'Góc làm việc',
+    helpWith: 'Tôi có thể giúp gì cho bạn',
+    services: [
+      {
+        title: 'Thiết kế giao diện',
+        description: 'Bố cục, hệ thống và prototype giúp sản phẩm phức tạp trở nên đơn giản và khác biệt.',
+      },
+      {
+        title: 'Kỹ thuật frontend',
+        description: 'Frontend nhanh, dễ tiếp cận và giàu chuyển động với React và Next.js, dễ bảo trì lâu dài.',
+      },
+      {
+        title: 'Trọn gói từ đầu đến cuối',
+        description: 'Từ buổi workshop đầu tiên đến khi ra mắt và sau đó — một người chịu trách nhiệm toàn bộ.',
+      },
+    ],
+  },
+  work: {
+    title: 'Sản phẩm được tạo nên từ sự tận tâm',
+    all: 'Tất cả',
+    filterLabel: 'Lọc theo lĩnh vực',
+    viewLabel: 'Chế độ xem',
+    list: 'Danh sách',
+    grid: 'Lưới',
+    categories: {
+      fintech: 'Tài chính',
+      architecture: 'Kiến trúc',
+      ecommerce: 'Thương mại điện tử',
+      saas: 'SaaS',
+      wellness: 'Sức khỏe',
+    },
+  },
+  project: {
+    service: 'Dịch vụ',
+    year: 'Năm',
+    overview: 'Tổng quan',
+    challenge: 'Thách thức',
+    approach: 'Giải pháp',
+    galleryTitle: 'Bên trong sản phẩm',
+    galleryCaption: 'Cận cảnh những màn hình làm nên trải nghiệm.',
+    screen: 'Màn hình',
+    visit: 'Xem trang thực tế',
+    viewLive: 'Xem trực tiếp',
+    overviewTag: '/Tổng quan',
+    scrollNext: '/Cuộn để xem dự án tiếp',
+    prev: 'Cuộn lên để xem dự án trước',
+    next: 'Tiếp tục cuộn để xem dự án tiếp theo',
+  },
+  notFound: {
+    title: 'Không tìm thấy trang',
+    body: 'Trang bạn tìm không tồn tại hoặc đã được di chuyển.',
+    back: 'Về trang chủ',
+  },
+};

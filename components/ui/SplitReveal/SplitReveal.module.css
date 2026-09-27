@@ -1,0 +1,10 @@
+/* Hidden until split, so unsplit text never flashes before the reveal */
+.reveal {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    visibility: visible;
+  }
+}

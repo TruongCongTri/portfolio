@@ -1,0 +1,6 @@
+.main {
+  max-width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(9rem, 14vw, 12rem) var(--gutter) clamp(6rem, 10vw, 9rem);
+}

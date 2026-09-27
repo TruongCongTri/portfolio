@@ -1,0 +1,8 @@
+.mark {
+  flex-shrink: 0;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+a:hover > .mark {
+  transform: rotate(180deg);
+}

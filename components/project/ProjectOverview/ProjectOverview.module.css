@@ -1,0 +1,61 @@
+/* Same horizontal extent as the hero cover (the hero's gutter padding) */
+.overview {
+  /* Shared by the content grid and the MetaBar labels, so "/Overview" lines up with the right column */
+  --columns-gap: clamp(3rem, 8vw, 9rem);
+  padding: 1.5rem var(--gutter) clamp(6rem, 12vw, 10rem);
+  color: var(--color-fg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--columns-gap);
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.25rem;
+}
+
+.headline {
+  max-width: 16ch;
+  font-size: clamp(2rem, 3.4vw, 3.3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 5vw, 4.5rem);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.heading {
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.text {
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--color-lead);
+}

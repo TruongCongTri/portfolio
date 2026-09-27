@@ -1,0 +1,9 @@
+.portrait {
+  position: relative;
+  height: min(78vh, 82vw);
+  aspect-ratio: 9 / 8;
+}
+
+.portrait canvas {
+  display: block;
+}

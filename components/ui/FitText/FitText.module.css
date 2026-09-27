@@ -1,0 +1,10 @@
+.box {
+  width: 100%;
+  overflow: hidden;
+}
+
+.text {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
+}

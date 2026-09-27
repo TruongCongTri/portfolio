@@ -1,0 +1,72 @@
+.services {
+  padding: clamp(5rem, 10vw, 9rem) var(--gutter);
+  background: var(--color-ink);
+  color: var(--color-ink-fg);
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.title {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem clamp(2rem, 5vw, 5rem);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.index {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.55;
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: rgb(243 243 243 / 0.2);
+  transform-origin: left;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.sparkle {
+  width: 1.1em;
+  height: 1.1em;
+  fill: #ff5a4e;
+}
+
+.description {
+  font-weight: 500;
+  line-height: 1.6;
+  opacity: 0.85;
+}

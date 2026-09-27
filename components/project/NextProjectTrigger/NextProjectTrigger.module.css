@@ -1,0 +1,18 @@
+/*
+ * The next project's hero, painted with its palette. At least a viewport tall so its top can
+ * reach the top of the viewport (the moment the route swaps).
+ */
+.handoff {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.bar {
+  position: absolute;
+  top: 1.5rem; /* same as the cover → "/Overview" line gap on the project page */
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 1;
+}

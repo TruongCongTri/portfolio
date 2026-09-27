@@ -1,0 +1,136 @@
+export const en = {
+  meta: {
+    description: 'Developer and designer building fast, expressive web products.',
+  },
+  nav: {
+    home: 'Home',
+    about: 'About',
+    work: 'Work',
+    contact: 'Contact',
+  },
+  menu: {
+    open: 'Open menu',
+    close: 'Close menu',
+    socials: 'Social',
+    preferences: 'Preferences',
+  },
+  preferences: {
+    language: 'Language',
+    theme: 'Theme',
+    dark: 'Dark',
+    light: 'Light',
+  },
+  hero: {
+    marquee: 'Designing and building for the web —',
+    roles: ['Frontend Developer', 'UI Engineer', 'Motion & Interaction'],
+    locatedIn: 'Based in :',
+    location: 'Your City, Country',
+  },
+  home: {
+    statement:
+      'I turn ambitious ideas into fast, considered web products — built with care, animated with intent and made to last.',
+    intro:
+      'Motion, typography, performance and the small moments that make an interface feel alive are where I spend my time.',
+    aboutMe: 'About me',
+    selectedWork: 'Selected work',
+    viewAll: 'View all',
+    moreWork: 'More work',
+    columns: { client: 'Client', category: 'Category', services: 'Services', year: 'Year' },
+    scatterLine: 'ideas worth shipping',
+  },
+  contact: {
+    ctaLine1: 'Have an idea in mind?',
+    ctaLine2: "Let's make it",
+    ctaLink: 'real',
+    email: 'Email',
+    phone: 'Phone',
+  },
+  contactPanel: {
+    title: "Let's talk",
+    intro: 'Tell me a little about your project and I’ll get back to you within two working days.',
+    close: 'Close contact form',
+    name: 'Name',
+    namePlaceholder: 'Your name',
+    email: 'Email',
+    emailPlaceholder: 'you@company.com',
+    message: 'Message',
+    messagePlaceholder: 'What are you building?',
+    submit: 'Send message',
+    errors: {
+      nameRequired: 'Please tell me your name.',
+      emailRequired: 'I’ll need an email to reply to.',
+      emailInvalid: 'That email doesn’t look quite right.',
+      messageRequired: 'Add a short note about your project.',
+    },
+    successTitle: 'Thank you',
+    successBody: 'Your email app should open with the message ready to send.',
+    again: 'Write another',
+  },
+  transition: {
+    loading: 'Loading',
+  },
+  footer: {
+    menu: 'Menu',
+    social: 'Social',
+    contact: 'Contact',
+    phone: 'Phone',
+  },
+  about: {
+    lead: 'I’m a developer and designer building digital products that feel effortless to use. I care about clean architecture, expressive motion and interfaces that get out of the way.',
+    side: 'I’ve worked with startups, agencies and independent founders — shipping marketing sites, dashboards and apps from first sketch to production.',
+    imageAlt: 'Workspace',
+    helpWith: 'What I can do for you',
+    services: [
+      {
+        title: 'Interface design',
+        description: 'Layouts, systems and prototypes that make complex products feel simple and look distinct.',
+      },
+      {
+        title: 'Front-end engineering',
+        description: 'Accessible, fast and animated front ends in React and Next.js, built to be maintained.',
+      },
+      {
+        title: 'End-to-end delivery',
+        description: 'From the first workshop to launch and beyond — one person accountable for the whole thing.',
+      },
+    ],
+  },
+  work: {
+    title: 'Products built with craft and care',
+    all: 'All',
+    filterLabel: 'Filter by category',
+    viewLabel: 'View mode',
+    list: 'List',
+    grid: 'Grid',
+    categories: {
+      fintech: 'Fintech',
+      architecture: 'Architecture',
+      ecommerce: 'E-commerce',
+      saas: 'SaaS',
+      wellness: 'Wellness',
+    },
+  },
+  project: {
+    service: 'Service',
+    year: 'Year',
+    overview: 'Overview',
+    challenge: 'Challenge',
+    approach: 'Approach',
+    galleryTitle: 'Inside the product',
+    galleryCaption: 'The screens that carry the experience, up close.',
+    screen: 'Screen',
+    visit: 'Visit live site',
+    viewLive: 'View live',
+    overviewTag: '/Overview',
+    scrollNext: '/Scroll for next work',
+    prev: 'Scroll up for previous',
+    next: 'Keep scrolling for the next project',
+  },
+  notFound: {
+    title: 'Page not found',
+    body: "The page you're looking for doesn't exist or has moved.",
+    back: 'Back home',
+  },
+};
+
+export type Dictionary = typeof en;

@@ -1,0 +1,90 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 0.5fr;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.4fr 1fr 1fr 0.4fr;
+  }
+}
+
+.rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform-origin: left;
+}
+
+.head {
+  padding-bottom: 1.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.head .rule {
+  background: var(--color-border-strong);
+}
+
+.row {
+  padding: clamp(1.6rem, 3.4vw, 3rem) 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.cell {
+  display: block;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.titleText {
+  display: inline-block;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.row:hover .titleText {
+  transform: translateX(1rem);
+}
+
+/* Dim the other rows while one is hovered */
+.list:has(.row:hover) .row:not(:hover) {
+  opacity: 0.35;
+}
+
+.row {
+  transition: opacity 0.4s;
+}
+
+.services {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .services {
+    display: block;
+  }
+}
+
+.year {
+  text-align: right;
+}

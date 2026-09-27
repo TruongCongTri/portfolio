@@ -1,0 +1,100 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem var(--gutter) 0;
+  color: var(--color-fg);
+  pointer-events: none;
+}
+
+.header > * {
+  pointer-events: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-serif), serif;
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+  /* room for descenders and the switchers' pill edges */
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+.inner {
+  display: block;
+}
+
+.columns {
+  display: none;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.preferences {
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.compactPreferences {
+  gap: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .columns {
+    display: flex;
+  }
+
+  .compactPreferences {
+    display: none;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.link {
+  position: relative;
+  width: fit-content;
+}
+
+/* Underline that draws in from the left */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

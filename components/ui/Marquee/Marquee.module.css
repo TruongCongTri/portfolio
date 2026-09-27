@@ -1,0 +1,16 @@
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.track {
+  display: inline-block;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(6rem, 17vw, 16rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  will-change: transform;
+}

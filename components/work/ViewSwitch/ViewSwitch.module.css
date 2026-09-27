@@ -1,0 +1,35 @@
+.switch {
+  display: flex;
+  gap: 1rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  /* hover fill + active (filled) state: global .wipe */
+}
+
+.icon {
+  display: flex;
+}
+
+.button svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 48px;
+    height: 48px;
+  }
+}

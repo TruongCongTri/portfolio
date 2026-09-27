@@ -1,0 +1,16 @@
+.title {
+  max-width: 14ch;
+  font-size: clamp(3rem, 7.2vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+}

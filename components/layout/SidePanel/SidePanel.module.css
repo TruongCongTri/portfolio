@@ -1,0 +1,115 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--color-overlay);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 85;
+  width: 400px;
+  max-width: 85vw;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 120px var(--gutter) var(--gutter);
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+
+/*
+ * Starts at zero width so every link lines up on the left; growing it pushes the text right.
+ * Width/margin (not a transform) so the text actually moves over.
+ */
+.dot {
+  flex-shrink: 0;
+  width: 0;
+  height: 0.28em;
+  margin-right: 0;
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition:
+    width 0.7s var(--ease-out-expo),
+    margin-right 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+}
+
+.navLink:hover .dot,
+.active .dot {
+  width: 0.28em;
+  margin-right: 0.45em;
+  transform: scale(1);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.preferences {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.social {
+  position: relative;
+  color: var(--color-soft);
+  transition: color 0.3s;
+}
+
+.social:hover {
+  color: var(--color-fg);
+}
+
+/* Same underline as the header nav: draws in from the left on hover, exits to the right */
+.social::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.social:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}

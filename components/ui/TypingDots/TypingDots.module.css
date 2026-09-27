@@ -1,0 +1,13 @@
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 1.5rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-fg);
+}

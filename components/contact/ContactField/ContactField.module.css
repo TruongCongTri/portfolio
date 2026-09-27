@@ -1,0 +1,98 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.3s;
+}
+
+.field:focus-within .label {
+  color: var(--color-fg);
+}
+
+.control {
+  position: relative;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0 0.6rem;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--color-fg);
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 500;
+  resize: none;
+}
+
+.input::placeholder {
+  color: var(--color-muted);
+  opacity: 0.7;
+}
+
+/* Keep autofill from painting its own background */
+.input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-fg);
+  transition: background-color 9999s;
+}
+
+/* Underline that draws in from the left on focus */
+.line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--color-fg);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out-expo), background-color 0.3s;
+}
+
+.field:focus-within .line {
+  transform: scaleX(1);
+}
+
+.invalid .line {
+  transform: scaleX(1);
+  background: var(--color-danger);
+}
+
+.invalid .label {
+  color: var(--color-danger);
+}
+
+.errorMask {
+  display: block;
+  min-height: 1.1rem;
+  overflow: hidden;
+}
+
+.errorText {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-danger);
+}
+
+.errorText::before {
+  content: '';
+  width: 0.35rem;
+  height: 0.35rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+}
