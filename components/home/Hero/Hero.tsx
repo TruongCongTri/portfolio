@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useSyncExternalStore } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
 import { site } from '@/lib/site';
@@ -13,11 +13,24 @@ import styles from './Hero.module.css';
 // what renders first (and what search engines see).
 const ChromaticPortrait = dynamic(() => import('../ChromaticPortrait/ChromaticPortrait'), { ssr: false });
 
+/** The cursor effect is for desktop pointers only; touch and small screens keep the static image. */
+const EFFECT_QUERY = '(min-width: 1024px) and (hover: hover)';
+const subscribeEffect = (onChange: () => void) => {
+  const query = window.matchMedia(EFFECT_QUERY);
+  query.addEventListener('change', onChange);
+  return () => query.removeEventListener('change', onChange);
+};
+const effectEnabled = () => window.matchMedia(EFFECT_QUERY).matches;
+
+/** Pixels the portrait drifts, against the cursor, at the hero's edges. */
+const PARALLAX = 5;
+
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const fallbackRef = useRef<HTMLImageElement>(null);
   const { t } = useI18n();
   const { width, height } = site.portrait;
+  const withEffect = useSyncExternalStore(subscribeEffect, effectEnabled, () => false);
 
   useGSAP(
     () => {
@@ -42,6 +55,32 @@ export default function Hero() {
     { scope: ref },
   );
 
+  // A slight parallax: the portrait drifts a few pixels away from the cursor over the hero.
+  useGSAP(
+    (_context, contextSafe) => {
+      const hero = ref.current!;
+      const x = gsap.quickTo(`.${styles.parallax}`, 'x', { duration: 0.8, ease: 'power3.out' });
+      const y = gsap.quickTo(`.${styles.parallax}`, 'y', { duration: 0.8, ease: 'power3.out' });
+      const onMove = contextSafe!((e: PointerEvent) => {
+        if (e.pointerType !== 'mouse') return;
+        const rect = hero.getBoundingClientRect();
+        x(-((e.clientX - rect.left) / rect.width - 0.5) * 2 * PARALLAX);
+        y(-((e.clientY - rect.top) / rect.height - 0.5) * 2 * PARALLAX);
+      });
+      const onLeave = contextSafe!(() => {
+        x(0);
+        y(0);
+      });
+      hero.addEventListener('pointermove', onMove);
+      hero.addEventListener('pointerleave', onLeave);
+      return () => {
+        hero.removeEventListener('pointermove', onMove);
+        hero.removeEventListener('pointerleave', onLeave);
+      };
+    },
+    { scope: ref },
+  );
+
   const meta = (lines: string[]) =>
     lines.map((line) => (
       <span key={line} className={styles.metaMask}>
@@ -56,26 +95,30 @@ export default function Hero() {
       </div>
 
       <div className={styles.portrait} style={{ aspectRatio: `${width} / ${height}` }}>
-        {/*
-          Shown until the WebGL version is ready. The page's largest image, so it's preloaded.
-          `unoptimized`: it's already an optimized WebP, and serving it from its own (hashed) URL
-          lets the WebGL texture below reuse the same download instead of fetching a second copy.
-        */}
-        <Image
-          ref={fallbackRef}
-          src={site.portrait}
-          alt={site.name}
-          preload
-          fetchPriority="high"
-          unoptimized
-          sizes="(max-width: 768px) 90vw, 60vh"
-          className={styles.portraitImage}
-        />
-        <ChromaticPortrait
-          src={site.portrait.src}
-          alt={site.name}
-          onReady={() => gsap.to(fallbackRef.current, { autoAlpha: 0, duration: 0.3 })}
-        />
+        <div className={styles.parallax}>
+          {/*
+            Shown until the WebGL version is ready. The page's largest image, so it's preloaded.
+            `unoptimized`: it's already an optimized WebP, and serving it from its own (hashed) URL
+            lets the WebGL texture below reuse the same download instead of fetching a second copy.
+          */}
+          <Image
+            ref={fallbackRef}
+            src={site.portrait}
+            alt={site.name}
+            preload
+            fetchPriority="high"
+            unoptimized
+            sizes="(max-width: 1023px) 100vw, 485px"
+            className={styles.portraitImage}
+          />
+          {withEffect && (
+            <ChromaticPortrait
+              src={site.portrait.src}
+              alt={site.name}
+              onReady={() => gsap.to(fallbackRef.current, { autoAlpha: 0, duration: 0.3 })}
+            />
+          )}
+        </div>
       </div>
 
       <div className={styles.bottom}>

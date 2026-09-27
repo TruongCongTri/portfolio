@@ -4,73 +4,80 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import styles from './ChromaticPortrait.module.css';
 
+/** Tuning for the cursor trail — raise/lower these to make it stronger/subtler. */
+const EFFECT = {
+  /** Side (px) of the flowmap texture the trail is painted into. */
+  flowSize: 128,
+  /** Brush radius of the trail (0–1 of the portrait's height). */
+  falloff: 0.15,
+  /** How strongly each frame's stroke replaces what's already painted. */
+  alpha: 0.5,
+  /** Share of the trail kept per 60 Hz frame (lower = shorter trail); scaled to the real frame time. */
+  dissipation: 0.92,
+  /** How far the image is pushed along the trail. */
+  distortion: 0.3,
+  /** RGB split along the trail. */
+  aberration: 0.12,
+  /** Frames stop being drawn this long (ms) after the pointer goes still. */
+  idleMs: 1200,
+  /**
+   * The strengths above are tuned for a landscape (width/height 1.375) image, where they're relative
+   * to its width. Scaling by this keeps the trail the same size in pixels on a narrower portrait.
+   */
+  referenceAspect: 1.375,
+};
+
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
   void main() { vUv = uv; gl_Position = vec4(position, 1.0); }
 `;
 
-/** Tuning for the cursor effect — raise/lower these to make it stronger/subtler. */
-const EFFECT = {
-  /** Reach of the effect around the cursor (0–1 of the portrait's height). */
-  radius: 0.5,
-  /** Lens bulge pushing the image away from the cursor. */
-  bulge: 0.05,
-  /** Resting RGB split, even when the cursor is still. */
-  split: 0.025,
-  /** Extra RGB split per unit of pointer speed. */
-  speedSplit: 2.6,
-  /** How far the image is dragged along the direction of travel. */
-  drag: 0.6,
-  /** Cap on pointer speed so fast flicks can't tear the image apart. */
-  maxSpeed: 0.06,
-};
-
-// RGB channels are sampled at offsets that grow near the cursor and with pointer speed, the image
-// bulges away from the cursor and is dragged along its path, plus animated film grain.
-const fragmentShader = /* glsl */ `
-  uniform sampler2D uTexture;
+// Flowmap pass: fades the previous trail, then stamps the pointer's velocity (xy) and speed (z)
+// under a soft round brush at the pointer.
+const flowShader = /* glsl */ `
+  uniform sampler2D uPrevious;
   uniform vec2 uMouse;
   uniform vec2 uVelocity;
-  uniform float uHover;
-  uniform float uTime;
   uniform float uAspect;
-  uniform float uRadius;
-  uniform float uBulge;
-  uniform float uSplit;
-  uniform float uSpeedSplit;
-  uniform float uDrag;
+  uniform float uFalloff;
+  uniform float uAlpha;
+  uniform float uDissipation;
   varying vec2 vUv;
 
-  // Luminance: the portrait renders in greyscale, while the offset R/G/B samples still fringe in colour.
+  void main() {
+    vec4 color = texture2D(uPrevious, vUv) * uDissipation;
+    vec2 cursor = vUv - uMouse;
+    cursor.x *= uAspect;
+    vec3 stamp = vec3(uVelocity * vec2(1.0, -1.0), 1.0 - pow(1.0 - min(1.0, length(uVelocity)), 3.0));
+    float falloff = smoothstep(uFalloff, 0.0, length(cursor)) * uAlpha;
+    color.rgb = mix(color.rgb, stamp, vec3(falloff));
+    gl_FragColor = color;
+  }
+`;
+
+// Image pass: the portrait is pushed along the painted trail, with its R and B channels offset in
+// opposite directions along it. Channels are read as luminance, so the portrait stays greyscale and
+// only the split fringes in colour.
+const imageShader = /* glsl */ `
+  uniform sampler2D uTexture;
+  uniform sampler2D uFlow;
+  uniform vec2 uScale;
+  uniform float uDistortion;
+  uniform float uAberration;
+  varying vec2 vUv;
+
   float luma(vec4 c) {
     return dot(c.rgb, vec3(0.299, 0.587, 0.114));
   }
 
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-  }
-
   void main() {
-    vec2 uv = vUv;
-    vec2 delta = uv - uMouse;
-    delta.x *= uAspect;
-    float dist = length(delta);
-    float falloff = smoothstep(uRadius, 0.0, dist) * uHover;
-
-    vec2 dir = dist > 0.0001 ? normalize(delta) : vec2(0.0);
-    uv -= dir * falloff * uBulge;
-    uv -= uVelocity * falloff * uDrag;
-
-    vec2 shift = (uVelocity * uSpeedSplit + dir * uSplit) * falloff;
-    vec4 r = texture2D(uTexture, uv + shift);
+    vec2 flow = texture2D(uFlow, vUv).xy * uScale;
+    vec2 uv = vUv - flow * uDistortion;
+    vec2 offset = flow * uAberration;
+    vec4 r = texture2D(uTexture, uv + offset);
     vec4 g = texture2D(uTexture, uv);
-    vec4 b = texture2D(uTexture, uv - shift);
-
-    float alpha = max(max(r.a, g.a), b.a);
-    vec3 color = vec3(luma(r), luma(g), luma(b));
-    color += (hash(vUv * 900.0 + uTime) - 0.5) * 0.06 * alpha;
-
-    gl_FragColor = vec4(color, alpha);
+    vec4 b = texture2D(uTexture, uv - offset);
+    gl_FragColor = vec4(luma(r), luma(g), luma(b), g.a);
   }
 `;
 
@@ -82,7 +89,8 @@ type ChromaticPortraitProps = {
 };
 
 /**
- * Greyscale cut-out portrait with a chromatic-aberration distortion that follows the cursor.
+ * Greyscale cut-out portrait that smears and splits into RGB along the cursor's trail (a fading
+ * flowmap of pointer velocity), settling back once the pointer stops.
  * Fills its parent, which sets the size (and must match the image's aspect ratio).
  */
 export default function ChromaticPortrait({ src, alt, onReady }: ChromaticPortraitProps) {
@@ -92,73 +100,150 @@ export default function ChromaticPortrait({ src, alt, onReady }: ChromaticPortra
     const container = containerRef.current;
     if (!container) return;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, premultipliedAlpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, premultipliedAlpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const geometry = new THREE.PlaneGeometry(2, 2);
+
+    // Ping-pong pair: each frame reads the last trail and writes the next.
+    const targetOptions = {
+      type: THREE.HalfFloatType,
+      minFilter: THREE.LinearFilter,
+      magFilter: THREE.LinearFilter,
+      depthBuffer: false,
+    };
+    let read = new THREE.WebGLRenderTarget(EFFECT.flowSize, EFFECT.flowSize, targetOptions);
+    let write = new THREE.WebGLRenderTarget(EFFECT.flowSize, EFFECT.flowSize, targetOptions);
+
+    const flowUniforms = {
+      uPrevious: { value: read.texture },
+      uMouse: { value: new THREE.Vector2(-1, -1) },
+      uVelocity: { value: new THREE.Vector2() },
+      uAspect: { value: 1 },
+      uFalloff: { value: EFFECT.falloff },
+      uAlpha: { value: EFFECT.alpha },
+      uDissipation: { value: EFFECT.dissipation },
+    };
+    const flowMaterial = new THREE.ShaderMaterial({ vertexShader, fragmentShader: flowShader, uniforms: flowUniforms });
+    const flowScene = new THREE.Scene();
+    flowScene.add(new THREE.Mesh(geometry, flowMaterial));
+
     // Left in NoColorSpace: this ShaderMaterial outputs sampled values as-is, so no decode/encode round trip.
     let loaded = false;
-    let reported = false;
-    const texture = new THREE.TextureLoader().load(src, () => (loaded = true));
+    const texture = new THREE.TextureLoader().load(src, () => {
+      loaded = true;
+      wake();
+    });
     texture.minFilter = THREE.LinearFilter;
 
-    const uniforms = {
+    const imageUniforms = {
       uTexture: { value: texture },
-      uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-      uVelocity: { value: new THREE.Vector2() },
-      uHover: { value: 0 },
-      uTime: { value: 0 },
-      uAspect: { value: container.clientWidth / container.clientHeight },
-      uRadius: { value: EFFECT.radius },
-      uBulge: { value: EFFECT.bulge },
-      uSplit: { value: EFFECT.split },
-      uSpeedSplit: { value: EFFECT.speedSplit },
-      uDrag: { value: EFFECT.drag },
+      uFlow: { value: write.texture },
+      uScale: { value: new THREE.Vector2(1, 1) },
+      uDistortion: { value: EFFECT.distortion },
+      uAberration: { value: EFFECT.aberration },
     };
+    const imageMaterial = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader: imageShader,
+      uniforms: imageUniforms,
+      transparent: true,
+    });
+    const imageScene = new THREE.Scene();
+    imageScene.add(new THREE.Mesh(geometry, imageMaterial));
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms, transparent: true });
-    scene.add(new THREE.Mesh(geometry, material));
-
-    const target = new THREE.Vector2(0.5, 0.5);
-    const previous = new THREE.Vector2(0.5, 0.5);
-    let hoverTarget = 0;
+    // Pointer state, in the portrait's UV space; velocity in px/ms (y down), as it's stamped.
+    const pointer = new THREE.Vector2(-1, -1);
+    const velocity = new THREE.Vector2();
+    let moved = false;
+    let lastX = 0;
+    let lastY = 0;
+    let lastTime = 0;
+    let lastActive = 0;
+    let lastFrame = 0;
+    let frame = 0;
+    let reported = false;
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
-      target.set((e.clientX - rect.left) / rect.width, 1 - (e.clientY - rect.top) / rect.height);
-      const inside = target.x >= 0 && target.x <= 1 && target.y >= 0 && target.y <= 1;
-      hoverTarget = inside ? 1 : 0;
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        lastTime = 0;
+        return;
+      }
+      const now = performance.now();
+      pointer.set((e.clientX - rect.left) / rect.width, 1 - (e.clientY - rect.top) / rect.height);
+      if (!lastTime) {
+        lastTime = now;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+      const dt = Math.max(14, now - lastTime);
+      velocity.set((e.clientX - lastX) / dt, (e.clientY - lastY) / dt);
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTime = now;
+      moved = true;
+      wake();
+    };
+
+    const fit = () => {
+      const aspect = container.clientWidth / container.clientHeight;
+      flowUniforms.uAspect.value = aspect / EFFECT.referenceAspect;
+      imageUniforms.uScale.value.set(EFFECT.referenceAspect / aspect, 1);
     };
     const onResize = () => {
       renderer.setSize(container.clientWidth, container.clientHeight);
-      uniforms.uAspect.value = container.clientWidth / container.clientHeight;
+      fit();
+      wake();
     };
 
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('resize', onResize);
+    const render = (time: number) => {
+      frame = 0;
+      // Fade per elapsed time rather than per frame, so the trail is as long on 120 Hz screens as on 60 Hz.
+      const elapsed = lastFrame ? Math.min(time - lastFrame, 100) : 1000 / 60;
+      lastFrame = time;
+      flowUniforms.uDissipation.value = Math.pow(EFFECT.dissipation, elapsed / (1000 / 60));
+      // No pointer event since the last frame: stop stamping and let the trail fade out.
+      if (!moved) {
+        pointer.set(-1, -1);
+        velocity.set(0, 0);
+      }
+      moved = false;
+      const speed = velocity.length();
+      flowUniforms.uVelocity.value.lerp(velocity, speed > 0 ? 0.15 : 0.1);
+      flowUniforms.uMouse.value.copy(pointer);
 
-    let frame = 0;
-    const animate = (time: number) => {
-      const mouse = uniforms.uMouse.value;
-      mouse.lerp(target, 0.12);
-      // Velocity = how far the smoothed pointer moved this frame (capped), eased back toward zero.
-      const step = mouse.clone().sub(previous).multiplyScalar(5).clampLength(0, EFFECT.maxSpeed);
-      uniforms.uVelocity.value.lerp(step, 0.2);
-      previous.copy(mouse);
-      uniforms.uHover.value += (hoverTarget - uniforms.uHover.value) * 0.08;
-      uniforms.uTime.value = time * 0.001;
-      renderer.render(scene, camera);
+      flowUniforms.uPrevious.value = read.texture;
+      renderer.setRenderTarget(write);
+      renderer.render(flowScene, camera);
+      renderer.setRenderTarget(null);
+      imageUniforms.uFlow.value = write.texture;
+      renderer.render(imageScene, camera);
+      [read, write] = [write, read];
+
       if (loaded && !reported) {
         reported = true;
         onReady?.();
       }
-      frame = requestAnimationFrame(animate);
+      const now = performance.now();
+      if (speed > 0.001) lastActive = now;
+      if (!loaded || now - lastActive < EFFECT.idleMs) frame = requestAnimationFrame(render);
+      else lastFrame = 0;
     };
-    frame = requestAnimationFrame(animate);
+
+    // Frames only run while there's something to draw: after load, and while the trail is alive.
+    function wake() {
+      lastActive = performance.now();
+      if (!frame) frame = requestAnimationFrame(render);
+    }
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('resize', onResize);
+    fit();
+    wake();
 
     return () => {
       cancelAnimationFrame(frame);
@@ -166,7 +251,10 @@ export default function ChromaticPortrait({ src, alt, onReady }: ChromaticPortra
       window.removeEventListener('resize', onResize);
       container.removeChild(renderer.domElement);
       geometry.dispose();
-      material.dispose();
+      flowMaterial.dispose();
+      imageMaterial.dispose();
+      read.dispose();
+      write.dispose();
       texture.dispose();
       renderer.dispose();
     };

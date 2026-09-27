@@ -17,11 +17,33 @@
 .portrait {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  /* Sunk 10px so the cut-out's bottom edge never shows a gap */
+  bottom: -10px;
   z-index: 3;
-  /* Height-led; the width follows the image's own aspect ratio (set inline) — never squashed */
-  height: min(80svh, 120vw);
+  /*
+   * Height-led; the width follows the image's own aspect ratio (set inline) — never squashed.
+   * Small screens: full width, capped so the head stays clear of the marquee.
+   */
+  height: min(80svh, calc(100vw * 1280 / 963));
   translate: -50% 0;
+}
+
+@media (min-width: 1024px) {
+  .portrait {
+    height: min(550px, 80svh);
+  }
+}
+
+@media (min-width: 1280px) {
+  .portrait {
+    height: min(645px, 80svh);
+  }
+}
+
+/* Cursor parallax layer (GSAP moves it), so it doesn't fight the intro/scroll tweens on .portrait */
+.parallax {
+  position: absolute;
+  inset: 0;
 }
 
 .portraitImage {
