@@ -1,4 +1,24 @@
 /*
+ * The whole hand-off screen is a gradient from this project's color into the next one's. The
+ * gradient is twice the section's height (top half: the blend, bottom half: solid next color) and
+ * slides up as the ring fills (see NextProjectTrigger): at 0% the screen shows the full blend, at
+ * 100% only the solid color the next page starts with. Interpolated in OKLab for clean mid-tones.
+ */
+.wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(in oklab to bottom, var(--blend-from) 0%, var(--blend-to) 50%, var(--blend-to) 100%);
+  background-size: 100% 200%;
+  background-position: 50% 0%;
+  pointer-events: none;
+}
+
+/* The hero paints over the wash */
+.content {
+  position: relative;
+}
+
+/*
  * The next project's hero, painted with its palette. At least a viewport tall so its top can
  * reach the top of the viewport (the moment the route swaps).
  */

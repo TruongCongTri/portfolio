@@ -142,13 +142,11 @@ export const en = {
     list: 'List',
     grid: 'Grid',
     categories: {
-      corporate: 'Corporate',
+      portfolio: 'Portfolio',
       enterprise: 'Enterprise / ERP',
       eLearning: 'E-learning',
       digitalTwin: 'Digital Twin',
-      foodBeverage: 'Food & Beverage',
       eCommerce: 'E-commerce',
-      creativeStudio: 'Creative Studio',
     },
   },
   project: {

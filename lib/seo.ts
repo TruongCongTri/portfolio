@@ -164,7 +164,7 @@ export function projectSchema(locale: Locale, t: Dictionary, project: Project) {
         abstract: [...project.challenge, ...project.approach].join(' '),
         image: cover.startsWith('http') ? cover : absoluteUrl(cover),
         dateCreated: project.year,
-        genre: t.work.categories[project.category],
+        genre: project.categories.map((id) => t.work.categories[id]),
         inLanguage: locale,
         creator: { '@id': personId() },
         ...(project.url ? { sameAs: project.url } : {}),

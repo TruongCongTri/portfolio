@@ -31,12 +31,13 @@ const FOLLOW = { duration: 0.6, ease: 'power3.out' };
  * content above it) until that hero fills the viewport; further pulling fills the ring beside its title.
  * At 100% the route changes (flagged seamless: no fade, no intro), invisibly. Scrolling down backs out.
  */
-export default function PrevProjectTrigger({ project }: { project: Project }) {
+export default function PrevProjectTrigger({ project, pageColor }: { project: Project; pageColor: string }) {
   const router = useRouter();
   const ref = useRef<HTMLElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);
+  const washRef = useRef<HTMLDivElement>(null);
   const { t, href: localize } = useI18n();
   const href = localize(`/work/${project.slug}`);
 
@@ -74,6 +75,8 @@ export default function PrevProjectTrigger({ project }: { project: Project }) {
         else gsap.set(body, { y: Math.min(shown, reveal()) });
         const progress = gsap.utils.clamp(0, 1, (shown - reveal()) / (total() - reveal()));
         gsap.set(ring, { strokeDashoffset: 100 * (1 - progress) });
+        // The gradient slides down with the ring: this page's color → the previous project's.
+        gsap.set(washRef.current, { backgroundPosition: `50% ${100 - progress * 100}%` });
         if (progress >= 0.995 && target >= total()) complete();
       });
 
@@ -160,19 +163,25 @@ export default function PrevProjectTrigger({ project }: { project: Project }) {
     <section
       ref={ref}
       className={styles.handoff}
-      style={projectPalette(project) as React.CSSProperties}
+      style={
+        { ...projectPalette(project), '--blend-from': project.color, '--blend-to': pageColor } as React.CSSProperties
+      }
       aria-hidden
       inert
     >
-      {/* Overlaid on the hero's top padding, so the hero keeps exactly the real page's layout */}
-      <div ref={barRef} className={styles.bar}>
-        <MetaBar start={site.name} center={t.project.scrollPrev} />
+      {/* Gradient from the previous project's color (top) into this page's (bottom), advanced by the ring */}
+      <div ref={washRef} className={styles.wash} />
+      <div className={styles.hero}>
+        {/* Overlaid on the hero's top padding, so the hero keeps exactly the real page's layout */}
+        <div ref={barRef} className={styles.bar}>
+          <MetaBar start={site.name} center={t.project.scrollPrev} />
+        </div>
+        <ProjectHero
+          project={project}
+          handoff
+          leading={<RedirectIndicator ref={indicatorRef} ringRef={ringRef} direction="up" />}
+        />
       </div>
-      <ProjectHero
-        project={project}
-        handoff
-        leading={<RedirectIndicator ref={indicatorRef} ringRef={ringRef} direction="up" />}
-      />
     </section>
   );
 }

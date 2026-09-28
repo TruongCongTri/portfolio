@@ -1,7 +1,7 @@
 /*
- * The previous project's hero, painted with its palette, parked one viewport above the page.
- * Fixed, so while the body is translated down (see PrevProjectTrigger) it rides along with it and
- * lands exactly where the previous page's first screen sits when the offset reaches 100vh.
+ * The previous project's hero, parked one viewport above the page. Fixed, so while the body is
+ * translated down (see PrevProjectTrigger) it rides along with it and lands exactly where the
+ * previous page's first screen sits when the offset reaches 100vh.
  */
 .handoff {
   position: fixed;
@@ -12,6 +12,28 @@
   overflow: hidden;
   background: var(--color-bg);
   color: var(--color-fg);
+}
+
+/* Transparent and above the wash, so the gradient is the hero's background */
+.hero {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+/*
+ * The mirror of NextProjectTrigger's wash: the whole screen is a gradient from the previous
+ * project's color (top) into this page's (bottom, where it meets this page). Twice the screen's
+ * height (top half: solid previous color, bottom half: the blend), it slides down as the ring fills,
+ * ending on the solid color the previous page starts with.
+ */
+.wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(in oklab to bottom, var(--blend-from) 0%, var(--blend-from) 50%, var(--blend-to) 100%);
+  background-size: 100% 200%;
+  background-position: 50% 100%;
+  pointer-events: none;
 }
 
 .bar {

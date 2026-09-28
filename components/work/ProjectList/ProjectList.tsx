@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
-import type { Project } from '@/lib/projects';
+import { categoryLabel, type Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import HoverPreview from '@/components/ui/HoverPreview/HoverPreview';
 import styles from './ProjectList.module.css';
@@ -57,7 +57,7 @@ export default function ProjectList({ projects, withPreview = true }: ProjectLis
             {/* Hover motion lives on the inner span: the cell itself is animated by GSAP. */}
             <span className={styles.titleText}>{project.title}</span>
           </span>
-          <span className={styles.cell}>{t.work.categories[project.category]}</span>
+          <span className={styles.cell}>{categoryLabel(project, t.work.categories)}</span>
           <span className={`${styles.cell} ${styles.services}`}>{project.services}</span>
           <span className={`${styles.cell} ${styles.year}`}>{project.year}</span>
           <span className={styles.rule} />

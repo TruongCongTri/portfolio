@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
-import { blurPlaceholder, type Project } from '@/lib/projects';
+import { blurPlaceholder, categoryLabel, type Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import styles from './ProjectGrid.module.css';
 
@@ -58,7 +58,7 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
           <div className={styles.info}>
             <h3 className={styles.title}>{project.title}</h3>
             <span className={styles.meta}>
-              {t.work.categories[project.category]} · {project.year}
+              {categoryLabel(project, t.work.categories)} · {project.year}
             </span>
           </div>
         </Link>

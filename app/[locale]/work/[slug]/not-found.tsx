@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getProjects } from '@/lib/projects';
+import { categoryLabel, getProjects } from '@/lib/projects';
 import { localizePath } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale } from '@/lib/i18n/server';
@@ -32,7 +32,7 @@ export default async function ProjectNotFound() {
             <Link href={localizePath(locale, `/work/${project.slug}`)} className={styles.item}>
               <span className={styles.swatch} style={{ backgroundColor: project.color }} aria-hidden />
               <span className={styles.name}>{project.title}</span>
-              <span className={styles.meta}>{t.work.categories[project.category]}</span>
+              <span className={styles.meta}>{categoryLabel(project, t.work.categories)}</span>
             </Link>
           </li>
         ))}

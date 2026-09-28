@@ -144,13 +144,11 @@ export const vi: Dictionary = {
     list: 'Danh sách',
     grid: 'Lưới',
     categories: {
-      corporate: 'Doanh nghiệp',
+      portfolio: 'Portfolio',
       enterprise: 'Quản trị / ERP',
       eLearning: 'Học trực tuyến',
       digitalTwin: 'Bản sao số',
-      foodBeverage: 'Nhà hàng & Ẩm thực',
       eCommerce: 'Thương mại điện tử',
-      creativeStudio: 'Studio sáng tạo',
     },
   },
   project: {

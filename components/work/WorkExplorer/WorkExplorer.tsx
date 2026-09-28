@@ -19,7 +19,7 @@ export default function WorkExplorer({ projects }: { projects: Project[] }) {
 
   // Stable reference so list/grid animations only replay when the filter actually changes.
   const filtered = useMemo(
-    () => (filter === 'all' ? projects : projects.filter((p) => p.category === filter)),
+    () => (filter === 'all' ? projects : projects.filter((p) => p.categories.includes(filter))),
     [projects, filter],
   );
 
@@ -28,7 +28,7 @@ export default function WorkExplorer({ projects }: { projects: Project[] }) {
     ...categoryIds.map((id) => ({
       value: id,
       label: t.work.categories[id],
-      count: projects.filter((p) => p.category === id).length,
+      count: projects.filter((p) => p.categories.includes(id)).length,
     })),
   ];
 

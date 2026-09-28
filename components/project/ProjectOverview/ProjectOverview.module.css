@@ -3,6 +3,8 @@
   /* Shared by the content grid and the MetaBar labels, so "/Overview" lines up with the right column */
   --columns-gap: clamp(3rem, 8vw, 9rem);
   padding: 1.5rem var(--gutter) clamp(6rem, 12vw, 10rem);
+  /* Same as the page, unless ProjectColors gives this section its own colors */
+  background: var(--color-bg);
   color: var(--color-fg);
 }
 

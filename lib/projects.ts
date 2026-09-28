@@ -28,6 +28,14 @@ import chinhNamErp06 from '../public/projects/chinh-nam-erp/06.png';
 import chinhNamErp07 from '../public/projects/chinh-nam-erp/07.png';
 import chinhNamErp08 from '../public/projects/chinh-nam-erp/08.png';
 import chinhNamErp10 from '../public/projects/chinh-nam-erp/10.png';
+import vietDynamicHero from '../public/projects/viet-dynamic-elearning/hero.png';
+import vietDynamic01 from '../public/projects/viet-dynamic-elearning/01.png';
+import vietDynamic02 from '../public/projects/viet-dynamic-elearning/02.png';
+import vietDynamic03 from '../public/projects/viet-dynamic-elearning/03.png';
+import vietDynamic04 from '../public/projects/viet-dynamic-elearning/04.png';
+import vietDynamic05 from '../public/projects/viet-dynamic-elearning/05.png';
+import vietDynamic06 from '../public/projects/viet-dynamic-elearning/06.png';
+
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
 export type ProjectImage = StaticImageData | string;
@@ -58,7 +66,8 @@ type ProjectSource = {
    * long for one line it breaks between the two parts, never inside either. Omit to keep it whole.
    */
   titleParts?: [string, string];
-  category: CategoryId;
+  /** One or more; the work page filter lists the project under each. */
+  categories: CategoryId[];
   year: string;
   /** Brand color: the detail page's background, card backgrounds and hand-off gradient. */
   color: string;
@@ -66,6 +75,12 @@ type ProjectSource = {
   tone: 'light' | 'dark';
   /** Explicit brand text color (hex), for projects with a signature text color. */
   textColor?: string;
+  /**
+   * Color combinations shuffled across the detail page's sections (hero, overview, gallery) on each
+   * visit, instead of painting it all in `color`. Include `color` itself: a seamless hand-off keeps
+   * the hero in it, since the next-project preview has already shown it there.
+   */
+  sectionColors?: SectionColors[];
   /** Live site, opened from the cover image and the "View live" button. */
   url?: string;
   /** Detail page hero image (public/projects/<slug>/hero.png); falls back to the cover. */
@@ -74,6 +89,8 @@ type ProjectSource = {
   images: ProjectImage[];
   copy: Record<Locale, LocalizedCopy>;
 };
+
+export type SectionColors = Pick<ProjectSource, 'color' | 'tone' | 'textColor'>;
 
 /** A project with its copy resolved for one locale. */
 export type Project = Omit<ProjectSource, 'copy'> & LocalizedCopy;
@@ -94,7 +111,7 @@ const sources: ProjectSource[] = [
     slug: 'pizza-piatto',
     title: 'Pizza Piatto',
     titleParts: ['Pizza', 'Piatto'],
-    category: 'foodBeverage',
+    categories: ['portfolio'],
     year: '2026',
     // Navy and gold from the Pizza Piatto logo.
     color: '#151d32',
@@ -134,7 +151,7 @@ const sources: ProjectSource[] = [
     slug: 'skincare-ecommerce',
     title: 'Skincare E-commerce',
     titleParts: ['Skincare', 'E-commerce'],
-    category: 'eCommerce',
+    categories: ['eCommerce'],
     year: '2026',
     // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
     color: '#1f1c17',
@@ -174,13 +191,20 @@ const sources: ProjectSource[] = [
     slug: 'studio-portfolio',
     title: 'Studio Portfolio',
     titleParts: ['Studio', 'Portfolio'],
-    category: 'creativeStudio',
+    categories: ['portfolio'],
     year: '2026',
-    // Funky pairing: acid-lime page with electric-violet type (reversed on the shots).
-    color: '#c6ff3d',
+    // The site's page-transition palette: green, orange and pink blocks take near-black type,
+    // blue takes cream. Green stands in wherever a single color is needed (cards, hand-off).
+    color: '#5ea85e',
     tone: 'dark',
-    textColor: '#5b21ff',
-    images: placeholderShots('Studio Portfolio', '#5b21ff', 4, '#c6ff3d'),
+    textColor: '#0f0f0f',
+    sectionColors: [
+      { color: '#5ea85e', tone: 'dark', textColor: '#0f0f0f' },
+      { color: '#ff8356', tone: 'dark', textColor: '#0f0f0f' },
+      { color: '#ffbab4', tone: 'dark', textColor: '#0f0f0f' },
+      { color: '#216ad1', tone: 'light', textColor: '#ffffeb' },
+    ],
+    images: placeholderShots('Studio Portfolio', '#5ea85e', 4, '#0f0f0f'),
     copy: {
       en: {
         services: 'Design + Development',
@@ -191,7 +215,7 @@ const sources: ProjectSource[] = [
           "Commissions arrived through scattered emails and messages, usually missing the details the studio needed to quote.",
         ],
         approach: [
-          "The site shows the whole archive through filters and bold, playful motion in an acid-lime and electric-violet palette that is as loud as the studio’s work.",
+          "The site shows the whole archive through filters and bold, playful motion in a green, orange, pink and blue palette that is as loud as the studio’s work.",
           "A commission flow guides clients through the project type, scope, timeline and budget, so every brief reaches the studio complete and ready to quote.",
         ],
       },
@@ -204,7 +228,7 @@ const sources: ProjectSource[] = [
           "Yêu cầu đặt hàng đến qua email và tin nhắn rời rạc, thường thiếu những thông tin studio cần để báo giá.",
         ],
         approach: [
-          "Website trưng bày toàn bộ kho tác phẩm qua bộ lọc cùng chuyển động táo bạo, vui nhộn trong bảng màu xanh chanh neon và tím điện, nổi bật như chính tác phẩm của studio.",
+          "Website trưng bày toàn bộ kho tác phẩm qua bộ lọc cùng chuyển động táo bạo, vui nhộn trong bảng màu xanh lá, cam, hồng và xanh dương, nổi bật như chính tác phẩm của studio.",
           "Luồng đặt hàng hướng dẫn khách chọn loại dự án, phạm vi, thời gian và ngân sách, để mỗi yêu cầu đến tay studio đầy đủ và sẵn sàng báo giá.",
         ],
       },
@@ -214,7 +238,7 @@ const sources: ProjectSource[] = [
     slug: 'chinh-nam-portfolio',
     title: 'Chinh Nam Portfolio',
     titleParts: ['Chinh Nam', 'Portfolio'],
-    category: 'corporate',
+    categories: ['portfolio'],
     year: '2026',
     url: "https://chinhnam-web.onrender.com/",
     color: '#0e58cf',
@@ -254,7 +278,7 @@ const sources: ProjectSource[] = [
     slug: 'chinh-nam-erp',
     title: 'Chinh Nam ERP',
     titleParts: ['Chinh Nam', 'ERP'],
-    category: 'enterprise',
+    categories: ['enterprise'],
     year: '2026',
     // No brand color given — a neutral slate to set the internal tool apart from the public site.
     color: '#2b313c',
@@ -292,11 +316,13 @@ const sources: ProjectSource[] = [
     slug: 'vietdynamic-elearning',
     title: 'VietDynamic E-learning',
     titleParts: ['VietDynamic', 'E-learning'],
-    category: 'eLearning',
+    categories: ['eCommerce', 'eLearning'],
     year: '2025',
     color: '#ba0027',
     tone: 'light',
-    images: placeholderShots('VietDynamic', '#ba0027', 4),
+    hero: vietDynamicHero,
+    images: [vietDynamic01, vietDynamic02, vietDynamic03, vietDynamic04, vietDynamic05, vietDynamic06],
+
     copy: {
       en: {
         services: 'Full-stack Development',
@@ -328,7 +354,7 @@ const sources: ProjectSource[] = [
     slug: 'airport-digital-twin',
     title: 'Airport Digital Twin',
     titleParts: ['Airport', 'Digital Twin'],
-    category: 'digitalTwin',
+    categories: ['digitalTwin'],
     year: '2025',
     // No brand color given — a deep aviation teal.
     color: '#0d5c63',
@@ -366,7 +392,7 @@ const sources: ProjectSource[] = [
   {
     slug: 'digital-twin',
     title: 'Digital Twin',
-    category: 'digitalTwin',
+    categories: ['digitalTwin'],
     year: '2025',
     color: '#002244',
     tone: 'light',
@@ -409,7 +435,12 @@ function localize({ copy, ...project }: ProjectSource, locale: Locale): Project 
 
 export const projectSlugs = sources.map((p) => p.slug);
 
-export const categoryIds = [...new Set(sources.map((p) => p.category))];
+export const categoryIds = [...new Set(sources.flatMap((p) => p.categories))];
+
+/** A project's category names, e.g. "E-commerce, E-learning". */
+export function categoryLabel(project: Pick<Project, 'categories'>, labels: Record<CategoryId, string>) {
+  return project.categories.map((id) => labels[id]).join(', ');
+}
 
 export function getProjects(locale: Locale) {
   return sources.map((p) => localize(p, locale));

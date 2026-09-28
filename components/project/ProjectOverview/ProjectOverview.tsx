@@ -14,7 +14,7 @@ export default async function ProjectOverview({ project }: { project: Project })
   const t = (await getT()).project;
 
   return (
-    <section className={styles.overview}>
+    <section className={styles.overview} data-project-section>
       <MetaBar start={project.title} center={t.overviewTag} columns />
 
       <div className={styles.grid}>

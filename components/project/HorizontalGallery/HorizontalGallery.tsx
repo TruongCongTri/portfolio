@@ -154,7 +154,7 @@ export default function HorizontalGallery({ images, title, caption }: Horizontal
   }, [getState]);
 
   return (
-    <section ref={ref} className={styles.gallery}>
+    <section ref={ref} className={styles.gallery} data-project-section>
       <div className={styles.header}>
         <SplitReveal as="h2" className={styles.title} split="words">
           {title}

@@ -60,11 +60,11 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/work/
     <main>
       <JsonLd data={projectSchema(locale, dictionary, project)} />
       <ProjectColors project={project} />
-      <PrevProjectTrigger project={prev} />
+      <PrevProjectTrigger project={prev} pageColor={project.color} />
       <ProjectHero project={project} />
       <ProjectOverview project={project} />
       <HorizontalGallery images={project.images} title={t.galleryTitle} caption={t.galleryCaption} />
-      <NextProjectTrigger project={next} />
+      <NextProjectTrigger project={next} pageColor={project.color} />
     </main>
   );
 }
