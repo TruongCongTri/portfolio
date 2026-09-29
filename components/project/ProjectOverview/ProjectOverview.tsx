@@ -1,16 +1,20 @@
-import type { Project } from '@/lib/projects';
-import { getT } from '@/lib/i18n/server';
-import MetaBar from '@/components/ui/MetaBar/MetaBar';
-import PillButton from '@/components/ui/PillButton/PillButton';
-import Reveal from '@/components/ui/Reveal/Reveal';
-import SplitReveal from '@/components/ui/SplitReveal/SplitReveal';
-import styles from './ProjectOverview.module.css';
+import type { Project } from "@/lib/projects";
+import { getT } from "@/lib/i18n/server";
+import MetaBar from "@/components/ui/MetaBar/MetaBar";
+import PillButton from "@/components/ui/PillButton/PillButton";
+import Reveal from "@/components/ui/Reveal/Reveal";
+import SplitReveal from "@/components/ui/SplitReveal/SplitReveal";
+import styles from "./ProjectOverview.module.css";
 
 /**
  * Sits right under the hero cover and spans the same width: a labelled rule, then the headline
  * (+ live link) on the left and Challenge / Approach on the right.
  */
-export default async function ProjectOverview({ project }: { project: Project }) {
+export default async function ProjectOverview({
+  project,
+}: {
+  project: Project;
+}) {
   const t = (await getT()).project;
 
   return (
@@ -59,6 +63,14 @@ export default async function ProjectOverview({ project }: { project: Project })
               </SplitReveal>
             ))}
           </div>
+          {/* Disclaimer block */}
+          {project.disclaimer && (
+            <div className={styles.block}>
+              <SplitReveal as="p" className={styles.text} delay={0.1}>
+                <em>{project.disclaimer}</em>
+              </SplitReveal>
+            </div>
+          )}
         </div>
       </div>
     </section>

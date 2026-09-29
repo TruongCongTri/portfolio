@@ -30,7 +30,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const locale = await getLocale();
   const t = getDictionary(locale);
-  const projects = getProjects(locale);
+
+  // Fetch both the full list (for the total count) and the 6 latest (for the list view)
+  const allProjects = getProjects(locale);
+  const latestProjects = getLatestProjects(locale, 6);
+
   const workHref = localizePath(locale, '/work');
 
   return (
@@ -42,17 +46,17 @@ export default async function HomePage() {
         <section className={styles.selectedWork}>
           <SectionHeader
             title={t.home.selectedWork}
-            count={projects.length}
+            count={latestProjects.length}
             link={{ label: t.home.viewAll, href: workHref }}
           />
-          <ProjectList projects={projects} />
+          <ProjectList projects={latestProjects} />
           <div className={styles.more}>
-            <PillButton href={workHref} variant="solid" size="lg" count={projects.length} magnetic>
+            <PillButton href={workHref} variant="solid" size="lg" count={allProjects.length} magnetic>
               {t.home.moreWork}
             </PillButton>
           </div>
         </section>
-        <ScatterScene projects={getLatestProjects(locale, 6)} />
+        <ScatterScene projects={latestProjects} />
       </main>
       <Footer />
     </>

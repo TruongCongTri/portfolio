@@ -1,6 +1,6 @@
-import type { StaticImageData } from 'next/image';
-import type { Locale } from './i18n/config';
-import type { Dictionary } from './i18n/dictionaries';
+import type { StaticImageData } from "next/image";
+import type { Locale } from "./i18n/config";
+import type { Dictionary } from "./i18n/dictionaries";
 
 /*
  * Project screenshots live in public/projects/<slug>/, numbered in display order:
@@ -12,41 +12,53 @@ import type { Dictionary } from './i18n/dictionaries';
  * Import them here (static imports give Next each file's size, a blur placeholder and a
  * cache-forever URL; next/image then serves resized AVIF/WebP, so large PNG sources are fine).
  */
-import chinhNamHero from '../public/projects/chinh-nam-portfolio/hero.png';
-import chinhNam01 from '../public/projects/chinh-nam-portfolio/01.png';
-import chinhNam02 from '../public/projects/chinh-nam-portfolio/02.png';
-import chinhNam03 from '../public/projects/chinh-nam-portfolio/03.png';
-import chinhNam04 from '../public/projects/chinh-nam-portfolio/04.png';
-import chinhNam05 from '../public/projects/chinh-nam-portfolio/05.png';
-import chinhNamErpHero from '../public/projects/chinh-nam-erp/hero.png';
-import chinhNamErp01 from '../public/projects/chinh-nam-erp/01.png';
-import chinhNamErp02 from '../public/projects/chinh-nam-erp/02.png';
-import chinhNamErp03 from '../public/projects/chinh-nam-erp/03.png';
-import chinhNamErp04 from '../public/projects/chinh-nam-erp/04.png';
-import chinhNamErp05 from '../public/projects/chinh-nam-erp/05.png';
-import chinhNamErp06 from '../public/projects/chinh-nam-erp/06.png';
-import chinhNamErp07 from '../public/projects/chinh-nam-erp/07.png';
-import chinhNamErp08 from '../public/projects/chinh-nam-erp/08.png';
-import chinhNamErp10 from '../public/projects/chinh-nam-erp/10.png';
-import vietDynamicHero from '../public/projects/viet-dynamic-elearning/hero.png';
-import vietDynamic01 from '../public/projects/viet-dynamic-elearning/01.png';
-import vietDynamic02 from '../public/projects/viet-dynamic-elearning/02.png';
-import vietDynamic03 from '../public/projects/viet-dynamic-elearning/03.png';
-import vietDynamic04 from '../public/projects/viet-dynamic-elearning/04.png';
-import vietDynamic05 from '../public/projects/viet-dynamic-elearning/05.png';
-import vietDynamic06 from '../public/projects/viet-dynamic-elearning/06.png';
-
+import chinhNamHero from "../public/projects/chinh-nam-portfolio/hero.png";
+import chinhNam01 from "../public/projects/chinh-nam-portfolio/01.png";
+import chinhNam02 from "../public/projects/chinh-nam-portfolio/02.png";
+import chinhNam03 from "../public/projects/chinh-nam-portfolio/03.png";
+import chinhNam04 from "../public/projects/chinh-nam-portfolio/04.png";
+import chinhNam05 from "../public/projects/chinh-nam-portfolio/05.png";
+import chinhNamErpHero from "../public/projects/chinh-nam-erp/hero.png";
+import chinhNamErp01 from "../public/projects/chinh-nam-erp/01.png";
+import chinhNamErp02 from "../public/projects/chinh-nam-erp/02.png";
+import chinhNamErp03 from "../public/projects/chinh-nam-erp/03.png";
+import chinhNamErp04 from "../public/projects/chinh-nam-erp/04.png";
+import chinhNamErp05 from "../public/projects/chinh-nam-erp/05.png";
+import chinhNamErp06 from "../public/projects/chinh-nam-erp/06.png";
+import chinhNamErp07 from "../public/projects/chinh-nam-erp/07.png";
+import chinhNamErp08 from "../public/projects/chinh-nam-erp/08.png";
+import chinhNamErp10 from "../public/projects/chinh-nam-erp/10.png";
+import vietDynamicHero from "../public/projects/viet-dynamic-elearning/hero.png";
+import vietDynamic01 from "../public/projects/viet-dynamic-elearning/01.png";
+import vietDynamic02 from "../public/projects/viet-dynamic-elearning/02.png";
+import vietDynamic03 from "../public/projects/viet-dynamic-elearning/03.png";
+import vietDynamic04 from "../public/projects/viet-dynamic-elearning/04.png";
+import vietDynamic05 from "../public/projects/viet-dynamic-elearning/05.png";
+import vietDynamic06 from "../public/projects/viet-dynamic-elearning/06.png";
+import thanhHoangHero from "../public/projects/thanh-hoang/hero.png";
+import thanhHoang01 from "../public/projects/thanh-hoang/01.png";
+import thanhHoang10 from "../public/projects/thanh-hoang/10.png";
+import thanhHoang02 from "../public/projects/thanh-hoang/02.png";
+import thanhHoang03 from "../public/projects/thanh-hoang/03.png";
+import thanhHoang04 from "../public/projects/thanh-hoang/04.png";
+import thanhHoang05 from "../public/projects/thanh-hoang/05.png";
+import thanhHoang06 from "../public/projects/thanh-hoang/06.png";
+import thanhHoang07 from "../public/projects/thanh-hoang/07.png";
+import thanhHoang08 from "../public/projects/thanh-hoang/08.png";
+import thanhHoang09 from "../public/projects/thanh-hoang/09.png";
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
 export type ProjectImage = StaticImageData | string;
 
 /** URL of a project image (for metadata, JSON-LD, keys). */
-export const imageUrl = (image: ProjectImage) => (typeof image === 'string' ? image : image.src);
+export const imageUrl = (image: ProjectImage) =>
+  typeof image === "string" ? image : image.src;
 
 /** Blurred preview while loading — only local imports have one. */
-export const blurPlaceholder = (image: ProjectImage) => (typeof image === 'string' ? 'empty' : 'blur');
+export const blurPlaceholder = (image: ProjectImage) =>
+  typeof image === "string" ? "empty" : "blur";
 
-export type CategoryId = keyof Dictionary['work']['categories'];
+export type CategoryId = keyof Dictionary["work"]["categories"];
 
 type LocalizedCopy = {
   services: string;
@@ -56,6 +68,7 @@ type LocalizedCopy = {
   challenge: string[];
   /** Paragraphs under "Approach". */
   approach: string[];
+  disclaimer?: string;
 };
 
 type ProjectSource = {
@@ -72,7 +85,7 @@ type ProjectSource = {
   /** Brand color: the detail page's background, card backgrounds and hand-off gradient. */
   color: string;
   /** Whether text on `color` should be light or dark (ignored when `textColor` is set). */
-  tone: 'light' | 'dark';
+  tone: "light" | "dark";
   /** Explicit brand text color (hex), for projects with a signature text color. */
   textColor?: string;
   /**
@@ -90,14 +103,19 @@ type ProjectSource = {
   copy: Record<Locale, LocalizedCopy>;
 };
 
-export type SectionColors = Pick<ProjectSource, 'color' | 'tone' | 'textColor'>;
+export type SectionColors = Pick<ProjectSource, "color" | "tone" | "textColor">;
 
 /** A project with its copy resolved for one locale. */
-export type Project = Omit<ProjectSource, 'copy'> & LocalizedCopy;
+export type Project = Omit<ProjectSource, "copy"> & LocalizedCopy;
 
 /** Placeholder screens tinted with the project colors — swap for real screenshots. */
-function placeholderShots(title: string, color: string, count: number, textColor = '#ffffff') {
-  const label = encodeURIComponent(title).replace(/%20/g, '+');
+function placeholderShots(
+  title: string,
+  color: string,
+  count: number,
+  textColor = "#ffffff",
+) {
+  const label = encodeURIComponent(title).replace(/%20/g, "+");
   return Array.from(
     { length: count },
     (_, i) =>
@@ -108,21 +126,77 @@ function placeholderShots(title: string, color: string, count: number, textColor
 // TODO: confirm each project's year and add `url` once the live sites are public.
 const sources: ProjectSource[] = [
   {
-    slug: 'pizza-piatto',
-    title: 'Pizza Piatto',
-    titleParts: ['Pizza', 'Piatto'],
-    categories: ['portfolio'],
-    year: '2026',
-    // Navy and gold from the Pizza Piatto logo.
-    color: '#151d32',
-    tone: 'light',
-    textColor: '#f2b950',
-    images: placeholderShots('Pizza Piatto', '#151d32', 4, '#f2b950'),
+    slug: "thanh-hoang-booking-demo",
+    title: "Thành Hoàng Booking Demo",
+    titleParts: ["Thành Hoàng", "Booking Demo"],
+    categories: ["eCommerce"],
+    year: "2026",
+    url: "https://thanhhoang-ticket-booking-demo.vercel.app/",
+    color: "#0a6cc2",
+    tone: "light",
+    textColor: "#f5a830",
+    hero: thanhHoangHero,
+    images: [
+      thanhHoang10,
+      thanhHoang01,
+      thanhHoang02,
+      thanhHoang03,
+      thanhHoang04,
+      thanhHoang05,
+      thanhHoang06,
+      thanhHoang07,
+      thanhHoang08,
+      thanhHoang09,
+    ],
     copy: {
       en: {
-        services: 'Design + Development',
+        services: "Full-stack Development + 3D & Motion",
         overview:
-          'A restaurant site for Pizza Piatto that shows off its kitchen, ingredients and menu, and takes table reservations online.',
+          "A comprehensive demo flight booking platform handling both domestic and international routes, showcasing end-to-end user flows from interactive 3D discovery to final ticketing.",
+        challenge: [
+          "Building a seamless flight booking experience requires managing highly complex simulated data across multiple carriers—including domestic partners like Vietnam Airlines, Bamboo Airways, Vietjet Air, and Vietravel Airlines, alongside international routes via China Airlines, EVA Air, Sichuan Airlines, Qatar Airways, Air India, and Japan Airlines.",
+          "The primary challenge was balancing these intricate booking, payment, and ticketing logic flows with engaging, high-performance 3D interactions without overwhelming the user.",
+        ],
+        approach: [
+          "I engineered an end-to-end simulated booking architecture built on a modern motion stack. Interactive 3D elements powered by Three.js elevate the standard grid-based booking interface, while GSAP and Lenis are synchronized to deliver buttery-smooth, scroll-driven animations across the entire flow.",
+          "Under the hood, robust state management tightly handles the simulated payment and ticket generation processes, demonstrating a production-ready approach that successfully balances complex e-commerce data handling with high-performance creative development.",
+        ],
+        disclaimer:
+          "This is a portfolio demo built to showcase my end-to-end development skills. It is not affiliated with or endorsed by Thành Hoàng, and no real bookings, payments, or data transfers are made. If you represent the company and request removal or changes, please get in touch for prompt action.",
+      },
+      vi: {
+        services: "Phát triển Full-stack + 3D & Chuyển động",
+        overview:
+          "Nền tảng demo đặt vé máy bay toàn diện cho các chuyến bay nội địa và quốc tế, thể hiện quy trình người dùng xuyên suốt từ tương tác 3D khám phá đến xuất vé cuối cùng.",
+        challenge: [
+          "Việc xây dựng trải nghiệm đặt vé mượt mà đòi hỏi phải xử lý dữ liệu mô phỏng phức tạp từ nhiều hãng hàng không—bao gồm các đối tác nội địa như Vietnam Airlines, Bamboo Airways, Vietjet Air, Vietravel Airlines, cùng mạng bay quốc tế qua China Airlines, EVA Air, Sichuan Airlines, Qatar Airways, Air India và Japan Airlines.",
+          "Thử thách cốt lõi là cân bằng giữa logic đặt vé, thanh toán và xuất vé phức tạp với các tương tác 3D sinh động, hiệu suất cao mà không làm người dùng bị ngợp.",
+        ],
+        approach: [
+          "Tôi đã xây dựng một kiến trúc đặt vé mô phỏng toàn trình dựa trên stack chuyển động hiện đại. Các yếu tố 3D tương tác sử dụng Three.js nâng tầm giao diện đặt vé tiêu chuẩn, trong khi GSAP và Lenis được kết hợp chặt chẽ để mang lại hiệu ứng chuyển động theo thao tác cuộn cực kỳ mượt mà xuyên suốt toàn bộ quy trình.",
+          "Bên dưới giao diện, hệ thống quản lý trạng thái xử lý trơn tru quá trình mô phỏng thanh toán và tạo vé, thể hiện tư duy kiến trúc sẵn sàng cho môi trường thực tế, cân bằng hoàn hảo giữa logic thương mại điện tử phức tạp và hiệu suất lập trình sáng tạo (creative development).",
+        ],
+        disclaimer:
+          "Đây là dự án demo nhằm thể hiện kỹ năng lập trình toàn trình, không trực thuộc hay được bảo trợ bởi Thành Hoàng. Không có giao dịch, thanh toán hay truyền dữ liệu thật nào được thực hiện. Nếu bạn là đại diện của công ty và có yêu cầu chỉnh sửa hoặc gỡ bỏ, vui lòng liên hệ để được hỗ trợ ngay lập tức.",
+      },
+    },
+  },
+  {
+    slug: "pizza-piatto",
+    title: "Pizza Piatto",
+    titleParts: ["Pizza", "Piatto"],
+    categories: ["portfolio"],
+    year: "2026",
+    // Navy and gold from the Pizza Piatto logo.
+    color: "#151d32",
+    tone: "light",
+    textColor: "#f2b950",
+    images: placeholderShots("Pizza Piatto", "#151d32", 4, "#f2b950"),
+    copy: {
+      en: {
+        services: "Design + Development",
+        overview:
+          "A restaurant site for Pizza Piatto that shows off its kitchen, ingredients and menu, and takes table reservations online.",
         challenge: [
           "Pizza Piatto’s appeal is in the details — the dough, the toppings, the ingredients it sources — but a menu list alone doesn’t make anyone hungry.",
           "Guests also had to phone to book a table, so the site needed to turn interest into a reservation without sending them anywhere else.",
@@ -133,9 +207,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Thiết kế + Phát triển',
+        services: "Thiết kế + Phát triển",
         overview:
-          'Website nhà hàng cho Pizza Piatto, giới thiệu căn bếp, nguyên liệu và thực đơn, đồng thời cho phép đặt bàn trực tuyến.',
+          "Website nhà hàng cho Pizza Piatto, giới thiệu căn bếp, nguyên liệu và thực đơn, đồng thời cho phép đặt bàn trực tuyến.",
         challenge: [
           "Sức hút của Pizza Piatto nằm ở từng chi tiết — đế bánh, nhân bánh, nguồn nguyên liệu — nhưng chỉ một danh sách món ăn thì không khiến ai thấy thèm.",
           "Khách còn phải gọi điện để đặt bàn, nên website cần biến sự quan tâm thành một lượt đặt bàn mà không phải chuyển sang nơi khác.",
@@ -148,68 +222,28 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'skincare-ecommerce',
-    title: 'Skincare E-commerce',
-    titleParts: ['Skincare', 'E-commerce'],
-    categories: ['eCommerce'],
-    year: '2026',
-    // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
-    color: '#1f1c17',
-    tone: 'light',
-    textColor: '#c5a25d',
-    images: placeholderShots('Skincare', '#fefbf4', 4, '#1f1c17'),
-    copy: {
-      en: {
-        services: 'Design + Development',
-        overview:
-          'An online skincare store where modern GSAP motion gives every product the unhurried feel of a boutique counter.',
-        challenge: [
-          "Skincare is bought on trust and texture, and a flat grid of product photos can’t convey either.",
-          "The store had to feel as considered as the products — calm, premium and tactile — while staying quick to browse, compare and check out.",
-        ],
-        approach: [
-          "Modern GSAP carries the experience: ScrollTrigger-driven reveals, product images that ease into place and smooth transitions between collections, all tuned to feel slow and deliberate rather than busy.",
-          "The espresso, antique-gold and cream palette frames each product like a boutique shelf, and the motion always steps aside for the essentials — clear prices, ingredients and a short path to checkout.",
-        ],
-      },
-      vi: {
-        services: 'Thiết kế + Phát triển',
-        overview:
-          'Cửa hàng mỹ phẩm chăm sóc da trực tuyến, nơi chuyển động GSAP hiện đại mang lại cảm giác thong thả như tại quầy boutique cho từng sản phẩm.',
-        challenge: [
-          "Mỹ phẩm chăm sóc da được mua bằng sự tin tưởng và cảm nhận về kết cấu, điều mà một lưới ảnh sản phẩm phẳng không thể truyền tải.",
-          "Cửa hàng phải mang cảm giác chỉn chu như chính sản phẩm — tĩnh lặng, cao cấp và giàu xúc cảm — mà vẫn nhanh khi duyệt, so sánh và thanh toán.",
-        ],
-        approach: [
-          "GSAP hiện đại dẫn dắt trải nghiệm: nội dung hiện dần theo ScrollTrigger, ảnh sản phẩm nhẹ nhàng vào vị trí và chuyển cảnh mượt giữa các bộ sưu tập, tất cả được tinh chỉnh để chậm rãi và có chủ đích thay vì rối mắt.",
-          "Bảng màu nâu espresso, vàng cổ điển và kem đặt mỗi sản phẩm như trên kệ boutique, còn chuyển động luôn nhường chỗ cho điều cốt yếu — giá rõ ràng, thành phần và đường đi ngắn đến thanh toán.",
-        ],
-      },
-    },
-  },
-  {
-    slug: 'studio-portfolio',
-    title: 'Studio Portfolio',
-    titleParts: ['Studio', 'Portfolio'],
-    categories: ['portfolio'],
-    year: '2026',
+    slug: "studio-portfolio",
+    title: "Studio Portfolio",
+    titleParts: ["Studio", "Portfolio"],
+    categories: ["portfolio"],
+    year: "2026",
     // The site's page-transition palette: green, orange and pink blocks take near-black type,
     // blue takes cream. Green stands in wherever a single color is needed (cards, hand-off).
-    color: '#5ea85e',
-    tone: 'dark',
-    textColor: '#0f0f0f',
+    color: "#5ea85e",
+    tone: "dark",
+    textColor: "#0f0f0f",
     sectionColors: [
-      { color: '#5ea85e', tone: 'dark', textColor: '#0f0f0f' },
-      { color: '#ff8356', tone: 'dark', textColor: '#0f0f0f' },
-      { color: '#ffbab4', tone: 'dark', textColor: '#0f0f0f' },
-      { color: '#216ad1', tone: 'light', textColor: '#ffffeb' },
+      { color: "#5ea85e", tone: "dark", textColor: "#0f0f0f" },
+      { color: "#ff8356", tone: "dark", textColor: "#0f0f0f" },
+      { color: "#ffbab4", tone: "dark", textColor: "#0f0f0f" },
+      { color: "#216ad1", tone: "light", textColor: "#ffffeb" },
     ],
-    images: placeholderShots('Studio Portfolio', '#5ea85e', 4, '#0f0f0f'),
+    images: placeholderShots("Studio Portfolio", "#5ea85e", 4, "#0f0f0f"),
     copy: {
       en: {
-        services: 'Design + Development',
+        services: "Design + Development",
         overview:
-          'A portfolio for a creative studio that puts its whole body of work on show and lets clients commission a project.',
+          "A portfolio for a creative studio that puts its whole body of work on show and lets clients commission a project.",
         challenge: [
           "The studio’s range was its selling point, but a long archive of projects made it hard for visitors to see that range at a glance.",
           "Commissions arrived through scattered emails and messages, usually missing the details the studio needed to quote.",
@@ -220,9 +254,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Thiết kế + Phát triển',
+        services: "Thiết kế + Phát triển",
         overview:
-          'Website portfolio cho một studio sáng tạo, trưng bày toàn bộ tác phẩm và cho phép khách hàng đặt hàng dự án.',
+          "Website portfolio cho một studio sáng tạo, trưng bày toàn bộ tác phẩm và cho phép khách hàng đặt hàng dự án.",
         challenge: [
           "Sự đa dạng là thế mạnh của studio, nhưng một kho dự án dài khiến người xem khó thấy được sự đa dạng ấy chỉ trong một cái nhìn.",
           "Yêu cầu đặt hàng đến qua email và tin nhắn rời rạc, thường thiếu những thông tin studio cần để báo giá.",
@@ -235,21 +269,21 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'chinh-nam-portfolio',
-    title: 'Chinh Nam Portfolio',
-    titleParts: ['Chinh Nam', 'Portfolio'],
-    categories: ['portfolio'],
-    year: '2026',
+    slug: "chinh-nam-portfolio",
+    title: "Chinh Nam Portfolio",
+    titleParts: ["Chinh Nam", "Portfolio"],
+    categories: ["portfolio"],
+    year: "2026",
     url: "https://chinhnam-web.onrender.com/",
-    color: '#0e58cf',
-    tone: 'light',
+    color: "#0e58cf",
+    tone: "light",
     hero: chinhNamHero,
     images: [chinhNam01, chinhNam02, chinhNam03, chinhNam04, chinhNam05],
     copy: {
       en: {
-        services: 'Design + Development',
+        services: "Design + Development",
         overview:
-          'A company site for Chinh Nam that tells the story of its ethics, culture and work through scroll-driven motion.',
+          "A company site for Chinh Nam that tells the story of its ethics, culture and work through scroll-driven motion.",
         challenge: [
           "Chinh Nam’s values and culture were written down in documents and presentations, but a list of values doesn’t show visitors what working with the company is actually like.",
           "The site had to carry three stories at once — the ethics the company stands by, the culture inside it and the work it delivers — without turning into a long, static corporate page.",
@@ -260,9 +294,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Thiết kế + Phát triển',
+        services: "Thiết kế + Phát triển",
         overview:
-          'Website doanh nghiệp cho Chinh Nam, kể câu chuyện về đạo đức, văn hóa và dự án của công ty qua chuyển động theo cuộn trang.',
+          "Website doanh nghiệp cho Chinh Nam, kể câu chuyện về đạo đức, văn hóa và dự án của công ty qua chuyển động theo cuộn trang.",
         challenge: [
           "Giá trị và văn hóa của Chinh Nam được ghi lại trong tài liệu và bài thuyết trình, nhưng một danh sách giá trị không cho người xem thấy làm việc cùng công ty thực sự như thế nào.",
           "Website phải kể cùng lúc ba câu chuyện — đạo đức mà công ty theo đuổi, văn hóa bên trong và những dự án đã thực hiện — mà không biến thành một trang doanh nghiệp dài và tĩnh.",
@@ -275,20 +309,31 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'chinh-nam-erp',
-    title: 'Chinh Nam ERP',
-    titleParts: ['Chinh Nam', 'ERP'],
-    categories: ['enterprise'],
-    year: '2026',
+    slug: "chinh-nam-erp",
+    title: "Chinh Nam ERP",
+    titleParts: ["Chinh Nam", "ERP"],
+    categories: ["enterprise"],
+    year: "2026",
     // No brand color given — a neutral slate to set the internal tool apart from the public site.
-    color: '#2b313c',
-    tone: 'light',
+    color: "#2b313c",
+    tone: "light",
     hero: chinhNamErpHero,
-    images: [chinhNamErp01, chinhNamErp02, chinhNamErp03, chinhNamErp04, chinhNamErp05, chinhNamErp06, chinhNamErp07, chinhNamErp08, chinhNamErp10],
+    images: [
+      chinhNamErp01,
+      chinhNamErp02,
+      chinhNamErp03,
+      chinhNamErp04,
+      chinhNamErp05,
+      chinhNamErp06,
+      chinhNamErp07,
+      chinhNamErp08,
+      chinhNamErp10,
+    ],
     copy: {
       en: {
-        services: 'Full-stack Development',
-        overview: 'An internal ERP that runs Chinh Nam’s day-to-day operations on an enterprise resource planning model.',
+        services: "Full-stack Development",
+        overview:
+          "An internal ERP that runs Chinh Nam’s day-to-day operations on an enterprise resource planning model.",
         challenge: [
           "Day-to-day operations were spread across separate tools and spreadsheets, so the same information was entered in several places and quickly fell out of sync.",
           "Managers had no single place to see the state of the company, and every change depended on someone remembering to update the right file.",
@@ -299,8 +344,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Phát triển Full-stack',
-        overview: 'Hệ thống ERP nội bộ vận hành công việc hằng ngày của Chinh Nam theo mô hình quản trị nguồn lực doanh nghiệp.',
+        services: "Phát triển Full-stack",
+        overview:
+          "Hệ thống ERP nội bộ vận hành công việc hằng ngày của Chinh Nam theo mô hình quản trị nguồn lực doanh nghiệp.",
         challenge: [
           "Công việc hằng ngày nằm rải rác trên nhiều công cụ và bảng tính riêng lẻ, cùng một thông tin phải nhập ở nhiều nơi và nhanh chóng trở nên lệch nhau.",
           "Người quản lý không có một nơi duy nhất để nắm tình hình công ty, và mọi thay đổi đều phụ thuộc vào việc có người nhớ cập nhật đúng tệp.",
@@ -313,20 +359,28 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'vietdynamic-elearning',
-    title: 'VietDynamic E-learning',
-    titleParts: ['VietDynamic', 'E-learning'],
-    categories: ['eCommerce', 'eLearning'],
-    year: '2025',
-    color: '#ba0027',
-    tone: 'light',
+    slug: "vietdynamic-elearning",
+    title: "VietDynamic E-learning",
+    titleParts: ["VietDynamic", "E-learning"],
+    categories: ["eCommerce", "eLearning"],
+    year: "2025",
+    color: "#ba0027",
+    tone: "light",
     hero: vietDynamicHero,
-    images: [vietDynamic01, vietDynamic02, vietDynamic03, vietDynamic04, vietDynamic05, vietDynamic06],
+    images: [
+      vietDynamic01,
+      vietDynamic02,
+      vietDynamic03,
+      vietDynamic04,
+      vietDynamic05,
+      vietDynamic06,
+    ],
 
     copy: {
       en: {
-        services: 'Full-stack Development',
-        overview: 'An e-learning platform with video streaming, a course store and online payments.',
+        services: "Full-stack Development",
+        overview:
+          "An e-learning platform with video streaming, a course store and online payments.",
         challenge: [
           "Learners expect lessons to start instantly and play smoothly, whatever their device or connection.",
           "At the same time, the platform had to sell courses and take payments online, and course access had to follow payments reliably, with no manual reconciliation.",
@@ -337,8 +391,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Phát triển Full-stack',
-        overview: 'Nền tảng học trực tuyến với phát video trực tuyến, cửa hàng khóa học và thanh toán online.',
+        services: "Phát triển Full-stack",
+        overview:
+          "Nền tảng học trực tuyến với phát video trực tuyến, cửa hàng khóa học và thanh toán online.",
         challenge: [
           "Người học mong bài giảng bắt đầu ngay lập tức và phát mượt mà, bất kể thiết bị hay tốc độ mạng.",
           "Đồng thời, nền tảng phải bán khóa học và nhận thanh toán trực tuyến, và quyền truy cập khóa học phải đi theo thanh toán một cách chính xác, không cần đối soát thủ công.",
@@ -351,20 +406,60 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'airport-digital-twin',
-    title: 'Airport Digital Twin',
-    titleParts: ['Airport', 'Digital Twin'],
-    categories: ['digitalTwin'],
-    year: '2025',
-    // No brand color given — a deep aviation teal.
-    color: '#0d5c63',
-    tone: 'light',
-    images: placeholderShots('Airport Digital Twin', '#0d5c63', 4),
+    slug: "skincare-ecommerce",
+    title: "Skincare E-commerce",
+    titleParts: ["Skincare", "E-commerce"],
+    categories: ["eCommerce"],
+    year: "2026",
+    // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
+    color: "#1f1c17",
+    tone: "light",
+    textColor: "#c5a25d",
+    images: placeholderShots("Skincare", "#fefbf4", 4, "#1f1c17"),
     copy: {
       en: {
-        services: 'Full-stack Development',
+        services: "Design + Development",
         overview:
-          'A digital twin platform that models airports and tracks live ground aircraft and sensors, both indoors and outdoors.',
+          "An online skincare store where modern GSAP motion gives every product the unhurried feel of a boutique counter.",
+        challenge: [
+          "Skincare is bought on trust and texture, and a flat grid of product photos can’t convey either.",
+          "The store had to feel as considered as the products — calm, premium and tactile — while staying quick to browse, compare and check out.",
+        ],
+        approach: [
+          "Modern GSAP carries the experience: ScrollTrigger-driven reveals, product images that ease into place and smooth transitions between collections, all tuned to feel slow and deliberate rather than busy.",
+          "The espresso, antique-gold and cream palette frames each product like a boutique shelf, and the motion always steps aside for the essentials — clear prices, ingredients and a short path to checkout.",
+        ],
+      },
+      vi: {
+        services: "Thiết kế + Phát triển",
+        overview:
+          "Cửa hàng mỹ phẩm chăm sóc da trực tuyến, nơi chuyển động GSAP hiện đại mang lại cảm giác thong thả như tại quầy boutique cho từng sản phẩm.",
+        challenge: [
+          "Mỹ phẩm chăm sóc da được mua bằng sự tin tưởng và cảm nhận về kết cấu, điều mà một lưới ảnh sản phẩm phẳng không thể truyền tải.",
+          "Cửa hàng phải mang cảm giác chỉn chu như chính sản phẩm — tĩnh lặng, cao cấp và giàu xúc cảm — mà vẫn nhanh khi duyệt, so sánh và thanh toán.",
+        ],
+        approach: [
+          "GSAP hiện đại dẫn dắt trải nghiệm: nội dung hiện dần theo ScrollTrigger, ảnh sản phẩm nhẹ nhàng vào vị trí và chuyển cảnh mượt giữa các bộ sưu tập, tất cả được tinh chỉnh để chậm rãi và có chủ đích thay vì rối mắt.",
+          "Bảng màu nâu espresso, vàng cổ điển và kem đặt mỗi sản phẩm như trên kệ boutique, còn chuyển động luôn nhường chỗ cho điều cốt yếu — giá rõ ràng, thành phần và đường đi ngắn đến thanh toán.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "airport-digital-twin",
+    title: "Airport Digital Twin",
+    titleParts: ["Airport", "Digital Twin"],
+    categories: ["digitalTwin"],
+    year: "2025",
+    // No brand color given — a deep aviation teal.
+    color: "#0d5c63",
+    tone: "light",
+    images: placeholderShots("Airport Digital Twin", "#0d5c63", 4),
+    copy: {
+      en: {
+        services: "Full-stack Development",
+        overview:
+          "A digital twin platform that models airports and tracks live ground aircraft and sensors, both indoors and outdoors.",
         challenge: [
           "An airport produces a constant stream of data: aircraft moving across the airfield and sensors reporting from inside the terminals as well as outdoors.",
           "Operators needed all of it on one accurate model of each airport, updating in real time, instead of scattered across separate systems.",
@@ -375,9 +470,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Phát triển Full-stack',
+        services: "Phát triển Full-stack",
         overview:
-          'Nền tảng bản sao số mô hình hóa sân bay, theo dõi trực tiếp máy bay dưới mặt đất và cảm biến trong nhà lẫn ngoài trời.',
+          "Nền tảng bản sao số mô hình hóa sân bay, theo dõi trực tiếp máy bay dưới mặt đất và cảm biến trong nhà lẫn ngoài trời.",
         challenge: [
           "Một sân bay tạo ra luồng dữ liệu liên tục: máy bay di chuyển trên sân đỗ và cảm biến báo về từ bên trong nhà ga lẫn ngoài trời.",
           "Người vận hành cần tất cả dữ liệu đó trên một mô hình chính xác của từng sân bay, cập nhật theo thời gian thực, thay vì nằm rải rác trên nhiều hệ thống.",
@@ -390,19 +485,19 @@ const sources: ProjectSource[] = [
     },
   },
   {
-    slug: 'digital-twin',
-    title: 'Digital Twin',
-    categories: ['digitalTwin'],
-    year: '2025',
-    color: '#002244',
-    tone: 'light',
-    textColor: '#b3995d',
-    images: placeholderShots('Digital Twin', '#002244', 4, '#b3995d'),
+    slug: "digital-twin",
+    title: "Digital Twin",
+    categories: ["digitalTwin"],
+    year: "2025",
+    color: "#002244",
+    tone: "light",
+    textColor: "#b3995d",
+    images: placeholderShots("Digital Twin", "#002244", 4, "#b3995d"),
     copy: {
       en: {
-        services: 'Full-stack Development',
+        services: "Full-stack Development",
         overview:
-          'A 3D digital twin platform for the Vietnam Aerospace University, where students upload building models to explore.',
+          "A 3D digital twin platform for the Vietnam Aerospace University, where students upload building models to explore.",
         challenge: [
           "Students at the Vietnam Aerospace University create 3D models of buildings, but a full model is hard to study: there is too much on screen at once.",
           "Viewers needed to explore each building level by level, separate its architectural and structural systems, follow its construction phases, and see it under different weather conditions and basemaps.",
@@ -413,9 +508,9 @@ const sources: ProjectSource[] = [
         ],
       },
       vi: {
-        services: 'Phát triển Full-stack',
+        services: "Phát triển Full-stack",
         overview:
-          'Nền tảng bản sao số 3D cho Trường Đại học Hàng không Vũ trụ Việt Nam, nơi sinh viên tải lên mô hình công trình để khám phá.',
+          "Nền tảng bản sao số 3D cho Trường Đại học Hàng không Vũ trụ Việt Nam, nơi sinh viên tải lên mô hình công trình để khám phá.",
         challenge: [
           "Sinh viên Trường Đại học Hàng không Vũ trụ Việt Nam tạo mô hình 3D của các công trình, nhưng một mô hình đầy đủ rất khó nghiên cứu vì có quá nhiều thông tin trên màn hình cùng lúc.",
           "Người xem cần khám phá từng công trình theo từng tầng, tách riêng hệ kiến trúc và kết cấu, theo dõi các giai đoạn thi công, và xem công trình trong các điều kiện thời tiết và bản đồ nền khác nhau.",
@@ -429,7 +524,10 @@ const sources: ProjectSource[] = [
   },
 ];
 
-function localize({ copy, ...project }: ProjectSource, locale: Locale): Project {
+function localize(
+  { copy, ...project }: ProjectSource,
+  locale: Locale,
+): Project {
   return { ...project, ...copy[locale] };
 }
 
@@ -438,8 +536,11 @@ export const projectSlugs = sources.map((p) => p.slug);
 export const categoryIds = [...new Set(sources.flatMap((p) => p.categories))];
 
 /** A project's category names, e.g. "E-commerce, E-learning". */
-export function categoryLabel(project: Pick<Project, 'categories'>, labels: Record<CategoryId, string>) {
-  return project.categories.map((id) => labels[id]).join(', ');
+export function categoryLabel(
+  project: Pick<Project, "categories">,
+  labels: Record<CategoryId, string>,
+) {
+  return project.categories.map((id) => labels[id]).join(", ");
 }
 
 export function getProjects(locale: Locale) {
@@ -450,7 +551,10 @@ export function getProjects(locale: Locale) {
 export function getLatestProjects(locale: Locale, count: number) {
   return sources
     .map((source, index) => ({ source, index }))
-    .sort((a, b) => Number(b.source.year) - Number(a.source.year) || a.index - b.index)
+    .sort(
+      (a, b) =>
+        Number(b.source.year) - Number(a.source.year) || a.index - b.index,
+    )
     .slice(0, count)
     .map(({ source }) => localize(source, locale));
 }
@@ -475,33 +579,39 @@ export function getAdjacentProjects(slug: string, locale: Locale) {
  * Derived tokens are listed explicitly because custom properties resolve where they're declared:
  * overriding --color-fg-rgb alone wouldn't update --color-fg on descendants.
  */
-export function projectPalette(project: Pick<Project, 'color' | 'tone' | 'textColor'>): Record<string, string> {
+export function projectPalette(
+  project: Pick<Project, "color" | "tone" | "textColor">,
+): Record<string, string> {
   const fg = project.textColor
     ? hexToChannels(project.textColor)
-    : project.tone === 'light'
-      ? '245 245 245'
-      : '22 22 22';
+    : project.tone === "light"
+      ? "245 245 245"
+      : "22 22 22";
   // Text on filled buttons sits on `fg`, so it takes the page color when the brand has its own text color.
-  const inverseFg = project.textColor ? project.color : project.tone === 'light' ? '#161616' : '#f5f5f5';
+  const inverseFg = project.textColor
+    ? project.color
+    : project.tone === "light"
+      ? "#161616"
+      : "#f5f5f5";
   // A band that must stand apart from the page (the gallery): lighter on dark brand colors,
   // darker on light ones, so it reads as the same project but a distinct section.
-  const section = `color-mix(in srgb, ${project.color} 86%, ${project.tone === 'light' ? 'white' : 'black'})`;
+  const section = `color-mix(in srgb, ${project.color} 86%, ${project.tone === "light" ? "white" : "black"})`;
   return {
-    '--color-bg': project.color,
-    '--color-section': section,
-    '--color-fg-rgb': fg,
-    '--color-fg': `rgb(${fg})`,
-    '--color-muted': `rgb(${fg} / 0.6)`,
-    '--color-soft': `rgb(${fg} / 0.7)`,
-    '--color-subtle': `rgb(${fg} / 0.75)`,
-    '--color-lead': `rgb(${fg} / 0.9)`,
-    '--color-hover': `rgb(${fg} / 0.65)`,
-    '--color-border': `rgb(${fg} / 0.18)`,
-    '--color-border-faint': `rgb(${fg} / 0.1)`,
-    '--color-border-strong': `rgb(${fg} / 0.35)`,
-    '--color-inverse-bg': `rgb(${fg})`,
-    '--color-inverse-fg': inverseFg,
-    '--color-placeholder': `rgb(0 0 0 / 0.22)`,
+    "--color-bg": project.color,
+    "--color-section": section,
+    "--color-fg-rgb": fg,
+    "--color-fg": `rgb(${fg})`,
+    "--color-muted": `rgb(${fg} / 0.6)`,
+    "--color-soft": `rgb(${fg} / 0.7)`,
+    "--color-subtle": `rgb(${fg} / 0.75)`,
+    "--color-lead": `rgb(${fg} / 0.9)`,
+    "--color-hover": `rgb(${fg} / 0.65)`,
+    "--color-border": `rgb(${fg} / 0.18)`,
+    "--color-border-faint": `rgb(${fg} / 0.1)`,
+    "--color-border-strong": `rgb(${fg} / 0.35)`,
+    "--color-inverse-bg": `rgb(${fg})`,
+    "--color-inverse-fg": inverseFg,
+    "--color-placeholder": `rgb(0 0 0 / 0.22)`,
   };
 }
 
