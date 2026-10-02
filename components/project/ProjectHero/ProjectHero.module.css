@@ -71,6 +71,11 @@
   text-transform: uppercase;
 }
 
+/* "Archive" button under the services line; links back to the archive list. */
+.archive {
+  margin-top: 0.6rem;
+}
+
 .cover {
   position: relative;
   display: block;

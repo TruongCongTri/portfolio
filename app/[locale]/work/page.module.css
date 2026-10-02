@@ -4,3 +4,10 @@
   margin: 0 auto;
   padding: clamp(9rem, 14vw, 12rem) var(--gutter) clamp(6rem, 10vw, 9rem);
 }
+
+/* Same spacing as the home page's "More work" button */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(4rem, 8vw, 7rem);
+}

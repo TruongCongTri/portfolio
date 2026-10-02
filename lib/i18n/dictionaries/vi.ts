@@ -6,6 +6,7 @@ export const vi: Dictionary = {
     title: "Lập trình viên Full-stack",
     description: "Lập trình viên Full-stack xây dựng hệ thống quản trị doanh nghiệp, nền tảng học trực tuyến và bản sao số với Node.js, NestJS, Express.js, React và Next.js — từ tối ưu hiệu năng cơ sở dữ liệu, bảo mật RBAC/ABAC đến triển khai đã kiểm thử tải.",
     workDescription: "Dự án tiêu biểu: hệ thống ERP doanh nghiệp, nền tảng học trực tuyến có phát video và thanh toán online, bản sao số sân bay và khuôn viên trường trên ArcGIS, cùng website doanh nghiệp kể chuyện theo cuộn trang.",
+    archiveDescription: "Dự án lưu trữ: những dự án trước đây, trong đó có website thương mại điện tử mỹ phẩm.",
     keywords: [
       "Lập trình viên Full-stack",
       "Node.js",
@@ -138,6 +139,8 @@ export const vi: Dictionary = {
   },
   work: {
     title: 'Sản phẩm được tạo nên từ sự tận tâm',
+    archive: 'Lưu trữ',
+    archiveTitle: 'Những dự án trước đây, được lưu giữ',
     all: 'Tất cả',
     filterLabel: 'Lọc theo lĩnh vực',
     viewLabel: 'Chế độ xem',

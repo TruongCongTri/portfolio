@@ -96,6 +96,8 @@ type ProjectSource = {
   sectionColors?: SectionColors[];
   /** Live site, opened from the cover image and the "View live" button. */
   url?: string;
+  /** Older work: listed on /work/archive instead of /work and the home page; its detail page stays. */
+  isArchive?: boolean;
   /** Detail page hero image (public/projects/<slug>/hero.png); falls back to the cover. */
   hero?: ProjectImage;
   /** Display order; the first is the cover. */
@@ -410,6 +412,7 @@ const sources: ProjectSource[] = [
     title: "Skincare E-commerce",
     titleParts: ["Skincare", "E-commerce"],
     categories: ["eCommerce"],
+    isArchive: true,
     year: "2026",
     // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
     color: "#1f1c17",
@@ -543,13 +546,22 @@ export function categoryLabel(
   return project.categories.map((id) => labels[id]).join(", ");
 }
 
+const current = sources.filter((p) => !p.isArchive);
+const archived = sources.filter((p) => p.isArchive);
+
+/** Current work (/work, home page); archived projects are left out. */
 export function getProjects(locale: Locale) {
-  return sources.map((p) => localize(p, locale));
+  return current.map((p) => localize(p, locale));
 }
 
-/** The `count` most recent projects (by year; list order breaks ties, so newest-first within a year). */
+/** Archived work (/work/archive). */
+export function getArchivedProjects(locale: Locale) {
+  return archived.map((p) => localize(p, locale));
+}
+
+/** The `count` most recent current projects (by year; list order breaks ties, so newest-first within a year). */
 export function getLatestProjects(locale: Locale, count: number) {
-  return sources
+  return current
     .map((source, index) => ({ source, index }))
     .sort(
       (a, b) =>
@@ -564,13 +576,18 @@ export function getProject(slug: string, locale: Locale) {
   return source && localize(source, locale);
 }
 
-/** Previous/next project, wrapping around the ends of the list. */
+/**
+ * Previous/next project with the same status (current or archived), wrapping around the ends of
+ * that list. Null when the project is alone in its list: it would only lead back to itself.
+ */
 export function getAdjacentProjects(slug: string, locale: Locale) {
-  const index = sources.findIndex((p) => p.slug === slug);
-  const count = sources.length;
+  const list = sources.find((p) => p.slug === slug)?.isArchive ? archived : current;
+  const index = list.findIndex((p) => p.slug === slug);
+  const count = list.length;
+  if (index === -1 || count < 2) return null;
   return {
-    prev: localize(sources[(index - 1 + count) % count], locale),
-    next: localize(sources[(index + 1) % count], locale),
+    prev: localize(list[(index - 1 + count) % count], locale),
+    next: localize(list[(index + 1) % count], locale),
   };
 }
 

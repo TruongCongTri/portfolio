@@ -12,7 +12,13 @@ import styles from './WorkExplorer.module.css';
 
 type Filter = CategoryId | 'all';
 
-export default function WorkExplorer({ projects }: { projects: Project[] }) {
+type WorkExplorerProps = {
+  projects: Project[];
+  /** Page heading; defaults to the work page's. */
+  title?: string;
+};
+
+export default function WorkExplorer({ projects, title }: WorkExplorerProps) {
   const { t } = useI18n();
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [filter, setFilter] = useState<Filter>('all');
@@ -25,17 +31,20 @@ export default function WorkExplorer({ projects }: { projects: Project[] }) {
 
   const filterOptions = [
     { value: 'all' as const, label: t.work.all, count: projects.length },
-    ...categoryIds.map((id) => ({
-      value: id,
-      label: t.work.categories[id],
-      count: projects.filter((p) => p.categories.includes(id)).length,
-    })),
+    ...categoryIds
+      .map((id) => ({
+        value: id,
+        label: t.work.categories[id],
+        count: projects.filter((p) => p.categories.includes(id)).length,
+      }))
+      // Only categories this list has (e.g. the archive's few projects).
+      .filter((option) => option.count > 0),
   ];
 
   return (
     <>
       <SplitReveal as="h1" className={styles.title} on="load" delay={0.2}>
-        {t.work.title}
+        {title ?? t.work.title}
       </SplitReveal>
 
       <div className={styles.controls}>

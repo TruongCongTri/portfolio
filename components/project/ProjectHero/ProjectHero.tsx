@@ -7,6 +7,7 @@ import { blurPlaceholder, type Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import { isSeamlessNavigation } from '@/lib/transition';
 import LinkCursor from '@/components/ui/LinkCursor/LinkCursor';
+import PillButton from '@/components/ui/PillButton/PillButton';
 import styles from './ProjectHero.module.css';
 
 type ProjectHeroProps = {
@@ -25,7 +26,9 @@ type ProjectHeroProps = {
 
 export default function ProjectHero({ project, handoff = false, leading }: ProjectHeroProps) {
   const ref = useRef<HTMLElement>(null);
-  const t = useI18n().t.project;
+  const { t: dictionary, href } = useI18n();
+  const t = dictionary.project;
+  const archiveLabel = dictionary.work.archive;
   const hero = project.hero ?? project.images[0];
 
   useGSAP(
@@ -38,6 +41,7 @@ export default function ProjectHero({ project, handoff = false, leading }: Proje
         .timeline({ defaults: { ease: 'expo.out' }, delay: 0.1 })
         .from(chars, { yPercent: MASK_START, duration: 1.4, stagger: 0.035 })
         .from(`.${styles.serviceInner}`, { yPercent: 110, duration: 1.1, stagger: 0.08 }, 0.35)
+        .from(`.${styles.archive}`, { y: 24, autoAlpha: 0, duration: 1.1 }, 0.55)
         .from(`.${styles.cover}`, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut' }, 0.3)
         .from(`.${styles.coverImage}`, { scale: 1.25, yPercent: 8, duration: 2, ease: 'expo.out' }, 0.8);
     },
@@ -66,6 +70,15 @@ export default function ProjectHero({ project, handoff = false, leading }: Proje
           <span className={styles.mask}>
             <span className={`${styles.serviceInner} ${styles.value}`}>{project.services}</span>
           </span>
+          {/* Also shown in the hand-off copy, which must match this hero exactly. */}
+          {/* Styled like the home page's "About me" pill (minus its arrow); unmasked, so its magnetic drift isn't clipped. */}
+          {project.isArchive && (
+            <div className={styles.archive}>
+              <PillButton href={href('/work/archive')} magnetic>
+                {archiveLabel}
+              </PillButton>
+            </div>
+          )}
         </div>
       </div>
       {/* The follower cursor is always on the cover; it becomes a link once the project has a live url. */}

@@ -128,13 +128,14 @@ export function profilePageSchema(locale: Locale, t: Dictionary) {
   };
 }
 
-export function workCollectionSchema(locale: Locale, t: Dictionary, projects: Project[]) {
+/** /work, or with `archive` /work/archive. */
+export function workCollectionSchema(locale: Locale, t: Dictionary, projects: Project[], archive = false) {
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    url: absoluteUrl(localizePath(locale, '/work')),
-    name: t.work.title,
-    description: t.meta.workDescription,
+    url: absoluteUrl(localizePath(locale, archive ? '/work/archive' : '/work')),
+    name: archive ? t.work.archiveTitle : t.work.title,
+    description: archive ? t.meta.archiveDescription : t.meta.workDescription,
     inLanguage: locale,
     mainEntity: {
       '@type': 'ItemList',

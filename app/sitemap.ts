@@ -10,6 +10,7 @@ const pages: { path: string; priority: number; changeFrequency: MetadataRoute.Si
   { path: '/', priority: 1, changeFrequency: 'monthly' },
   { path: '/about', priority: 0.8, changeFrequency: 'yearly' },
   { path: '/work', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/work/archive', priority: 0.5, changeFrequency: 'yearly' },
   ...projectSlugs.map((slug) => ({ path: `/work/${slug}`, priority: 0.7, changeFrequency: 'yearly' as const })),
 ];
 

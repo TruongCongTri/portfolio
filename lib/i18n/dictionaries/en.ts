@@ -4,6 +4,7 @@ export const en = {
     title: "Full-stack Developer",
     description: "Full-stack developer building enterprise systems, e-learning and digital twin platforms with Node.js, NestJS, Express.js, React and Next.js — from database performance and RBAC/ABAC security to load-tested delivery.",
     workDescription: "Selected work: an enterprise ERP, a video e-learning platform with online payments, airport and campus digital twins on ArcGIS, and a scroll-driven company site.",
+    archiveDescription: "Archived work: earlier projects, including a skincare e-commerce storefront.",
     keywords: [
       "Full-stack developer",
       "Node.js",
@@ -136,6 +137,8 @@ export const en = {
   },
   work: {
     title: 'Products built with craft and care',
+    archive: 'Archive',
+    archiveTitle: 'Earlier work, kept on record',
     all: 'All',
     filterLabel: 'Filter by category',
     viewLabel: 'View mode',

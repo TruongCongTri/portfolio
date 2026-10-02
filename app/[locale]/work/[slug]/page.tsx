@@ -12,6 +12,7 @@ import ProjectOverview from '@/components/project/ProjectOverview/ProjectOvervie
 import HorizontalGallery from '@/components/project/HorizontalGallery/HorizontalGallery';
 import PrevProjectTrigger from '@/components/project/PrevProjectTrigger/PrevProjectTrigger';
 import NextProjectTrigger from '@/components/project/NextProjectTrigger/NextProjectTrigger';
+import Footer from '@/components/layout/Footer/Footer';
 
 // Known projects are prerendered; an unknown slug still runs the page, whose notFound() renders
 // this segment's not-found.tsx (with `false`, Next would answer with a generic 404 instead).
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/work/[sl
   });
 }
 
-// No footer: the page ends by handing off to the next project's hero; pulling up past the top brings the previous project's hero down over it.
+// No footer when there's a next project: the page ends by handing off to the next project's hero; pulling up past the top brings the previous project's hero down over it.
 export default async function ProjectPage({ params }: PageProps<'/[locale]/work/[slug]'>) {
   const { slug } = await params;
   const locale = await getLocale();
@@ -54,17 +55,22 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/work/
 
   const dictionary = getDictionary(locale);
   const t = dictionary.project;
-  const { prev, next } = getAdjacentProjects(slug, locale);
+  // Only projects with the same status (current / archived); none when this one is alone in its list.
+  const adjacent = getAdjacentProjects(slug, locale);
 
   return (
-    <main>
-      <JsonLd data={projectSchema(locale, dictionary, project)} />
-      <ProjectColors project={project} />
-      <PrevProjectTrigger project={prev} pageColor={project.color} />
-      <ProjectHero project={project} />
-      <ProjectOverview project={project} />
-      <HorizontalGallery images={project.images} title={t.galleryTitle} caption={t.galleryCaption} />
-      <NextProjectTrigger project={next} pageColor={project.color} />
-    </main>
+    <>
+      <main>
+        <JsonLd data={projectSchema(locale, dictionary, project)} />
+        <ProjectColors project={project} />
+        {adjacent && <PrevProjectTrigger project={adjacent.prev} pageColor={project.color} />}
+        <ProjectHero project={project} />
+        <ProjectOverview project={project} />
+        <HorizontalGallery images={project.images} title={t.galleryTitle} caption={t.galleryCaption} />
+        {adjacent && <NextProjectTrigger project={adjacent.next} pageColor={project.color} />}
+      </main>
+      {/* Nothing to hand off to, so the page ends like the others. */}
+      {!adjacent && <Footer />}
+    </>
   );
 }
