@@ -48,6 +48,18 @@
 
 .cell {
   display: block;
+  /* Clicks fall through to .rowLink beneath; only .live opts back in. */
+  pointer-events: none;
+}
+
+.rowLink {
+  position: absolute;
+  inset: 0;
+}
+
+.rowLink:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: -2px;
 }
 
 .title {
@@ -86,5 +98,14 @@
 }
 
 .year {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.9rem;
+}
+
+/* Wraps the live PillButton so it takes clicks back from the pass-through cell. */
+.live {
+  display: inline-flex;
+  pointer-events: auto;
 }

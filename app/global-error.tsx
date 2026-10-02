@@ -2,16 +2,13 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { Cormorant, Plus_Jakarta_Sans } from 'next/font/google';
 import { guardTheme } from '@/lib/theme';
+import { sans, serif } from './fonts/fonts';
 import { en } from '@/lib/i18n/dictionaries/en';
 import { vi } from '@/lib/i18n/dictionaries/vi';
 import ErrorScreen from '@/components/errors/ErrorScreen/ErrorScreen';
 import PillButton from '@/components/ui/PillButton/PillButton';
 import './globals.css';
-
-const sans = Plus_Jakarta_Sans({ variable: '--font-sans', subsets: ['latin', 'vietnamese'], weight: ['400', '500'] });
-const serif = Cormorant({ variable: '--font-serif', subsets: ['latin', 'vietnamese'], weight: ['300'] });
 
 type GlobalErrorProps = {
   error: Error & { digest?: string };

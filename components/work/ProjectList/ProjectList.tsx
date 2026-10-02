@@ -6,6 +6,7 @@ import { gsap, PLAY_ONCE, useGSAP } from '@/lib/gsap';
 import { categoryLabel, type Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import HoverPreview from '@/components/ui/HoverPreview/HoverPreview';
+import PillButton from '@/components/ui/PillButton/PillButton';
 import styles from './ProjectList.module.css';
 
 type ProjectListProps = {
@@ -46,22 +47,39 @@ export default function ProjectList({ projects, withPreview = true }: ProjectLis
       </div>
 
       {projects.map((project) => (
-        <Link
+        // The row can't be one <Link>: the live link inside would nest an <a> in an <a>. Instead an
+        // empty Link covers the row and the cells let clicks through to it, except for the live icon.
+        <div
           key={project.slug}
-          href={href(`/work/${project.slug}`)}
           className={`${styles.row} ${styles.grid}`}
           onMouseEnter={withPreview ? () => setPreview(project) : undefined}
           onMouseLeave={withPreview ? () => setPreview(null) : undefined}
         >
+          <Link href={href(`/work/${project.slug}`)} className={styles.rowLink} aria-label={project.title} />
           <span className={`${styles.cell} ${styles.title}`}>
             {/* Hover motion lives on the inner span: the cell itself is animated by GSAP. */}
             <span className={styles.titleText}>{project.title}</span>
           </span>
           <span className={styles.cell}>{categoryLabel(project, t.work.categories)}</span>
           <span className={`${styles.cell} ${styles.services}`}>{project.services}</span>
-          <span className={`${styles.cell} ${styles.year}`}>{project.year}</span>
+          <span className={`${styles.cell} ${styles.year}`}>
+            {project.url && (
+              <span className={styles.live}>
+                <PillButton
+                  href={project.url}
+                  external
+                  size="icon"
+                  arrow
+                  magnetic
+                  ariaLabel={`${t.project.visit}: ${project.title}`}
+                  title={t.project.viewLive}
+                />
+              </span>
+            )}
+            {project.year}
+          </span>
           <span className={styles.rule} />
-        </Link>
+        </div>
       ))}
     </div>
   );

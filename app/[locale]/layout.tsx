@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant, Plus_Jakarta_Sans } from 'next/font/google';
 import SiteChrome from '@/components/layout/SiteChrome/SiteChrome';
 import ThemeGuard from '@/components/preferences/ThemeGuard/ThemeGuard';
 import SmoothScroll from '@/components/providers/SmoothScroll/SmoothScroll';
@@ -12,21 +11,9 @@ import { getLocale } from '@/lib/i18n/server';
 import { themeInitScript } from '@/lib/theme';
 import { site } from '@/lib/site';
 import { siteUrl } from '@/lib/seo';
+import { sans, serif } from '../fonts/fonts';
 import '../globals.css';
 
-const sans = Plus_Jakarta_Sans({
-  variable: '--font-sans',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700'],
-});
-
-// High-contrast display serif for the marquee, statements and the logo name.
-const serif = Cormorant({
-  variable: '--font-serif',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500'],
-  style: ['normal', 'italic'],
-});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
