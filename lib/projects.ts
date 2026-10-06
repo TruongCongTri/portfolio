@@ -196,7 +196,7 @@ const sources: ProjectSource[] = [
     categories: ["portfolio"],
     year: "2026",
     url: undefined,
-    githubWeb: undefined,
+    githubWeb: "https://github.com/TruongCongTri/pizza-piatto-portfolio",
     githubAPI: undefined,
     // Navy and gold from the Pizza Piatto logo.
     color: "#151d32",
@@ -239,7 +239,7 @@ const sources: ProjectSource[] = [
     categories: ["portfolio"],
     year: "2026",
     url: undefined,
-    githubWeb: undefined,
+    githubWeb: "https://github.com/TruongCongTri/art-studio-portfolio",
     githubAPI: undefined,
     // The site's page-transition palette: green, orange and pink blocks take near-black type,
     // blue takes cream. Green stands in wherever a single color is needed (cards, hand-off).
@@ -385,7 +385,7 @@ const sources: ProjectSource[] = [
     year: "2025",
     url: undefined,
     githubWeb: undefined,
-    githubAPI: undefined,
+    githubAPI: "https://github.com/TruongCongTri/viet-dynamic-api",
     color: "#ba0027",
     tone: "light",
     hero: vietDynamicHero,
@@ -435,8 +435,8 @@ const sources: ProjectSource[] = [
     isArchive: true,
     year: "2026",
     url: undefined,
-    githubWeb: undefined,
-    githubAPI: undefined,
+    githubWeb: "https://github.com/TruongCongTri/cocoon-ecommerce-web",
+    githubAPI: "https://github.com/TruongCongTri/cocoon-ecommerce-api",
     // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
     color: "#1f1c17",
     tone: "light",

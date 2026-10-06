@@ -82,6 +82,7 @@ export const en = {
     message: 'Message',
     messagePlaceholder: 'What are you building?',
     submit: 'Send message',
+    sending: 'Sending...',
     errors: {
       nameRequired: 'Please tell me your name.',
       emailRequired: 'I’ll need an email to reply to.',
@@ -91,6 +92,7 @@ export const en = {
     successTitle: 'Thank you',
     successBody: 'Your email app should open with the message ready to send.',
     again: 'Write another',
+    openEmail: 'Or open in Gmail ',
   },
   transition: {
     loading: 'Loading',

@@ -68,7 +68,7 @@ export default function Header({ hidden }: { hidden: boolean }) {
             .filter((link) => link.path !== '/')
             .map((link) =>
               link.action === 'contact' ? (
-                <ContactTrigger key={link.key} className={styles.link}>
+                <ContactTrigger key={link.key} className={styles.link} pill={false}>
                   <Masked>{t.nav[link.key]}</Masked>
                 </ContactTrigger>
               ) : (

@@ -64,7 +64,7 @@ export default function SidePanel({ open, onClose }: SidePanelProps) {
         <nav className={styles.nav}>
           {navLinks.map((link) =>
             link.action === 'contact' ? (
-              <ContactTrigger key={link.key} className={styles.navLink} onBeforeOpen={onClose}>
+              <ContactTrigger key={link.key} pill={false} className={styles.navLink} onBeforeOpen={onClose}>
                 <span className={styles.dot} aria-hidden />
                 {t.nav[link.key]}
               </ContactTrigger>

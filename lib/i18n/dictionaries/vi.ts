@@ -84,6 +84,7 @@ export const vi: Dictionary = {
     message: 'Lời nhắn',
     messagePlaceholder: 'Bạn đang xây dựng điều gì?',
     submit: 'Gửi lời nhắn',
+    sending: 'Đang gửi...',
     errors: {
       nameRequired: 'Bạn cho tôi biết tên nhé.',
       emailRequired: 'Tôi cần email để phản hồi bạn.',
@@ -93,6 +94,7 @@ export const vi: Dictionary = {
     successTitle: 'Cảm ơn bạn',
     successBody: 'Ứng dụng email của bạn sẽ mở ra với lời nhắn đã soạn sẵn.',
     again: 'Viết lời nhắn khác',
+    openEmail: 'Hoặc mở trong Gmail ',
   },
   transition: {
     loading: 'Đang tải',

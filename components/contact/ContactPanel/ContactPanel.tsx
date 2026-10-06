@@ -4,10 +4,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useI18n } from "@/lib/i18n/client";
 import { sendContactMessage, type ContactMessage } from "@/lib/contact";
+import { getGmailComposeUrl } from "@/lib/contactLinks";
 import PillButton from "@/components/ui/PillButton/PillButton";
 import ContactField from "../ContactField/ContactField";
 import styles from "./ContactPanel.module.css";
-import { getGmailComposeUrl } from "@/lib/contactLinks";
 
 type Errors = Partial<Record<keyof ContactMessage, string>>;
 
@@ -30,10 +30,10 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
-  // 1. Add a ref to record when the user opened the form
   const openTimestamp = useRef<number | null>(null);
   const [hpValue, setHpValue] = useState("");
 
+  // Initial panel open/close animation
   useGSAP(
     () => {
       timeline.current = gsap
@@ -69,6 +69,22 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
     { scope: rootRef },
   );
 
+  // Animate the success state and PillButton when submission completes
+  useGSAP(
+    () => {
+      if (sent) {
+        gsap.from(`.${styles.success} > *`, {
+          yPercent: 40,
+          autoAlpha: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "expo.out",
+        });
+      }
+    },
+    { dependencies: [sent], scope: rootRef },
+  );
+
   useGSAP(
     () => {
       if (open) {
@@ -100,7 +116,6 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
     };
   }, [open, onClose]);
 
-  // Update openTimestamp whenever the panel opens
   useEffect(() => {
     if (open) {
       openTimestamp.current = Date.now();
@@ -155,7 +170,6 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
         name: values.name.trim(),
         email: values.email.trim(),
         message: values.message.trim(),
-        // Send the honeypot and duration to the server
         hp: hpValue,
         clientTime: elapsed,
       });
@@ -216,9 +230,16 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
         {sent ? (
           <div className={styles.success}>
             <p className={styles.intro}>{t.successBody}</p>
-            <PillButton onClick={reset} arrow>
-              {t.again}
-            </PillButton>
+            <div className={styles.actions}>
+              <PillButton
+                type="button"
+                onClick={reset}
+                arrow
+                magnetic
+              >
+                {t.again}
+              </PillButton>
+            </div>
           </div>
         ) : (
           <>
@@ -260,7 +281,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                 onChange={update("message")}
                 multiline
               />
-              {/* Hidden honeypot field - invisible to human users */}
+
               <div
                 style={{
                   position: "absolute",
@@ -282,6 +303,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                   onChange={(e) => setHpValue(e.target.value)}
                 />
               </div>
+
               {serverError && (
                 <p className={styles.serverError} role="alert">
                   {serverError}
@@ -290,17 +312,16 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
 
               <div className={`${styles.actions} ${styles.reveal}`}>
                 <PillButton type="submit" arrow magnetic>
-                  {isSubmitting ? "Sending..." : t.submit}
+                  {isSubmitting ? t.sending : t.submit}
                 </PillButton>
 
-                {/* Direct Gmail compose option */}
                 <a
                   href={getGmailComposeUrl(values)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.gmailFallback}
                 >
-                  Or open in Gmail ↗
+                  {t.openEmail} ↗
                 </a>
               </div>
             </form>

@@ -1,0 +1,101 @@
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  font-family: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: color 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+              border-color 0.4s ease;
+}
+
+/* Fill that wipes up from the bottom on hover */
+.pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pill:hover::before {
+  transform: translateY(0);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  line-height: 1;
+}
+
+/* Sizing options matching PillButton */
+.sm {
+  height: 2.25rem;
+  padding: 0 0.9rem;
+  font-size: 0.9rem;
+}
+
+.lg {
+  height: 3.5rem;
+  padding: 0 3rem;
+  font-size: 1.15rem;
+}
+
+.icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* Variants */
+.outline {
+  border: 1px solid var(--color-fg, currentColor);
+  color: var(--color-fg, inherit);
+}
+
+.outline::before {
+  background: var(--color-fg, #000);
+}
+
+.outline:hover {
+  color: var(--color-bg, #fff);
+}
+
+.solid {
+  background: var(--color-inverse-bg, #000);
+  color: var(--color-inverse-fg, #fff);
+  border: 1px solid var(--color-inverse-bg, #000);
+}
+
+.solid::before {
+  background: var(--color-bg, #fff);
+}
+
+.solid:hover {
+  color: var(--color-fg, #000);
+}
+
+/* Trailing arrow matching PillButton's diagonal kick */
+.arrow {
+  display: inline-block;
+  font-size: 0.85em;
+  transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pill:hover .arrow {
+  transform: translate(2px, -2px);
+}

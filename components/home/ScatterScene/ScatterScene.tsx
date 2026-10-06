@@ -6,7 +6,8 @@ import { gsap, SplitText, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
 import { blurPlaceholder, type Project } from '@/lib/projects';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
-import getInTouch from '../../../public/get-in-touch.webp';
+import getInTouch from '../../../public/get-in-touch.jpg';
+// import getInTouch from '../../../public/Renaissance_Fresco-Creation_of_the_Cat.png';
 import styles from './ScatterScene.module.css';
 
 /** Where each card sits (percent of the stage) and the direction it flies when scattered. */
@@ -102,7 +103,7 @@ export default function ScatterScene({ projects }: { projects: Project[] }) {
         <span className={styles.ctaMask}>
           <span className={styles.ctaInner}>
             {t.contact.ctaLine2}{' '}
-            <ContactTrigger className={styles.ctaLink}>{t.contact.ctaLink}</ContactTrigger>
+            <ContactTrigger className={styles.ctaLink} pill={false}>{t.contact.ctaLink}</ContactTrigger>
           </span>
         </span>
       </h2>
