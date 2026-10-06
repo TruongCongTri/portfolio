@@ -1,25 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect, useId, useRef, useState } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap';
-import { useI18n } from '@/lib/i18n/client';
-import { sendContactMessage, type ContactMessage } from '@/lib/contact';
-import PillButton from '@/components/ui/PillButton/PillButton';
-import ContactField from '../ContactField/ContactField';
-import styles from './ContactPanel.module.css';
+import { useEffect, useId, useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useI18n } from "@/lib/i18n/client";
+import { sendContactMessage, type ContactMessage } from "@/lib/contact";
+import PillButton from "@/components/ui/PillButton/PillButton";
+import ContactField from "../ContactField/ContactField";
+import styles from "./ContactPanel.module.css";
+import { getGmailComposeUrl } from "@/lib/contactLinks";
 
 type Errors = Partial<Record<keyof ContactMessage, string>>;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const EMPTY: ContactMessage = { name: '', email: '', message: '' };
-
-/** Client-side helper for generating Gmail web compose links */
-function getGmailComposeUrl({ name, message }: { name: string; message: string }) {
-  const receiver = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'your_email@gmail.com';
-  const subject = encodeURIComponent(`Portfolio Inquiry - ${name || 'Contact'}`);
-  const body = encodeURIComponent(message || '');
-  return `https://mail.google.com/mail/?view=cm&fs=1&to=${receiver}&su=${subject}&body=${body}`;
-}
+const EMPTY: ContactMessage = { name: "", email: "", message: "" };
 
 type ContactPanelProps = { open: boolean; onClose: () => void };
 
@@ -30,27 +23,48 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const timeline = useRef<gsap.core.Timeline>(null);
-  
+
   const [values, setValues] = useState<ContactMessage>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
+  // 1. Add a ref to record when the user opened the form
+  const openTimestamp = useRef<number | null>(null);
+  const [hpValue, setHpValue] = useState("");
+
   useGSAP(
     () => {
       timeline.current = gsap
         .timeline({
           paused: true,
-          defaults: { ease: 'expo.out' },
-          onComplete: () => formRef.current?.querySelector<HTMLElement>('input, textarea')?.focus(),
+          defaults: { ease: "expo.out" },
+          onComplete: () =>
+            formRef.current
+              ?.querySelector<HTMLElement>("input, textarea")
+              ?.focus(),
         })
         .fromTo(
           `.${styles.panel}`,
-          { autoAlpha: 0, clipPath: 'inset(100% 0% 0% 0% round 1.25rem)', y: 40 },
-          { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0% round 1.25rem)', y: 0, duration: 0.9, ease: 'expo.inOut' },
+          {
+            autoAlpha: 0,
+            clipPath: "inset(100% 0% 0% 0% round 1.25rem)",
+            y: 40,
+          },
+          {
+            autoAlpha: 1,
+            clipPath: "inset(0% 0% 0% 0% round 1.25rem)",
+            y: 0,
+            duration: 0.9,
+            ease: "expo.inOut",
+          },
         )
-        .from(`.${styles.reveal}`, { yPercent: 40, autoAlpha: 0, duration: 0.8, stagger: 0.06 }, '-=0.35');
+        .from(
+          `.${styles.reveal}`,
+          { yPercent: 40, autoAlpha: 0, duration: 0.8, stagger: 0.06 },
+          "-=0.35",
+        );
     },
     { scope: rootRef },
   );
@@ -68,25 +82,37 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     const onPointer = (e: PointerEvent) => {
       const target = e.target as Element;
-      if (rootRef.current?.contains(target) || target.closest('[data-contact-trigger]')) return;
+      if (
+        rootRef.current?.contains(target) ||
+        target.closest("[data-contact-trigger]")
+      )
+        return;
       onClose();
     };
-    window.addEventListener('keydown', onKey);
-    document.addEventListener('pointerdown', onPointer);
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
     return () => {
-      window.removeEventListener('keydown', onKey);
-      document.removeEventListener('pointerdown', onPointer);
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
     };
   }, [open, onClose]);
+
+  // Update openTimestamp whenever the panel opens
+  useEffect(() => {
+    if (open) {
+      openTimestamp.current = Date.now();
+    }
+  }, [open]);
 
   const validate = (v: ContactMessage): Errors => {
     const next: Errors = {};
     if (!v.name.trim()) next.name = t.errors.nameRequired;
     if (!v.email.trim()) next.email = t.errors.emailRequired;
-    else if (!EMAIL_PATTERN.test(v.email.trim())) next.email = t.errors.emailInvalid;
+    else if (!EMAIL_PATTERN.test(v.email.trim()))
+      next.email = t.errors.emailInvalid;
     if (!v.message.trim()) next.message = t.errors.messageRequired;
     return next;
   };
@@ -99,29 +125,48 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
     const found = validate(values);
     setErrors(found);
     const invalid = Object.keys(found);
-    
+
     if (invalid.length) {
-      const fields = invalid.map((n) => rootRef.current?.querySelector(`[data-field="${n}"]`)).filter(Boolean);
-      gsap.fromTo(fields, { x: 0 }, { keyframes: { x: [-8, 7, -5, 3, 0] }, duration: 0.45, ease: 'power1.out' });
-      formRef.current?.querySelector<HTMLElement>(`[name="${invalid[0]}"]`)?.focus();
+      const fields = invalid
+        .map((n) => rootRef.current?.querySelector(`[data-field="${n}"]`))
+        .filter(Boolean);
+      gsap.fromTo(
+        fields,
+        { x: 0 },
+        {
+          keyframes: { x: [-8, 7, -5, 3, 0] },
+          duration: 0.45,
+          ease: "power1.out",
+        },
+      );
+      formRef.current
+        ?.querySelector<HTMLElement>(`[name="${invalid[0]}"]`)
+        ?.focus();
       return;
     }
 
     setIsSubmitting(true);
     try {
+      const elapsed = openTimestamp.current
+        ? Date.now() - openTimestamp.current
+        : 0;
+
       const res = await sendContactMessage({
         name: values.name.trim(),
         email: values.email.trim(),
         message: values.message.trim(),
+        // Send the honeypot and duration to the server
+        hp: hpValue,
+        clientTime: elapsed,
       });
 
       if (res.success) {
         setSent(true);
       } else {
-        setServerError(res.error || 'Failed to send message.');
+        setServerError(res.error || "Failed to send message.");
       }
     } catch {
-      setServerError('An unexpected error occurred. Please try again.');
+      setServerError("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -138,6 +183,8 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
     setErrors({});
     setServerError(null);
     setSent(false);
+    setHpValue("");
+    openTimestamp.current = Date.now();
   };
 
   return (
@@ -154,7 +201,12 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
           <h2 id={titleId} className={styles.title}>
             {sent ? t.successTitle : t.title}
           </h2>
-          <button type="button" className={styles.close} onClick={onClose} aria-label={t.close}>
+          <button
+            type="button"
+            className={styles.close}
+            onClick={onClose}
+            aria-label={t.close}
+          >
             <svg viewBox="0 0 24 24" aria-hidden>
               <path d="M6 6l12 12M18 6 6 18" />
             </svg>
@@ -171,7 +223,12 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
         ) : (
           <>
             <p className={`${styles.intro} ${styles.reveal}`}>{t.intro}</p>
-            <form ref={formRef} className={styles.form} onSubmit={onSubmit} noValidate>
+            <form
+              ref={formRef}
+              className={styles.form}
+              onSubmit={onSubmit}
+              noValidate
+            >
               <ContactField
                 className={styles.reveal}
                 name="name"
@@ -179,7 +236,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                 placeholder={t.namePlaceholder}
                 value={values.name}
                 error={errors.name}
-                onChange={update('name')}
+                onChange={update("name")}
                 autoComplete="name"
               />
               <ContactField
@@ -190,7 +247,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                 placeholder={t.emailPlaceholder}
                 value={values.email}
                 error={errors.email}
-                onChange={update('email')}
+                onChange={update("email")}
                 autoComplete="email"
               />
               <ContactField
@@ -200,10 +257,31 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                 placeholder={t.messagePlaceholder}
                 value={values.message}
                 error={errors.message}
-                onChange={update('message')}
+                onChange={update("message")}
                 multiline
               />
-
+              {/* Hidden honeypot field - invisible to human users */}
+              <div
+                style={{
+                  position: "absolute",
+                  opacity: 0,
+                  zIndex: -1,
+                  pointerEvents: "none",
+                  height: 0,
+                  overflow: "hidden",
+                }}
+              >
+                <label htmlFor="hp_company">Company</label>
+                <input
+                  id="hp_company"
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={hpValue}
+                  onChange={(e) => setHpValue(e.target.value)}
+                />
+              </div>
               {serverError && (
                 <p className={styles.serverError} role="alert">
                   {serverError}
@@ -212,7 +290,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
 
               <div className={`${styles.actions} ${styles.reveal}`}>
                 <PillButton type="submit" arrow magnetic>
-                  {isSubmitting ? 'Sending...' : t.submit}
+                  {isSubmitting ? "Sending..." : t.submit}
                 </PillButton>
 
                 {/* Direct Gmail compose option */}
