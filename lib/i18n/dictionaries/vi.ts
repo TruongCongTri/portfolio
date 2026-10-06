@@ -152,6 +152,8 @@ export const vi: Dictionary = {
       eLearning: 'Học trực tuyến',
       digitalTwin: 'Bản sao số',
       eCommerce: 'Thương mại điện tử',
+      ai: 'Trí tuệ nhân tạo',
+      other: 'Khác',
     },
   },
   project: {

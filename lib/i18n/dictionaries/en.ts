@@ -150,7 +150,8 @@ export const en = {
       eLearning: 'E-learning',
       digitalTwin: 'Digital Twin',
       eCommerce: 'E-commerce',
-      ai: 'AI',
+      ai: 'Artificial Intelligence',
+      other: 'Other',
     },
   },
   project: {

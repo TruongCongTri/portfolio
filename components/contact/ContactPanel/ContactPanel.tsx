@@ -13,9 +13,16 @@ type Errors = Partial<Record<keyof ContactMessage, string>>;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const EMPTY: ContactMessage = { name: '', email: '', message: '' };
 
+/** Client-side helper for generating Gmail web compose links */
+function getGmailComposeUrl({ name, message }: { name: string; message: string }) {
+  const receiver = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'your_email@gmail.com';
+  const subject = encodeURIComponent(`Portfolio Inquiry - ${name || 'Contact'}`);
+  const body = encodeURIComponent(message || '');
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${receiver}&su=${subject}&body=${body}`;
+}
+
 type ContactPanelProps = { open: boolean; onClose: () => void };
 
-/** Contact form docked to the bottom-right corner. */
 export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   const { t: dict } = useI18n();
   const t = dict.contactPanel;
@@ -23,18 +30,19 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const timeline = useRef<gsap.core.Timeline>(null);
+  
   const [values, setValues] = useState<ContactMessage>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
-  // Open/close: the panel wipes up from its bottom edge, then its contents rise in.
   useGSAP(
     () => {
       timeline.current = gsap
         .timeline({
           paused: true,
           defaults: { ease: 'expo.out' },
-          // Focus the first field once everything has risen in (hidden fields can't take focus).
           onComplete: () => formRef.current?.querySelector<HTMLElement>('input, textarea')?.focus(),
         })
         .fromTo(
@@ -58,7 +66,6 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
     { dependencies: [open] },
   );
 
-  // Escape and click-outside close it.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -86,33 +93,50 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setServerError(null);
     const found = validate(values);
     setErrors(found);
     const invalid = Object.keys(found);
+    
     if (invalid.length) {
-      // Nudge each invalid field so the warnings are noticed.
       const fields = invalid.map((n) => rootRef.current?.querySelector(`[data-field="${n}"]`)).filter(Boolean);
       gsap.fromTo(fields, { x: 0 }, { keyframes: { x: [-8, 7, -5, 3, 0] }, duration: 0.45, ease: 'power1.out' });
       formRef.current?.querySelector<HTMLElement>(`[name="${invalid[0]}"]`)?.focus();
       return;
     }
-    await sendContactMessage({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      message: values.message.trim(),
-    });
-    setSent(true);
+
+    setIsSubmitting(true);
+    try {
+      const res = await sendContactMessage({
+        name: values.name.trim(),
+        email: values.email.trim(),
+        message: values.message.trim(),
+      });
+
+      if (res.success) {
+        setSent(true);
+      } else {
+        setServerError(res.error || 'Failed to send message.');
+      }
+    } catch {
+      setServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const update = (name: keyof ContactMessage) => (value: string) => {
     setValues((v) => ({ ...v, [name]: value }));
-    // Clear a field's warning as soon as it's being fixed.
     if (errors[name]) setErrors((e) => ({ ...e, [name]: undefined }));
+    if (serverError) setServerError(null);
   };
 
   const reset = () => {
     setValues(EMPTY);
     setErrors({});
+    setServerError(null);
     setSent(false);
   };
 
@@ -179,10 +203,27 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
                 onChange={update('message')}
                 multiline
               />
+
+              {serverError && (
+                <p className={styles.serverError} role="alert">
+                  {serverError}
+                </p>
+              )}
+
               <div className={`${styles.actions} ${styles.reveal}`}>
                 <PillButton type="submit" arrow magnetic>
-                  {t.submit}
+                  {isSubmitting ? 'Sending...' : t.submit}
                 </PillButton>
+
+                {/* Direct Gmail compose option */}
+                <a
+                  href={getGmailComposeUrl(values)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.gmailFallback}
+                >
+                  Or open in Gmail ↗
+                </a>
               </div>
             </form>
           </>

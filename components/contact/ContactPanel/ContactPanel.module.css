@@ -82,7 +82,12 @@
 }
 
 .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding-top: 0.4rem;
+  margin-top: 1rem;
 }
 
 .success {
@@ -94,4 +99,22 @@
 /* Target for the staggered entrance (GSAP) */
 .reveal {
   will-change: transform;
+}
+
+.gmailFallback {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+
+.gmailFallback:hover {
+  color: var(--color-fg);
+}
+
+.serverError {
+  font-size: 0.85rem;
+  color: #ff4d4f;
+  margin-top: 0.5rem;
 }
