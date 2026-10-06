@@ -2,13 +2,14 @@ import type { Project } from "@/lib/projects";
 import { getT } from "@/lib/i18n/server";
 import MetaBar from "@/components/ui/MetaBar/MetaBar";
 import PillButton from "@/components/ui/PillButton/PillButton";
+import GitButton from "@/components/ui/GithubButton/GitButton";
 import Reveal from "@/components/ui/Reveal/Reveal";
 import SplitReveal from "@/components/ui/SplitReveal/SplitReveal";
 import styles from "./ProjectOverview.module.css";
 
 /**
  * Sits right under the hero cover and spans the same width: a labelled rule, then the headline
- * (+ live link) on the left and Challenge / Approach on the right.
+ * (+ live link and repo links) on the left and Challenge / Approach on the right.
  */
 export default async function ProjectOverview({
   project,
@@ -16,6 +17,7 @@ export default async function ProjectOverview({
   project: Project;
 }) {
   const t = (await getT()).project;
+  const hasGit = Boolean(project.githubWeb || project.githubAPI);
 
   return (
     <section className={styles.overview} data-project-section>
@@ -31,14 +33,48 @@ export default async function ProjectOverview({
               {project.overview}
             </SplitReveal>
           </div>
-          {project.url && (
-            <Reveal>
-              <div>
-                <PillButton href={project.url} external arrow magnetic>
-                  {t.viewLive}
-                </PillButton>
-              </div>
-            </Reveal>
+
+          {(project.url || hasGit) && (
+            <div className={styles.actions}>
+              {/* Line 1: Live Site Link */}
+              {project.url && (
+                <Reveal>
+                  <div>
+                    <PillButton href={project.url} external arrow magnetic>
+                      {t.viewLive}
+                    </PillButton>
+                  </div>
+                </Reveal>
+              )}
+
+              {/* Line 2: GitHub Repository Links */}
+              {hasGit && (
+                <Reveal>
+                  <div className={styles.gitRow}>
+                    {project.githubWeb && (
+                      <GitButton
+                        href={project.githubWeb}
+                        variant="outline"
+                        magnetic
+                        ariaLabel={`Web source code: ${project.title}`}
+                      >
+                        Web
+                      </GitButton>
+                    )}
+                    {project.githubAPI && (
+                      <GitButton
+                        href={project.githubAPI}
+                        variant="outline"
+                        magnetic
+                        ariaLabel={`API source code: ${project.title}`}
+                      >
+                        API
+                      </GitButton>
+                    )}
+                  </div>
+                </Reveal>
+              )}
+            </div>
           )}
         </div>
 
@@ -53,6 +89,7 @@ export default async function ProjectOverview({
               </SplitReveal>
             ))}
           </div>
+
           <div className={styles.block}>
             <SplitReveal as="h3" className={styles.heading} split="words">
               {t.approach}
@@ -63,6 +100,7 @@ export default async function ProjectOverview({
               </SplitReveal>
             ))}
           </div>
+
           {/* Disclaimer block */}
           {project.disclaimer && (
             <div className={styles.block}>

@@ -1,0 +1,148 @@
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+              border-color 0.4s ease;
+}
+
+/* Fill that wipes up from the bottom on hover */
+.pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pill:hover::before {
+  transform: translateY(0);
+}
+
+/* Expands full width to push text left and icon right */
+.label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  gap: 0.45rem;
+  line-height: 1;
+}
+
+/* Fixed uniform width & height for default text buttons */
+.sm {
+  width: var(--git-btn-width, 5.5rem);
+  height: 2.25rem;
+  padding: 0 0.85rem;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* Fixed uniform width & height for large text buttons */
+.lg {
+  width: var(--git-btn-width-lg, 10.5rem);
+  height: 3.5rem;
+  padding: 0 1.6rem;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+/* Circular icon-only mode overrides width to stay 1:1 square */
+.icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Center icon when no text is present */
+.icon .label {
+  justify-content: center;
+  width: auto;
+}
+
+/* Text wrapper: occupies left space and manages truncation */
+.textWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.outline {
+  border: 1px solid var(--color-fg, currentColor);
+  color: var(--color-fg, inherit);
+}
+
+.outline::before {
+  background: var(--color-fg, #000);
+}
+
+.outline:hover {
+  color: var(--color-bg, #fff);
+}
+
+.solid {
+  background: var(--color-inverse-bg, #000);
+  color: var(--color-inverse-fg, #fff);
+  border: 1px solid var(--color-inverse-bg, #000);
+}
+
+.solid::before {
+  background: var(--color-bg, #fff);
+}
+
+.solid:hover {
+  color: var(--color-fg, #000);
+}
+
+.count {
+  align-self: flex-start;
+  font-size: 0.65em;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* GitHub mark pinned to the right edge with flex-shrink: 0 */
+.gitIcon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentColor;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.icon .gitIcon {
+  margin-left: 0;
+}
+
+.pill:hover .gitIcon {
+  transform: translate(2px, -2px) scale(1.08);
+}

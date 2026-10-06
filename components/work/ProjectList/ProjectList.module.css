@@ -6,14 +6,15 @@
 .grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.6fr 1fr 0.5fr;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.75fr) minmax(0, 1.2fr);
   align-items: center;
-  column-gap: 1.5rem;
+  column-gap: 1.25rem;
 }
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: 1.4fr 1fr 1fr 0.4fr;
+    grid-template-columns: minmax(0, 2.4fr) minmax(0, 0.6fr) minmax(0, 1.4fr) 12.5rem;
+    column-gap: 1.5rem;
   }
 }
 
@@ -44,11 +45,13 @@
   padding: clamp(1.6rem, 3.4vw, 3rem) 0;
   font-size: 1.05rem;
   font-weight: 500;
+  transition: opacity 0.4s;
 }
 
 .cell {
   display: block;
-  /* Clicks fall through to .rowLink beneath; only .live opts back in. */
+  min-width: 0;
+  text-align: left;
   pointer-events: none;
 }
 
@@ -66,29 +69,40 @@
   font-size: clamp(2rem, 4vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.05;
 }
 
 .titleText {
   display: inline-block;
   transition: transform 0.6s var(--ease-out-expo);
+  overflow-wrap: break-word;
 }
 
 .row:hover .titleText {
   transform: translateX(1rem);
 }
 
-/* Dim the other rows while one is hovered */
-.list:has(.row:hover) .row:not(:hover) {
-  opacity: 0.35;
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+  font-size: 0.95rem;
 }
 
-.row {
-  transition: opacity 0.4s;
+.categoryLine {
+  display: block;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .services {
   display: none;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--color-muted);
+  overflow-wrap: break-word;
 }
 
 @media (min-width: 900px) {
@@ -97,15 +111,58 @@
   }
 }
 
+/* Right-aligned actions & year */
 .year {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.9rem;
+  gap: 1.1rem;
+  text-align: right;
+  margin-left: auto;
+  width: 100%;
 }
 
-/* Wraps the live PillButton so it takes clicks back from the pass-through cell. */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  pointer-events: auto;
+}
+
+.gitCol {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  pointer-events: auto;
+}
+
+.gitCol :global(.pill) {
+  height: 1.35rem;
+  padding: 0 0.6rem;
+  font-size: 0.72rem;
+}
+
 .live {
   display: inline-flex;
+  flex-shrink: 0;
   pointer-events: auto;
+}
+
+/* Reserved space matching size="icon" PillButton (2.25rem x 2.25rem) */
+.livePlaceholder {
+  display: inline-block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  pointer-events: none; /* Allows row link clicks to pass through */
+}
+
+.yearText {
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* Dim remaining rows while one is hovered */
+.list:has(.row:hover) .row:not(:hover) {
+  opacity: 0.35;
 }

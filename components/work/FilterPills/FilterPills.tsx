@@ -5,19 +5,39 @@ import { gsap, useGSAP } from '@/lib/gsap';
 import { useMagnetic } from '@/lib/useMagnetic';
 import styles from './FilterPills.module.css';
 
+export type FilterOption<T extends string> = {
+  value: T;
+  label: string;
+  count?: number;
+  icon?: React.ReactNode;
+  arrow?: boolean;
+};
+
 type FilterPillsProps<T extends string> = {
-  options: { value: T; label: string; count?: number }[];
+  options: FilterOption<T>[];
   value: T;
   onChange: (value: T) => void;
   ariaLabel: string;
 };
 
-export default function FilterPills<T extends string>({ options, value, onChange, ariaLabel }: FilterPillsProps<T>) {
+export default function FilterPills<T extends string>({
+  options,
+  value,
+  onChange,
+  ariaLabel,
+}: FilterPillsProps<T>) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      gsap.from(`.${styles.pill}`, { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.06, delay: 0.5 });
+      gsap.from(`.${styles.pill}`, {
+        y: 30,
+        autoAlpha: 0,
+        duration: 1,
+        ease: 'expo.out',
+        stagger: 0.06,
+        delay: 0.5,
+      });
     },
     { scope: ref },
   );
@@ -35,8 +55,20 @@ export default function FilterPills<T extends string>({ options, value, onChange
           onClick={() => onChange(option.value)}
         >
           <span className={styles.content}>
-            {option.label}
-            {option.count !== undefined && <sup className={styles.count}>{option.count}</sup>}
+            {option.icon && (
+              <span className={styles.icon} aria-hidden>
+                {option.icon}
+              </span>
+            )}
+            <span>{option.label}</span>
+            {option.count !== undefined && (
+              <sup className={styles.count}>{option.count}</sup>
+            )}
+            {option.arrow && (
+              <span className={styles.arrow} aria-hidden>
+                ↗
+              </span>
+            )}
           </span>
         </button>
       ))}

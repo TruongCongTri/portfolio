@@ -96,6 +96,10 @@ type ProjectSource = {
   sectionColors?: SectionColors[];
   /** Live site, opened from the cover image and the "View live" button. */
   url?: string;
+  /** GitHub repository for the frontend / client application. */
+  githubWeb?: string;
+  /** GitHub repository for the backend API / service. */
+  githubAPI?: string;
   /** Older work: listed on /work/archive instead of /work and the home page; its detail page stays. */
   isArchive?: boolean;
   /** Detail page hero image (public/projects/<slug>/hero.png); falls back to the cover. */
@@ -134,6 +138,8 @@ const sources: ProjectSource[] = [
     categories: ["eCommerce"],
     year: "2026",
     url: "https://thanhhoang-ticket-booking-demo.vercel.app/",
+    githubWeb: "https://github.com/TruongCongTri/thanhhoang-ticket-booking-demo",
+    githubAPI: "https://github.com/TruongCongTri/thanhhoang-ticket-booking-api",
     color: "#0a6cc2",
     tone: "light",
     textColor: "#f5a830",
@@ -189,6 +195,9 @@ const sources: ProjectSource[] = [
     titleParts: ["Pizza", "Piatto"],
     categories: ["portfolio"],
     year: "2026",
+    url: undefined,
+    githubWeb: undefined,
+    githubAPI: undefined,
     // Navy and gold from the Pizza Piatto logo.
     color: "#151d32",
     tone: "light",
@@ -229,6 +238,9 @@ const sources: ProjectSource[] = [
     titleParts: ["Studio", "Portfolio"],
     categories: ["portfolio"],
     year: "2026",
+    url: undefined,
+    githubWeb: undefined,
+    githubAPI: undefined,
     // The site's page-transition palette: green, orange and pink blocks take near-black type,
     // blue takes cream. Green stands in wherever a single color is needed (cards, hand-off).
     color: "#5ea85e",
@@ -277,6 +289,8 @@ const sources: ProjectSource[] = [
     categories: ["portfolio"],
     year: "2026",
     url: "https://chinhnam-web.onrender.com/",
+    githubWeb: "https://github.com/TruongCongTri/erp-portfolio",
+    githubAPI: undefined,
     color: "#0e58cf",
     tone: "light",
     hero: chinhNamHero,
@@ -316,6 +330,9 @@ const sources: ProjectSource[] = [
     titleParts: ["Chinh Nam", "ERP"],
     categories: ["enterprise"],
     year: "2026",
+    url: undefined,
+    githubWeb: "https://github.com/TruongCongTri/erp-web",
+    githubAPI: "https://github.com/TruongCongTri/erp-api",
     // No brand color given — a neutral slate to set the internal tool apart from the public site.
     color: "#2b313c",
     tone: "light",
@@ -366,6 +383,9 @@ const sources: ProjectSource[] = [
     titleParts: ["VietDynamic", "E-learning"],
     categories: ["eCommerce", "eLearning"],
     year: "2025",
+    url: undefined,
+    githubWeb: undefined,
+    githubAPI: undefined,
     color: "#ba0027",
     tone: "light",
     hero: vietDynamicHero,
@@ -414,6 +434,9 @@ const sources: ProjectSource[] = [
     categories: ["eCommerce"],
     isArchive: true,
     year: "2026",
+    url: undefined,
+    githubWeb: undefined,
+    githubAPI: undefined,
     // Brand palette: deep espresso page, antique-gold text, cream for the product shots.
     color: "#1f1c17",
     tone: "light",
@@ -454,6 +477,9 @@ const sources: ProjectSource[] = [
     titleParts: ["Airport", "Digital Twin"],
     categories: ["digitalTwin"],
     year: "2025",
+    url: undefined,
+    githubWeb: "https://github.com/TruongCongTri/Digital-Twin-Airport-web",
+    githubAPI: "https://github.com/TruongCongTri/Digital-Twin-Airport-api",
     // No brand color given — a deep aviation teal.
     color: "#0d5c63",
     tone: "light",
@@ -492,6 +518,9 @@ const sources: ProjectSource[] = [
     title: "Digital Twin",
     categories: ["digitalTwin"],
     year: "2025",
+    url: undefined,
+    githubWeb: "https://github.com/TruongCongTri/Digital-Twin-web",
+    githubAPI: "https://github.com/TruongCongTri/Digital-Twin-api",
     color: "#002244",
     tone: "light",
     textColor: "#b3995d",
@@ -521,6 +550,94 @@ const sources: ProjectSource[] = [
         approach: [
           "Sinh viên tải mô hình công trình lên nền tảng, nơi chúng được hiển thị dưới dạng cảnh ArcGIS trong frontend Next.js và Redux.",
           "Bộ lọc giúp tách riêng từng tầng, chuyển giữa góc nhìn kiến trúc và kết cấu, xem lần lượt các giai đoạn thi công, đổi thời tiết và bản đồ nền, trong khi backend Express.js với Redis, WebSocket và webhook giữ cho mô hình tải lên và các chế độ xem luôn đồng bộ.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "build-sense",
+    title: "BuildSense",
+    titleParts: ["Build", "Sense"],
+    categories: ["digitalTwin"],
+    isArchive: true,
+    year: "2025",
+    url: undefined,
+    githubWeb: "https://github.com/TruongCongTri/BuildSense",
+    githubAPI: undefined,
+    // Civil engineering infrastructure palette: deep steel-slate with telemetry amber text
+    color: "#182632",
+    tone: "light",
+    textColor: "#f2a93b",
+    images: placeholderShots("BuildSense", "#182632", 4, "#f2a93b"),
+    copy: {
+      en: {
+        services: "GIS & Digital Twin Development",
+        overview:
+          "A smart infrastructure digital twin platform powered by ArcGIS to monitor structural health and real-time sensor metrics across roads, bridges, and civil assets.",
+        challenge: [
+          "Public infrastructure assets like bridges, roadways, and transit structures operate under continuous mechanical strain and weather exposure, but inspection logs and sensor data traditionally sit trapped in siloed databases.",
+          "Civil engineers and municipal operators needed an intuitive, spatially grounded interface to observe diverse IoT sensor feeds—including strain gauges, vibration, deflection, and thermal changes—projected directly onto 3D structures.",
+        ],
+        approach: [
+          "We engineered an infrastructure twin platform combining ArcGIS geospatial mapping with a responsive Next.js and Redux front end, placing sensor telemetries in context across realistic civil structures.",
+          "Real-time event streams ingest continuous field telemetry, trigger automated threshold alerts, and visualize stress points directly on road and bridge geometries to support predictive maintenance before structural faults occur.",
+        ],
+      },
+      vi: {
+        services: "Phát triển GIS & Bản sao số",
+        overview:
+          "Nền tảng bản sao số hạ tầng thông minh ứng dụng ArcGIS, giám sát sức khỏe kết cấu và dữ liệu cảm biến thời gian thực cho cầu đường và công trình giao thông.",
+        challenge: [
+          "Các công trình hạ tầng giao thông như cầu, đường bộ và kết cấu công cộng chịu tải trọng lớn và biến đổi môi trường liên tục, nhưng số liệu cảm biến hiện trường thường bị lưu trữ phân mảnh và thiếu tính trực quan.",
+          "Kỹ sư xây dựng và cơ quan vận hành cần một giao diện gắn liền với không gian thực tế để theo dõi đồng thời các dữ liệu IoT—như độ biến dạng, độ rung, độ võng và nhiệt độ—trực tiếp trên từng bộ phận hình học 3D của công trình.",
+        ],
+        approach: [
+          "Chúng tôi xây dựng giải pháp bản sao số kết hợp bản đồ ArcGIS với frontend Next.js và Redux, đưa toàn bộ dữ liệu viễn thám vào đúng tọa độ và ngữ cảnh không gian của từng cây cầu và tuyến đường.",
+          "Hệ thống tiếp nhận luồng dữ liệu thời gian thực để trực quan hóa các điểm ứng suất, tự động kích hoạt cảnh báo vượt ngưỡng an toàn và hỗ trợ bảo trì dự đoán trước khi xuất hiện hư hại kết cấu nghiêm trọng.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "interview-prep-coach",
+    title: "Interview Prep Coach",
+    titleParts: ["Interview", "Prep Coach"],
+    categories: ["ai"],
+    isArchive: true,
+    year: "2025",
+    url: "https://interview-prep-coach-khaki.vercel.app",
+    githubWeb: "https://github.com/TruongCongTri/InterviewPrepCoach",
+    githubAPI: undefined,
+    // Warm editorial studio palette: refined warm-stone background with espresso-carbon text
+    color: "#f6f4ee",
+    tone: "dark",
+    textColor: "#2b2620",
+    images: placeholderShots("Interview Prep Coach", "#f6f4ee", 4, "#2b2620"),
+    copy: {
+      en: {
+        services: "Full-stack Development + Generative AI",
+        overview:
+          "An AI-powered interview practice platform that simulates personalized technical and behavioral mock sessions customized by role, seniority, duration, and targeted skill sets.",
+        challenge: [
+          "Job seekers frequently struggle with generic interview question banks that fail to mirror the nuanced expectations of specialized positions, differing seniority levels, or real-world time pressure.",
+          "To provide tangible practice value, the coach needed to dynamically adapt to candidate answers, track pacing, and deliver structured, criteria-driven feedback rather than generic conversational remarks.",
+        ],
+        approach: [
+          "We engineered an adaptive prompt orchestration engine that configures interview sessions based on the exact job domain, position seniority (from entry-level to lead), duration, and specific technology stacks.",
+          "Real-time LLM streaming simulates a realistic interviewer presence, scoring each answer against industry competency rubrics and delivering actionable feedback summaries with personalized improvement tips at the end of every round.",
+        ],
+      },
+      vi: {
+        services: "Phát triển Full-stack + Generative AI",
+        overview:
+          "Nền tảng luyện phỏng vấn tích hợp AI, mô phỏng các buổi phỏng vấn chuyên sâu theo vai trò công việc, cấp bậc chuyên môn, thời lượng và bộ kỹ năng mục tiêu.",
+        challenge: [
+          "Ứng viên tìm việc thường gặp trở ngại khi sử dụng các ngân hàng câu hỏi mẫu chung chung, vốn không phản ánh đúng yêu cầu thực tế của từng vị trí, cấp độ kinh nghiệm hay áp lực thời gian trong phòng phỏng vấn.",
+          "Để mang lại hiệu quả rèn luyện thực tế, hệ thống cần linh hoạt điều chỉnh câu hỏi theo câu trả lời của ứng viên, kiểm soát thời lượng và cung cấp đánh giá có cấu trúc thay vì phản hồi máy móc.",
+        ],
+        approach: [
+          "Chúng tôi thiết kế kiến trúc điều phối prompt linh hoạt, cho phép thiết lập buổi phỏng vấn chuẩn xác theo lĩnh vực công việc, cấp bậc (từ mới bắt đầu đến trưởng nhóm), thời gian làm bài và từng bộ kỹ năng chuyên biệt.",
+          "Luồng phản hồi AI thời gian thực (LLM streaming) tạo trải nghiệm tương tác tự nhiên, chấm điểm câu trả lời theo các tiêu chuẩn năng lực và xuất báo cáo phân tích chi tiết kèm gợi ý cải thiện sau mỗi phiên phỏng vấn.",
         ],
       },
     },

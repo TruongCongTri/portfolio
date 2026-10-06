@@ -3,6 +3,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   border-radius: 999px;
   overflow: hidden;
   isolation: isolate;
@@ -30,22 +31,29 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  line-height: 1;
 }
 
+/* Fixed height matches .icon (2.25rem) exactly */
 .sm {
-  padding: 0.35rem 0.9rem;
+  height: 2.25rem;
+  padding: 0 0.9rem;
   font-size: 0.9rem;
 }
 
 .lg {
-  padding: 1.25rem 3rem;
+  height: 3.5rem;
+  padding: 0 3rem;
   font-size: 1.15rem;
 }
 
+/* Circular 2.25rem button */
 .icon {
   width: 2.25rem;
   height: 2.25rem;
+  padding: 0;
   font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
 .outline {

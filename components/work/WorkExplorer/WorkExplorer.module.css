@@ -14,23 +14,48 @@
   margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
 }
 
-/* The filters take the free width and wrap onto more rows as categories grow; the view switch stays top-right */
+
+/* Category filter pills expand across free width */
 .controls > :first-child {
   flex: 1;
   min-width: 0;
 }
 
-.controls > :last-child {
+/* Groups the secondary filter pills and ViewSwitch */
+.trailingControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   flex-shrink: 0;
 }
 
-/* Small screens: the filters get the full width, the view switch goes on the row below */
+/* Wraps Live, Web, and API filter groups together */
+.secondaryFilters {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gitFilters {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Small screens: categories wrap to row 1, Git filters and ViewSwitch share row 2 */
 @media (max-width: 768px) {
   .controls {
     flex-wrap: wrap;
+    gap: 1.25rem;
   }
 
   .controls > :first-child {
     flex-basis: 100%;
+  }
+
+  .trailingControls {
+    width: 100%;
+    justify-content: space-between;
   }
 }
