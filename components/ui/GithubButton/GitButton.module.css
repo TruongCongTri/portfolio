@@ -15,7 +15,6 @@
               border-color 0.4s ease;
 }
 
-/* Fill that wipes up from the bottom on hover */
 .pill::before {
   content: '';
   position: absolute;
@@ -30,7 +29,6 @@
   transform: translateY(0);
 }
 
-/* Expands full width to push text left and icon right */
 .label {
   position: relative;
   z-index: 1;
@@ -43,25 +41,20 @@
   line-height: 1;
 }
 
-/* Fixed uniform width & height for default text buttons */
 .sm {
-  width: var(--git-btn-width, 5.5rem);
   height: 2.25rem;
   padding: 0 0.85rem;
   font-size: 0.85rem;
   flex-shrink: 0;
 }
 
-/* Fixed uniform width & height for large text buttons */
 .lg {
-  width: var(--git-btn-width-lg, 10.5rem);
   height: 3.5rem;
   padding: 0 1.6rem;
   font-size: 1.15rem;
   flex-shrink: 0;
 }
 
-/* Circular icon-only mode overrides width to stay 1:1 square */
 .icon {
   width: 2.25rem;
   height: 2.25rem;
@@ -70,13 +63,42 @@
   flex-shrink: 0;
 }
 
-/* Center icon when no text is present */
 .icon .label {
   justify-content: center;
   width: auto;
 }
 
-/* Text wrapper: occupies left space and manages truncation */
+.iconContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Micro badge distinguishing Web (W) vs API (API) */
+.subBadge {
+  position: absolute;
+  right: -0.45rem;
+  bottom: -0.35rem;
+  font-size: 0.52rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  padding: 0.12rem 0.22rem;
+  border-radius: 999px;
+  background: var(--color-fg, #fff);
+  color: var(--color-bg, #000);
+  border: 1.5px solid var(--color-bg, #000);
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.solid .subBadge {
+  background: var(--color-bg, #000);
+  color: var(--color-fg, #fff);
+  border: 1.5px solid var(--color-fg, #fff);
+}
+
 .textWrap {
   display: inline-flex;
   align-items: center;
@@ -128,21 +150,15 @@
   flex-shrink: 0;
 }
 
-/* GitHub mark pinned to the right edge with flex-shrink: 0 */
 .gitIcon {
   display: inline-block;
   width: 1.15em;
   height: 1.15em;
   fill: currentColor;
   flex-shrink: 0;
-  margin-left: auto;
   transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-.icon .gitIcon {
-  margin-left: 0;
-}
-
 .pill:hover .gitIcon {
-  transform: translate(2px, -2px) scale(1.08);
+  transform: translate(1px, -1px) scale(1.06);
 }

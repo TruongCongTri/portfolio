@@ -6,30 +6,75 @@
   line-height: 1.05;
 }
 
+/* ==========================================================================
+   STICKY BAR WITH EXPLICIT MENUBUTTON CLEARANCE
+   ========================================================================== */
 .controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+  position: sticky;
+  top: 0;
+  z-index: 50; /* Beneath MenuButton's z-index: 90 */
+  /* width: 100%; */
+  box-sizing: border-box;
+
+  /* Frosted glass backdrop */
+  background: color-mix(in srgb, var(--color-bg, #09090b) 78%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* Margin bleed across outer gutters */
+  margin-left: calc(-1 * var(--gutter, 1.5rem));
+  margin-right: calc(-1 * var(--gutter, 1.5rem));
+  padding-left: var(--gutter, 1.5rem);
+
+  /* 
+   * ESSENTIAL: Reserve safe clearance for the fixed MenuButton (80px + 1.5rem right + 1.5rem gap)
+   * This guarantees Grid/List buttons NEVER overlay or collide with MenuButton!
+   */
+  padding-right: calc(var(--gutter, 1.5rem) + 80px + 1.5rem);
+
+  padding-top: 1.5rem;
+  padding-bottom: 1.25rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+
+  border-bottom: 1px solid var(--color-border-faint, rgba(255, 255, 255, 0.08));
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* ==========================================================================
+   DESKTOP & TABLET VIEWPORT (>= 768px)
+   ========================================================================== */
+.desktopControls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  /* width: 100%; */
+}
 
-/* Category filter pills expand across free width */
-.controls > :first-child {
+.primaryBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  /* width: 100%; */
+}
+
+.categories {
   flex: 1;
   min-width: 0;
 }
 
-/* Groups the secondary filter pills and ViewSwitch */
-.trailingControls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.viewSwitchWrap {
   flex-shrink: 0;
+  margin-left: auto;
 }
 
-/* Wraps Live, Web, and API filter groups together */
+.secondaryBar {
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+}
+
 .secondaryFilters {
   display: inline-flex;
   align-items: center;
@@ -37,25 +82,236 @@
   gap: 0.5rem;
 }
 
-.gitFilters {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.secondaryFilters :global(.pill) {
+  height: 2rem;
+  padding: 0 0.8rem;
+  font-size: 0.8rem;
 }
 
-/* Small screens: categories wrap to row 1, Git filters and ViewSwitch share row 2 */
-@media (max-width: 768px) {
+.resetPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 2rem;
+  padding: 0 0.75rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px dashed var(--color-border);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.resetPill:hover {
+  color: var(--color-fg);
+  border-color: var(--color-fg);
+}
+
+/* Hide mobile controls on desktop/tablet */
+.mobileControls {
+  display: none;
+}
+
+/* ==========================================================================
+   MOBILE VIEWPORT (< 768px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .desktopControls {
+    display: none;
+  }
+
+  .mobileControls {
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    gap: 0.75rem;
+  }
+
   .controls {
-    flex-wrap: wrap;
-    gap: 1.25rem;
+    margin-left: calc(-1 * var(--gutter, 1rem));
+    margin-right: calc(-1 * var(--gutter, 1rem));
+    padding-left: var(--gutter, 1rem);
+
+    /* 
+     * Mobile MenuButton clearance:
+     * 60px (button width) + 1rem (right offset) + 0.85rem (gap) = ~88px
+     */
+    padding-right: calc(var(--gutter, 1rem) + 60px + 0.85rem);
+
+    padding-top: 1rem;
+    padding-bottom: 0.9rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
-  .controls > :first-child {
-    flex-basis: 100%;
-  }
-
-  .trailingControls {
-    width: 100%;
+  .mobileBar {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    /* width: 100%; */
   }
+
+  /* Two filter trigger pills aligned to the left */
+  .mobileTriggers {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Pill button styling matching project design system */
+  .filterPillTrigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 2.25rem;
+    padding: 0 0.75rem;
+    gap: 0.35rem;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-fg);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    isolation: isolate;
+    transition: color 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+                border-color 0.4s ease,
+                background-color 0.4s ease;
+  }
+
+  .filterPillTrigger::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--color-fg);
+    transform: translateY(101%);
+    transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  .filterPillTrigger:hover::before {
+    transform: translateY(0);
+  }
+
+  .filterPillTrigger:hover {
+    color: var(--color-bg);
+  }
+
+  /* Active state (when a filter other than 'All' is applied) */
+  .triggerActive {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    border-color: var(--color-fg);
+  }
+
+  .triggerActive:hover {
+    color: var(--color-bg);
+  }
+
+  .triggerOpen {
+    border-color: var(--color-fg);
+  }
+
+  .triggerIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .triggerLabel {
+    display: inline-block;
+    max-width: 9.5ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  /* Drawer panel for filter pill options */
+  .mobileDrawerPanel {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border-faint);
+    animation: drawerSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .drawerSection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    /* width: 100%; */
+  }
+
+  .drawerSection :global(.pill) {
+    height: 2rem;
+    padding: 0 0.75rem;
+    font-size: 0.78rem;
+  }
+}
+
+@keyframes drawerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.emptyText {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 500;
+  color: var(--color-lead);
+  letter-spacing: -0.02em;
+}
+
+.emptyResetBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--color-fg);
+  background: transparent;
+  color: var(--color-fg);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.emptyResetBtn:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
 }

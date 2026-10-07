@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useRef, useState, useEffect } from 'react';
 import { categoryIds, type CategoryId, type Project } from '@/lib/projects';
 import { useI18n } from '@/lib/i18n/client';
 import SplitReveal from '@/components/ui/SplitReveal/SplitReveal';
@@ -13,10 +13,10 @@ import styles from './WorkExplorer.module.css';
 type Filter = CategoryId | 'all';
 type LiveFilter = 'all' | 'live';
 type GitFilter = 'all' | 'web' | 'api';
+type MobileDrawer = 'none' | 'category' | 'links';
 
 type WorkExplorerProps = {
   projects: Project[];
-  /** Page heading; defaults to the work page's. */
   title?: string;
 };
 
@@ -40,14 +40,91 @@ function GitHubIcon({ className }: { className?: string }) {
   );
 }
 
+function CategoryIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    </svg>
+  );
+}
+
+function LinkChainIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="0.8em"
+      height="0.8em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{
+        transform: open ? 'rotate(180deg)' : 'none',
+        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+      aria-hidden="true"
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
 export default function WorkExplorer({ projects, title }: WorkExplorerProps) {
   const { t } = useI18n();
+  const controlsRef = useRef<HTMLDivElement>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [filter, setFilter] = useState<Filter>('all');
   const [liveFilter, setLiveFilter] = useState<LiveFilter>('all');
   const [gitFilter, setGitFilter] = useState<GitFilter>('all');
+  const [mobileDrawer, setMobileDrawer] = useState<MobileDrawer>('none');
 
-  // Counts of available links
+  // Close mobile drawer on outside click
+  useEffect(() => {
+    if (mobileDrawer === 'none') return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (!controlsRef.current?.contains(e.target as Node)) {
+        setMobileDrawer('none');
+      }
+    };
+    window.addEventListener('pointerdown', handlePointerDown);
+    return () => window.removeEventListener('pointerdown', handlePointerDown);
+  }, [mobileDrawer]);
+
   const liveCount = useMemo(
     () => projects.filter((p) => Boolean(p.url)).length,
     [projects],
@@ -61,7 +138,17 @@ export default function WorkExplorer({ projects, title }: WorkExplorerProps) {
     [projects],
   );
 
-  // Filters by category, live availability, and git repository
+  const hasSecondaryFilters = liveCount > 0 || webCount > 0 || apiCount > 0;
+  const isAnyFilterActive =
+    filter !== 'all' || liveFilter !== 'all' || gitFilter !== 'all';
+
+  const resetAllFilters = () => {
+    setFilter('all');
+    setLiveFilter('all');
+    setGitFilter('all');
+    setMobileDrawer('none');
+  };
+
   const filtered = useMemo(() => {
     let result =
       filter === 'all'
@@ -98,13 +185,13 @@ export default function WorkExplorer({ projects, title }: WorkExplorerProps) {
         ? [
             {
               value: 'live' as const,
-              label: t.project.viewLive,
+              label: 'Live',
               count: liveCount,
               arrow: true,
             },
           ]
         : [],
-    [liveCount, t],
+    [liveCount],
   );
 
   const gitFilterOptions: FilterOption<GitFilter>[] = useMemo(
@@ -133,57 +220,228 @@ export default function WorkExplorer({ projects, title }: WorkExplorerProps) {
     [webCount, apiCount],
   );
 
+  // Dynamic mobile button labels reflecting active filter choices
+  const categoryBtnLabel = useMemo(() => {
+    if (filter === 'all') return t.work.all;
+    return t.work.categories[filter] || filter;
+  }, [filter, t]);
+
+  const linksBtnLabel = useMemo(() => {
+    const parts: string[] = [];
+    if (liveFilter === 'live') parts.push('Live');
+    if (gitFilter === 'web') parts.push('Web');
+    if (gitFilter === 'api') parts.push('API');
+    return parts.length > 0 ? parts.join(' / ') : 'Links';
+  }, [liveFilter, gitFilter]);
+
+  const isCategoryActive = filter !== 'all';
+  const isLinksActive = liveFilter !== 'all' || gitFilter !== 'all';
+
   return (
     <>
       <SplitReveal as="h1" className={styles.title} on="load" delay={0.2}>
         {title ?? t.work.title}
       </SplitReveal>
 
-      <div className={styles.controls}>
-        <FilterPills
-          options={filterOptions}
-          value={filter}
-          onChange={setFilter}
-          ariaLabel={t.work.filterLabel}
-        />
-
-        <div className={styles.trailingControls}>
-          <div className={styles.secondaryFilters}>
-            {/* View live filter pill */}
-            {liveFilterOptions.length > 0 && (
+      <div ref={controlsRef} className={styles.controls}>
+        {/* ==============================================================
+            1. DESKTOP & TABLET CONTROLS (>= 768px)
+            ============================================================== */}
+        <div className={styles.desktopControls}>
+          <div className={styles.primaryBar}>
+            <div className={styles.categories}>
               <FilterPills
-                options={liveFilterOptions}
-                value={liveFilter}
-                onChange={(val) =>
-                  setLiveFilter((prev) => (prev === val ? 'all' : val))
-                }
-                ariaLabel="Filter by live site"
+                options={filterOptions}
+                value={filter}
+                onChange={setFilter}
+                ariaLabel={t.work.filterLabel}
               />
-            )}
+            </div>
 
-            {/* Web and API repository filter pills */}
-            {gitFilterOptions.length > 0 && (
-              <FilterPills
-                options={gitFilterOptions}
-                value={gitFilter}
-                onChange={(val) =>
-                  setGitFilter((prev) => (prev === val ? 'all' : val))
-                }
-                ariaLabel="Filter by source code"
+            <div className={styles.viewSwitchWrap}>
+              <ViewSwitch
+                value={viewMode}
+                onChange={setViewMode}
+                ariaLabel={t.work.viewLabel}
+                labels={{ list: t.work.list, grid: t.work.grid }}
               />
-            )}
+            </div>
           </div>
 
-          <ViewSwitch
-            value={viewMode}
-            onChange={setViewMode}
-            ariaLabel={t.work.viewLabel}
-            labels={{ list: t.work.list, grid: t.work.grid }}
-          />
+          {hasSecondaryFilters && (
+            <div className={styles.secondaryBar}>
+              <div className={styles.secondaryFilters}>
+                {liveFilterOptions.length > 0 && (
+                  <FilterPills
+                    options={liveFilterOptions}
+                    value={liveFilter}
+                    onChange={(val) =>
+                      setLiveFilter((prev) => (prev === val ? 'all' : val))
+                    }
+                    ariaLabel="Filter by live site"
+                  />
+                )}
+
+                {gitFilterOptions.length > 0 && (
+                  <FilterPills
+                    options={gitFilterOptions}
+                    value={gitFilter}
+                    onChange={(val) =>
+                      setGitFilter((prev) => (prev === val ? 'all' : val))
+                    }
+                    ariaLabel="Filter by source code"
+                  />
+                )}
+
+                {isAnyFilterActive && (
+                  <button
+                    type="button"
+                    onClick={resetAllFilters}
+                    className={styles.resetPill}
+                    aria-label="Reset all filters"
+                  >
+                    Clear filters
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ==============================================================
+            2. MOBILE CONTROLS (< 768px)
+            Left: 2 Icon Filter Trigger Pills (Category & Links)
+            Right: ViewSwitch
+            ============================================================== */}
+        <div className={styles.mobileControls}>
+          <div className={styles.mobileBar}>
+            <div className={styles.mobileTriggers}>
+              {/* Category Filter Trigger Button */}
+              <button
+                type="button"
+                className={`${styles.filterPillTrigger} ${
+                  isCategoryActive ? styles.triggerActive : ''
+                } ${mobileDrawer === 'category' ? styles.triggerOpen : ''}`}
+                onClick={() =>
+                  setMobileDrawer((prev) =>
+                    prev === 'category' ? 'none' : 'category',
+                  )
+                }
+                aria-expanded={mobileDrawer === 'category'}
+                aria-label="Filter by category"
+              >
+                <span className={styles.triggerIcon}>
+                  <CategoryIcon />
+                </span>
+                <span className={styles.triggerLabel}>{categoryBtnLabel}</span>
+                <ChevronIcon open={mobileDrawer === 'category'} />
+              </button>
+
+              {/* Links & Repositories Filter Trigger Button */}
+              <button
+                type="button"
+                className={`${styles.filterPillTrigger} ${
+                  isLinksActive ? styles.triggerActive : ''
+                } ${mobileDrawer === 'links' ? styles.triggerOpen : ''}`}
+                onClick={() =>
+                  setMobileDrawer((prev) => (prev === 'links' ? 'none' : 'links'))
+                }
+                aria-expanded={mobileDrawer === 'links'}
+                aria-label="Filter by links and repositories"
+              >
+                <span className={styles.triggerIcon}>
+                  <LinkChainIcon />
+                </span>
+                <span className={styles.triggerLabel}>{linksBtnLabel}</span>
+                <ChevronIcon open={mobileDrawer === 'links'} />
+              </button>
+            </div>
+
+            <div className={styles.viewSwitchWrap}>
+              <ViewSwitch
+                value={viewMode}
+                onChange={setViewMode}
+                ariaLabel={t.work.viewLabel}
+                labels={{ list: t.work.list, grid: t.work.grid }}
+              />
+            </div>
+          </div>
+
+          {/* Expandable Mobile Filter Tray */}
+          {mobileDrawer !== 'none' && (
+            <div className={styles.mobileDrawerPanel}>
+              {mobileDrawer === 'category' && (
+                <div className={styles.drawerSection}>
+                  <FilterPills
+                    options={filterOptions}
+                    value={filter}
+                    onChange={(val) => {
+                      setFilter(val);
+                      setMobileDrawer('none');
+                    }}
+                    ariaLabel={t.work.filterLabel}
+                  />
+                </div>
+              )}
+
+              {mobileDrawer === 'links' && (
+                <div className={styles.drawerSection}>
+                  <div className={styles.secondaryFilters}>
+                    {liveFilterOptions.length > 0 && (
+                      <FilterPills
+                        options={liveFilterOptions}
+                        value={liveFilter}
+                        onChange={(val) =>
+                          setLiveFilter((prev) => (prev === val ? 'all' : val))
+                        }
+                        ariaLabel="Filter by live site"
+                      />
+                    )}
+
+                    {gitFilterOptions.length > 0 && (
+                      <FilterPills
+                        options={gitFilterOptions}
+                        value={gitFilter}
+                        onChange={(val) =>
+                          setGitFilter((prev) => (prev === val ? 'all' : val))
+                        }
+                        ariaLabel="Filter by source code"
+                      />
+                    )}
+
+                    {isLinksActive && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLiveFilter('all');
+                          setGitFilter('all');
+                        }}
+                        className={styles.resetPill}
+                      >
+                        Clear links
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      {viewMode === 'list' ? (
+      {/* Content Results */}
+      {filtered.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p className={styles.emptyText}>No projects match the selected filters.</p>
+          <button
+            type="button"
+            onClick={resetAllFilters}
+            className={styles.emptyResetBtn}
+          >
+            Reset all filters
+          </button>
+        </div>
+      ) : viewMode === 'list' ? (
         <ProjectList projects={filtered} />
       ) : (
         <ProjectGrid projects={filtered} />

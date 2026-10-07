@@ -37,6 +37,8 @@ export type GitButtonProps = {
   variant?: 'outline' | 'solid';
   /** `icon` is a small circle sized for a lone GitHub mark. */
   size?: 'sm' | 'lg' | 'icon';
+  /** Differentiates repositories when in icon mode: 'web' shows "W", 'api' shows "API". */
+  badge?: 'web' | 'api';
   /** Superscript number after the label (e.g. stars or repo count). */
   count?: number;
   /** Whether to display the GitHub icon. Defaults to true. */
@@ -59,6 +61,7 @@ export default function GitButton({
   onClick,
   variant = 'outline',
   size = 'sm',
+  badge,
   count,
   icon = true,
   iconPosition = 'trailing',
@@ -71,11 +74,23 @@ export default function GitButton({
 
   useMagnetic(ref, { enabled: magnetic, inner: `.${styles.label}`, innerStrength: 0.12 });
 
-  const className = `${styles.pill} ${styles[variant]} ${styles[size]}`;
-  const effectiveAriaLabel = ariaLabel || (!children ? 'GitHub' : undefined);
-  const a11y = { 'aria-label': effectiveAriaLabel, title };
+  const className = `${styles.pill} ${styles[variant]} ${styles[size]} ${badge ? styles[`badge_${badge}`] : ''}`;
+  
+  const defaultLabel = badge === 'api' ? 'GitHub API' : badge === 'web' ? 'GitHub Web' : 'GitHub';
+  const effectiveAriaLabel = ariaLabel || (!children ? defaultLabel : undefined);
+  const effectiveTitle = title || (badge === 'api' ? 'GitHub API (Backend)' : badge === 'web' ? 'GitHub Web (Frontend)' : undefined);
+  const a11y = { 'aria-label': effectiveAriaLabel, title: effectiveTitle };
 
-  const iconElement = icon && <GitHubIcon className={styles.gitIcon} />;
+  const iconElement = icon && (
+    <span className={styles.iconContainer}>
+      <GitHubIcon className={styles.gitIcon} />
+      {badge && size === 'icon' && (
+        <span className={styles.subBadge} aria-hidden>
+          {badge === 'web' ? 'W' : 'API'}
+        </span>
+      )}
+    </span>
+  );
 
   const content = (
     <span className={styles.label}>

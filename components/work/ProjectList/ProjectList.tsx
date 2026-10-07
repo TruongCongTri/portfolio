@@ -27,7 +27,6 @@ export default function ProjectList({
 
   useGSAP(
     () => {
-      // Rules draw in left to right, then each row's content rises.
       gsap.utils
         .toArray<HTMLElement>(`.${styles.row}, .${styles.head}`)
         .forEach((row) => {
@@ -64,12 +63,18 @@ export default function ProjectList({
 
       {/* Table Head: Columns 1-3 align left, Year aligns right */}
       <div className={`${styles.head} ${styles.grid}`} aria-hidden>
-        <span className={styles.cell}>{columns.client}</span>
-        <span className={styles.cell}>{columns.category}</span>
-        <span className={`${styles.cell} ${styles.services}`}>
+        <span className={`${styles.cell} ${styles.headClient}`}>
+          {columns.client}
+        </span>
+        <span className={`${styles.cell} ${styles.headCategory}`}>
+          {columns.category}
+        </span>
+        <span className={`${styles.cell} ${styles.headServices}`}>
           {columns.services}
         </span>
-        <span className={`${styles.cell} ${styles.year}`}>{columns.year}</span>
+        <span className={`${styles.cell} ${styles.headYear}`}>
+          {columns.year}
+        </span>
         <span className={styles.rule} />
       </div>
 
@@ -89,12 +94,12 @@ export default function ProjectList({
               aria-label={project.title}
             />
 
-            {/* Column 1: Client / Title */}
+            {/* 1. Title (Client) - Aligned Left */}
             <span className={`${styles.cell} ${styles.title}`}>
               <span className={styles.titleText}>{project.title}</span>
             </span>
 
-            {/* Column 2: Category (multi-line breakdown) */}
+            {/* 2. Category - Aligned Left */}
             <span className={`${styles.cell} ${styles.category}`}>
               {project.categories.map((catId) => (
                 <span key={catId} className={styles.categoryLine}>
@@ -103,41 +108,41 @@ export default function ProjectList({
               ))}
             </span>
 
-            {/* Column 3: Services */}
+            {/* 3. Services - Aligned Left */}
             <span className={`${styles.cell} ${styles.services}`}>
               {project.services}
             </span>
 
-            {/* Column 4: Actions & Year (align right) */}
-            <span className={`${styles.cell} ${styles.year}`}>
+            {/* 4. Actions & Year Cluster - Aligned Right */}
+            <div className={`${styles.cell} ${styles.yearCol}`}>
               <span className={styles.actions}>
-                {/* Git column (Web above API) */}
                 {hasGit && (
-                  <span className={styles.gitCol}>
+                  <span className={styles.gitGroup}>
                     {project.githubWeb && (
                       <GitButton
                         href={project.githubWeb}
                         variant="solid"
+                        size="icon"
+                        badge="web"
                         magnetic
-                        ariaLabel={`Web source code: ${project.title}`}
-                      >
-                        Web
-                      </GitButton>
+                        ariaLabel={`Web repository: ${project.title}`}
+                        title="GitHub Web (Frontend)"
+                      />
                     )}
                     {project.githubAPI && (
                       <GitButton
                         href={project.githubAPI}
                         variant="solid"
+                        size="icon"
+                        badge="api"
                         magnetic
-                        ariaLabel={`API source code: ${project.title}`}
-                      >
-                        API
-                      </GitButton>
+                        ariaLabel={`API repository: ${project.title}`}
+                        title="GitHub API (Backend)"
+                      />
                     )}
                   </span>
                 )}
 
-                {/* Live Link Button or Reserved Space */}
                 {project.url ? (
                   <span className={styles.live}>
                     <PillButton
@@ -156,7 +161,7 @@ export default function ProjectList({
               </span>
 
               <span className={styles.yearText}>{project.year}</span>
-            </span>
+            </div>
 
             <span className={styles.rule} />
           </div>

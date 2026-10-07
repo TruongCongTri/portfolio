@@ -27,7 +27,7 @@ export default async function Footer() {
               .filter((link) => link.path !== '/')
               .map((link) =>
                 link.action === 'contact' ? (
-                  <ContactTrigger key={link.key} className={styles.link}>
+                  <ContactTrigger key={link.key} className={styles.link} pill={false}>
                     {t.nav[link.key]}
                   </ContactTrigger>
                 ) : (
