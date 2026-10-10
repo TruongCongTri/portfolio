@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
-import { navLinks, site, socialLinks } from '@/lib/site';
+import { navLinks, site, socialLinkProps, socialLinks } from '@/lib/site';
 import LogoMark from '@/components/ui/LogoMark/LogoMark';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
 import LanguageSwitcher from '@/components/preferences/LanguageSwitcher/LanguageSwitcher';
@@ -80,9 +80,9 @@ export default function Header({ hidden }: { hidden: boolean }) {
         </nav>
         <div className={styles.column}>
           {socialLinks.map((link) => (
-            <a key={link.label} href={link.href} className={styles.link}>
+            <Link key={link.label} href={link.href} className={styles.link} {...socialLinkProps(link.href)}>
               <Masked>{link.label}</Masked>
-            </a>
+            </Link>
           ))}
         </div>
         <div className={`${styles.column} ${styles.preferences}`}>

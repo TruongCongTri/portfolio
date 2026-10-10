@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { localizePath } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale } from '@/lib/i18n/server';
-import { navLinks, site, socialLinks } from '@/lib/site';
+import { navLinks, site, socialLinkProps, socialLinks } from '@/lib/site';
 import LogoMark from '@/components/ui/LogoMark/LogoMark';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
 import FooterWordmark from './FooterWordmark';
@@ -40,20 +40,20 @@ export default async function Footer() {
           <div className={styles.column}>
             <span className={styles.label}>{t.footer.social}</span>
             {socialLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.link}>
+              <Link key={link.label} href={link.href} className={styles.link} {...socialLinkProps(link.href)}>
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
           <div className={styles.column}>
             <span className={styles.label}>{t.footer.contact}</span>
-            <a href={`mailto:${site.email}`} className={styles.link}>
+            <Link href={`mailto:${site.email}`} className={styles.link}>
               {site.email}
-            </a>
+            </Link>
             <span className={`${styles.label} ${styles.subLabel}`}>{t.footer.phone}</span>
-            <a href={site.phone.href} className={styles.link}>
+            <Link href={site.phone.href} className={styles.link}>
               {site.phone.display}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { useI18n } from '@/lib/i18n/client';
-import { navLinks, socialLinks } from '@/lib/site';
+import { navLinks, socialLinkProps, socialLinks } from '@/lib/site';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
 import LanguageSwitcher from '@/components/preferences/LanguageSwitcher/LanguageSwitcher';
 import ThemeSwitcher from '@/components/preferences/ThemeSwitcher/ThemeSwitcher';
@@ -87,9 +87,9 @@ export default function SidePanel({ open, onClose }: SidePanelProps) {
         <div className={styles.footer}>
           <div className={styles.socials} aria-label={t.menu.socials}>
             {socialLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.social}>
+              <Link key={link.label} href={link.href} className={styles.social} {...socialLinkProps(link.href)}>
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
           <div className={styles.preferences} aria-label={t.menu.preferences}>

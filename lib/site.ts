@@ -30,3 +30,11 @@ export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/TruongCongTri' },
   { label: 'Instagram', href: '#' },
 ];
+
+/**
+ * Link attributes for a social profile: real web addresses open in a new tab (`noopener` keeps the other
+ * site from reaching back into this one). A placeholder like "#" stays a normal in-page link, so it doesn't
+ * open a pointless second copy of this page.
+ */
+export const socialLinkProps = (href: string) =>
+  href.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : ({} as const);
