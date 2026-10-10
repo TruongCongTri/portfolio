@@ -10,6 +10,7 @@
   padding: 1rem 2rem;
   border-radius: 999px;
   border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-raised);
   font-size: 1.1rem;
   font-weight: 500;
   /* hover fill + active (filled) state: global .wipe */
@@ -59,4 +60,69 @@
     padding: 0.6rem 1.2rem;
     font-size: 0.95rem;
   }
+}
+
+/* ---- CollapsibleFilterPills: one row + a "+" for the rest ---- */
+.collapsible {
+  position: relative;
+  width: 100%;
+}
+
+/* Single row: never wraps (before measuring, whatever doesn't fit is clipped rather than wrapped) */
+.pillsRow {
+  flex-wrap: nowrap;
+  overflow-x: clip;
+  overflow-clip-margin: 1rem; /* leaves room for the magnetic drift */
+}
+
+.pillsRow > .pill {
+  flex-shrink: 0;
+}
+
+.pillsOpen {
+  flex-wrap: wrap;
+}
+
+.plus {
+  display: block;
+  font-size: 1.3em;
+  transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.plusOpen {
+  transform: rotate(45deg);
+}
+
+/* Same size as the other pills, but tighter: it's just a "+" and a number */
+.more {
+  padding-inline: 1.4rem;
+}
+
+/* Invisible, out of flow: lets the component read every pill's width */
+.measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 0.9rem;
+  width: max-content;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .more {
+    padding-inline: 1rem;
+  }
+}
+
+/* Open ("×"): just the cross, centred, in a pill no wider than it needs to be */
+/* Open ("×"): a plain square pill with the cross in the middle: no room kept for the count */
+.moreOpen {
+  padding-inline: 1.1rem; /* about as wide as it is tall; the cross has the button to itself */
+  justify-content: center;
+}
+
+.moreOpen .content {
+  gap: 0;
 }

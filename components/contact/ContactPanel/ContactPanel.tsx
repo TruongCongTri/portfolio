@@ -30,6 +30,7 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
+  const mounted = useRef(false);
   const openTimestamp = useRef<number | null>(null);
   const [hpValue, setHpValue] = useState("");
 
@@ -72,15 +73,20 @@ export default function ContactPanel({ open, onClose }: ContactPanelProps) {
   // Animate the success state and PillButton when submission completes
   useGSAP(
     () => {
-      if (sent) {
-        gsap.from(`.${styles.success} > *`, {
-          yPercent: 40,
-          autoAlpha: 0,
-          duration: 0.8,
-          stagger: 0.08,
-          ease: "expo.out",
-        });
+      // Same entrance as the drawer opening: the title and each block rise in, staggered.
+      // (Skipped on first mount, where the open timeline owns the entrance.)
+      if (!mounted.current) {
+        mounted.current = true;
+        return;
       }
+      const targets = sent
+        ? [`.${styles.title}`, `.${styles.success} > *`]
+        : [`.${styles.title}`, `.${styles.reveal}:not(.${styles.head})`];
+      gsap.fromTo(
+        targets.flatMap((s) => gsap.utils.toArray<HTMLElement>(s, rootRef.current)),
+        { yPercent: 40, autoAlpha: 0 },
+        { yPercent: 0, autoAlpha: 1, duration: 0.8, stagger: 0.07, ease: "expo.out", overwrite: true },
+      );
     },
     { dependencies: [sent], scope: rootRef },
   );

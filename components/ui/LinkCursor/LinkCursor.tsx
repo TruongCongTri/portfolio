@@ -2,6 +2,7 @@
 
 import { useRef, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import { gsap, useGSAP } from '@/lib/gsap';
 import styles from './LinkCursor.module.css';
 
@@ -13,7 +14,14 @@ const subscribeNoop = () => () => {};
  * trails the native cursor, which stays visible. Portaled to <body> so clip-paths/transforms on
  * ancestors can't clip it or break its fixed positioning.
  */
-export default function LinkCursor({ children, className }: { children: React.ReactNode; className?: string }) {
+type LinkCursorProps = {
+  children: React.ReactNode;
+  className?: string;
+  /** `arrow`: the inverting ↗ disc. `portrait`: the small round pixel portrait, no arrow, no inversion. */
+  variant?: 'arrow' | 'portrait';
+};
+
+export default function LinkCursor({ children, className, variant = 'arrow' }: LinkCursorProps) {
   const areaRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   // Only portal on the client (no document during SSR), without a setState-in-effect round trip.
@@ -63,10 +71,14 @@ export default function LinkCursor({ children, className }: { children: React.Re
       {children}
       {isClient &&
         createPortal(
-          <div ref={cursorRef} className={styles.cursor} aria-hidden>
-            <svg className={styles.arrow} viewBox="0 0 24 24">
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
+          <div ref={cursorRef} className={`${styles.cursor} ${variant === 'portrait' ? styles.portrait : ''}`} aria-hidden>
+            {variant === 'portrait' ? (
+              <Image className={styles.face} src="/icons/icon-192.png" alt="" width={72} height={72} unoptimized />
+            ) : (
+              <svg className={styles.arrow} viewBox="0 0 24 24">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            )}
           </div>,
           document.body,
         )}

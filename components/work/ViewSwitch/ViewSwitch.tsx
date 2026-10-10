@@ -1,10 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { useMagnetic } from '@/lib/useMagnetic';
 import styles from './ViewSwitch.module.css';
 
-export type ViewMode = 'list' | 'grid';
+import type { ViewMode } from '@/lib/workQuery';
+
+export type { ViewMode };
 
 type ViewSwitchProps = {
   value: ViewMode;
@@ -30,7 +32,7 @@ const icons: Record<ViewMode, React.ReactNode> = {
 };
 
 /** Two round icon buttons for list / grid. */
-export default function ViewSwitch({ value, onChange, ariaLabel, labels }: ViewSwitchProps) {
+function ViewSwitch({ value, onChange, ariaLabel, labels }: ViewSwitchProps) {
   const ref = useRef<HTMLDivElement>(null);
   useMagnetic(ref, { target: `.${styles.button}`, inner: `.${styles.icon}` });
 
@@ -52,3 +54,5 @@ export default function ViewSwitch({ value, onChange, ariaLabel, labels }: ViewS
     </div>
   );
 }
+
+export default memo(ViewSwitch);

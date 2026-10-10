@@ -49,16 +49,16 @@ export const vi: Dictionary = {
     light: 'Sáng',
   },
   hero: {
-    marquee: 'Thiết kế và xây dựng cho web —',
-    roles: ['Lập trình viên Full-stack End-to-End', 'Kỹ sư Cơ sở dữ liệu', 'Chuyển động & Tương tác'],
+    marquee: 'Lập trình viên full-stack, từ cơ sở dữ liệu đến giao diện —',
+    roles: ['Lập trình viên Web Full-stack', 'Backend, API & Cơ sở dữ liệu', 'Frontend, Chuyển động & Tương tác'],
     locatedIn: 'Sống tại : Việt Nam',
     location: 'Việt Nam',
   },
   home: {
     statement:
-      'Tôi biến những ý tưởng tham vọng thành sản phẩm web nhanh và chỉn chu — xây dựng tận tâm, chuyển động có chủ đích và bền vững theo thời gian.',
+      'Tôi xây dựng sản phẩm web từ đầu đến cuối — từ cơ sở dữ liệu, API đến giao diện — nhanh, ổn định và bền vững theo thời gian.',
     intro:
-      'Chuyển động, typography, hiệu năng và những khoảnh khắc nhỏ khiến giao diện trở nên sống động là nơi tôi dành nhiều thời gian nhất.',
+      'Tôi thiết kế mô hình dữ liệu, viết backend, rồi tự hoàn thiện frontend và chuyển động, để mọi tầng khớp với nhau và không thất lạc gì giữa các khâu bàn giao.',
     aboutMe: 'Về tôi',
     selectedWork: 'Dự án tiêu biểu',
     viewAll: 'Xem tất cả',
@@ -148,6 +148,11 @@ export const vi: Dictionary = {
     viewLabel: 'Chế độ xem',
     list: 'Danh sách',
     grid: 'Lưới',
+    allProjects: 'Tất cả dự án',
+    clear: 'Xóa lọc',
+    clearAll: 'Xóa tất cả bộ lọc',
+    moreCategories: 'Thêm danh mục',
+    fewerCategories: 'Thu gọn danh mục',
     categories: {
       portfolio: 'Portfolio',
       enterprise: 'Quản trị / ERP',

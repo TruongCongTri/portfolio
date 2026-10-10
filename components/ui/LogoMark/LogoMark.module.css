@@ -1,8 +1,23 @@
 .mark {
   flex-shrink: 0;
-  transition: transform 0.6s var(--ease-out-expo);
+  border-radius: 50%;
+  /* Keep the pixel-art edges sharp when scaled down */
+  image-rendering: pixelated;
 }
 
-a:hover > .mark {
-  transform: rotate(180deg);
+/* One full turn each time the link is hovered (the mark may sit inside a mask wrapper, hence a descendant selector) */
+a:hover .mark {
+  animation: logo-spin 1s var(--ease-out-expo) both;
+}
+
+@keyframes logo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a:hover .mark {
+    animation: none;
+  }
 }

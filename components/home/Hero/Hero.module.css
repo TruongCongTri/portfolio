@@ -25,6 +25,9 @@
    * so it's never squashed. On narrow screens the sides may run past the edges (the hero clips them).
    */
   height: calc(100svh * 2 / 3);
+  /* Explicit width: an absolutely positioned box at left: 50% is otherwise capped to half the hero */
+  width: calc(100svh * 2 / 3 * var(--ratio));
+  max-width: none;
   translate: -50% 0;
 }
 
@@ -32,6 +35,8 @@
 .parallax {
   position: absolute;
   inset: 0;
+  /* The photo's arms are cropped by its own edges: fade the sides so they dissolve instead of ending in a hard line */
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
 }
 
 .portraitImage {
@@ -102,7 +107,13 @@
     font-size: 0.85rem;
   }
 
+  /*
+   * These lines sit over the mostly white portrait: difference-blending white text turns dark over
+   * the image and stays light over the dark page background, so it reads in both themes.
+   */
   .bottom {
     z-index: 4;
+    color: #fff;
+    mix-blend-mode: difference;
   }
 }

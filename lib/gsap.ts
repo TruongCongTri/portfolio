@@ -8,6 +8,10 @@ import { useGSAP } from '@gsap/react';
 // Single registration point — import gsap from here, not from 'gsap' directly.
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
+// Mobile browsers fire a resize every time the URL bar slides in or out; without this each one re-measures
+// every trigger mid-scroll (a main source of jank on phones). Real changes (rotation, layout) still refresh.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 /**
  * Play an entrance the first time its trigger is reached, then leave it be.
  * Use instead of `once: true`: a `once` trigger that is already past its start when created

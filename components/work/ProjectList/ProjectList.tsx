@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
+import { useProgressiveList } from "@/lib/useProgressiveList";
 import { gsap, PLAY_ONCE, useGSAP } from "@/lib/gsap";
 import type { Project } from "@/lib/projects";
 import { useI18n } from "@/lib/i18n/client";
+import { useIsMobile } from "@/lib/useIsMobile";
 import HoverPreview from "@/components/ui/HoverPreview/HoverPreview";
 import PillButton from "@/components/ui/PillButton/PillButton";
 import GitButton from "@/components/ui/GithubButton/GitButton";
+import ProjectGrid from "../ProjectGrid/ProjectGrid";
 import styles from "./ProjectList.module.css";
 
 type ProjectListProps = {
@@ -16,7 +19,18 @@ type ProjectListProps = {
   withPreview?: boolean;
 };
 
-export default function ProjectList({
+function ProjectList(props: ProjectListProps) {
+  // Phones have no hover (the list's preview) and no room for its columns: show the card grid instead.
+  const isMobile = useIsMobile();
+  // Keyed by content: a new filter result starts again from its first batch of rows
+  return isMobile ? (
+    <ProjectGrid projects={props.projects} />
+  ) : (
+    <ProjectTable key={props.projects.map((project) => project.slug).join("|")} {...props} />
+  );
+}
+
+function ProjectTable({
   projects,
   withPreview = true,
 }: ProjectListProps) {
@@ -24,12 +38,16 @@ export default function ProjectList({
   const [preview, setPreview] = useState<Project | null>(null);
   const { t, href } = useI18n();
   const columns = t.home.columns;
+  const { visible, hasMore, sentinelRef } = useProgressiveList(projects);
 
   useGSAP(
     () => {
+      // Only the rows added since last time: the ones already shown keep their state
       gsap.utils
         .toArray<HTMLElement>(`.${styles.row}, .${styles.head}`)
+        .filter((row) => !row.dataset.revealed)
         .forEach((row) => {
+          row.dataset.revealed = "true";
           gsap
             .timeline({
               scrollTrigger: { trigger: row, start: "top 92%", ...PLAY_ONCE },
@@ -52,7 +70,7 @@ export default function ProjectList({
             );
         });
     },
-    { scope: ref, dependencies: [projects], revertOnUpdate: true },
+    { scope: ref, dependencies: [visible.length] },
   );
 
   return (
@@ -78,7 +96,7 @@ export default function ProjectList({
         <span className={styles.rule} />
       </div>
 
-      {projects.map((project) => {
+      {visible.map((project) => {
         const hasGit = Boolean(project.githubWeb || project.githubAPI);
 
         return (
@@ -167,6 +185,9 @@ export default function ProjectList({
           </div>
         );
       })}
+      {hasMore && <div ref={sentinelRef} aria-hidden style={{ height: 1 }} />}
     </div>
   );
 }
+/* Memoised: only re-renders when the filtered list itself changes. */
+export default memo(ProjectList);

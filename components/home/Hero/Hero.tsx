@@ -94,7 +94,7 @@ export default function Hero() {
         <Marquee text={t.hero.marquee} />
       </div>
 
-      <div className={styles.portrait} style={{ aspectRatio: `${width} / ${height}` }}>
+      <div className={`${styles.portrait}`} style={{ aspectRatio: `${width} / ${height}`, '--ratio': width / height } as React.CSSProperties}>
         <div className={styles.parallax}>
           {/*
             Shown until the WebGL version is ready. The page's largest image, so it's preloaded.

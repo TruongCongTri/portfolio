@@ -9,6 +9,7 @@ import { I18nProvider } from '@/lib/i18n/client';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale } from '@/lib/i18n/server';
 import { themeInitScript } from '@/lib/theme';
+import { perfInitScript } from '@/lib/perf';
 import { site } from '@/lib/site';
 import { siteUrl } from '@/lib/seo';
 import { sans, serif } from '../fonts/fonts';
@@ -74,6 +75,7 @@ export default async function RootLayout({ children }: LayoutProps<'/[locale]'>)
       <head>
         {/* Plain inline script (not next/script) so it runs during parsing, before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: perfInitScript }} />
       </head>
       <body>
         <ThemeGuard />

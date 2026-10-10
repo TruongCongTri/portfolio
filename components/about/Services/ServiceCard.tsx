@@ -39,7 +39,14 @@ export default function ServiceCard({ index, title, description, highlight }: Se
   return (
     <article ref={ref} className={styles.card}>
       <div className={styles.cardTop}>
-        <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
+        <span className={styles.index}>
+          {/* One span per digit so ServicesGrid can animate them separately */}
+          {String(index + 1).padStart(2, '0').split('').map((digit, i) => (
+            <span key={i} className={styles.digit}>
+              {digit}
+            </span>
+          ))}
+        </span>
         <span className={styles.rule}>
           {/* Filled in turn by ServicesGrid's 01 → 05 loop */}
           <span className={styles.progress} />

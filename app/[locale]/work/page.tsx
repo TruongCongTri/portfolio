@@ -8,6 +8,7 @@ import { site } from '@/lib/site';
 import WorkExplorer from '@/components/work/WorkExplorer/WorkExplorer';
 import Footer from '@/components/layout/Footer/Footer';
 import JsonLd from '@/components/seo/JsonLd/JsonLd';
+import ProjectLinks from '@/components/seo/ProjectLinks/ProjectLinks';
 import PillButton from '@/components/ui/PillButton/PillButton';
 import styles from './page.module.css';
 
@@ -34,6 +35,7 @@ export default async function WorkPage() {
       <JsonLd data={workCollectionSchema(locale, t, projects)} />
       <main className={styles.main}>
         <WorkExplorer projects={projects} />
+        <ProjectLinks projects={projects} locale={locale} label={t.work.allProjects} />
         {archivedCount > 0 && (
           <div className={styles.more}>
             <PillButton href={localizePath(locale, '/work/archive')} variant="solid" size="lg" count={archivedCount} magnetic>

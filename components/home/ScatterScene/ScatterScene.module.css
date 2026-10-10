@@ -28,10 +28,9 @@
  */
 .frame {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
+  inset: 0;
   overflow: hidden;
+  will-change: transform, clip-path;
   background: #1a1a1a;
   opacity: 0;
   visibility: hidden;
@@ -40,6 +39,8 @@
 .frameImage {
   object-fit: cover;
   object-position: center;
+  /* The two hands meet here (left of the image's center); the zoom pivots on this point */
+  transform-origin: 31.5% 45%;
 }
 
 /* Dark scrim over the image */
@@ -63,6 +64,8 @@
 .cta {
   position: absolute;
   z-index: 3;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +82,8 @@
 .ctaMask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
+  /* Side padding so italic overhang isn't clipped by the mask */
+  padding: 0 0.2em 0.08em;
 }
 
 .ctaInner {

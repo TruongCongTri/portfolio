@@ -14,15 +14,24 @@
 .body {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  margin: clamp(3rem, 6vw, 5rem) 0 clamp(5rem, 9vw, 8rem);
+  gap: 2.5rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
 }
 
 @media (min-width: 900px) {
   .body {
     grid-template-columns: 1.2fr 0.8fr;
     gap: clamp(4rem, 14vw, 16rem);
+    /* Columns stretch to the taller one, so the pictures can end on the same line */
+    align-items: stretch;
   }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3.5vw, 3rem);
+  min-width: 0;
 }
 
 .lead {
@@ -31,7 +40,7 @@
   line-height: 1.55;
 }
 
-.side {
+.paragraphs {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
@@ -41,6 +50,29 @@
   padding-top: 0.4rem;
 }
 
-.image {
-  aspect-ratio: 16 / 8;
+/* Portrait (cut-out) on a soft tint; stacked on small screens, it keeps a 4:5 frame */
+.portrait {
+  aspect-ratio: 4 / 5;
+  background: var(--color-bg-deep);
+}
+
+/* Landscape, fixed shape: its height is whatever its width gives */
+.landscape {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 900px) {
+  /* Narrower than the lead above it; takes all the height left, down to the same line as the landscape picture */
+  .portrait {
+    flex: 1;
+    width: 100%;
+    aspect-ratio: auto;
+    min-height: 26rem;
+  }
+
+  /* Wider than the paragraphs: reaches left into the gap between the columns */
+  .landscape {
+    flex-shrink: 0;
+    margin-left: calc(-1 * clamp(3rem, 11vw, 12rem));
+  }
 }

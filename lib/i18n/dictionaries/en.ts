@@ -47,16 +47,16 @@ export const en = {
     light: 'Light',
   },
   hero: {
-    marquee: 'Designing and building for the web —',
-    roles: ['End-to-end Full-stack Developer', 'Database Engineer', 'Motion & Interaction'],
+    marquee: 'Full-stack developer, from database to interface —',
+    roles: ['Full-stack Web Developer', 'Backend, APIs & Databases', 'Frontend, Motion & Interaction'],
     locatedIn: 'Based in : Vietnam',
     location: 'Vietnam',
   },
   home: {
     statement:
-      'I turn ambitious ideas into fast, considered web products — built with care, animated with intent and made to last.',
+      'I build web products end to end — from the database and API to the interface — fast, reliable and made to last.',
     intro:
-      'Motion, typography, performance and the small moments that make an interface feel alive are where I spend my time.',
+      'I design the data model, write the backend, then craft the frontend and its motion myself, so every layer fits together and nothing gets lost between handoffs.',
     aboutMe: 'About me',
     selectedWork: 'Selected work',
     viewAll: 'View all',
@@ -146,6 +146,11 @@ export const en = {
     viewLabel: 'View mode',
     list: 'List',
     grid: 'Grid',
+    allProjects: 'All projects',
+    clear: 'Clear',
+    clearAll: 'Clear all filters',
+    moreCategories: 'More categories',
+    fewerCategories: 'Fewer categories',
     categories: {
       portfolio: 'Portfolio',
       enterprise: 'Enterprise / ERP',

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { gsap, MASK_START, PLAY_ONCE, roomyMasks, SplitText, useGSAP } from '@/lib/gsap';
 import FitText from '@/components/ui/FitText/FitText';
+import LinkCursor from '@/components/ui/LinkCursor/LinkCursor';
 import styles from './Footer.module.css';
 
 /** Full-width name that rises letter by letter as the footer scrolls into view. */
@@ -25,8 +26,11 @@ export default function FooterWordmark({ text }: { text: string }) {
   );
 
   return (
-    <div ref={ref} className={styles.wordmark} aria-hidden>
-      <FitText>{text}</FitText>
-    </div>
+    // Hovering the name swaps the cursor for the pixel portrait
+    <LinkCursor variant="portrait">
+      <div ref={ref} className={styles.wordmark} aria-hidden>
+        <FitText>{text}</FitText>
+      </div>
+    </LinkCursor>
   );
 }

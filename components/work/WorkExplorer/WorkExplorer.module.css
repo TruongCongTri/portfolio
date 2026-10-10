@@ -11,26 +11,22 @@
    ========================================================================== */
 .controls {
   position: sticky;
+  /* Pins to the very top; while pinned, Grid/List steps aside for the MenuButton (see [data-stuck]) */
   top: 0;
   z-index: 50; /* Beneath MenuButton's z-index: 90 */
   /* width: 100%; */
   box-sizing: border-box;
 
-  /* Frosted glass backdrop */
-  background: color-mix(in srgb, var(--color-bg, #09090b) 78%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* Near-opaque backdrop (a blur behind a 97% fill is invisible, and costly to paint while scrolling) */
+  background: color-mix(in srgb, var(--color-bg, #09090b) 97%, transparent);
 
   /* Margin bleed across outer gutters */
   margin-left: calc(-1 * var(--gutter, 1.5rem));
   margin-right: calc(-1 * var(--gutter, 1.5rem));
   padding-left: var(--gutter, 1.5rem);
 
-  /* 
-   * ESSENTIAL: Reserve safe clearance for the fixed MenuButton (80px + 1.5rem right + 1.5rem gap)
-   * This guarantees Grid/List buttons NEVER overlay or collide with MenuButton!
-   */
-  padding-right: calc(var(--gutter, 1.5rem) + 80px + 1.5rem);
+  /* Same gutter on both sides: the bar's content edges line up with the project grid/list below */
+  padding-right: var(--gutter, 1.5rem);
 
   padding-top: 1.5rem;
   padding-bottom: 1.25rem;
@@ -54,9 +50,10 @@
 .primaryBar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* Grid/List top-aligns with the first row of filter pills */
+  align-items: flex-start;
   gap: 1.5rem;
-  /* width: 100%; */
+  width: 100%;
 }
 
 .categories {
@@ -67,6 +64,21 @@
 .viewSwitchWrap {
   flex-shrink: 0;
   margin-left: auto;
+  transition: margin-right 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Zero-height marker just above the bar: once it scrolls out of view, the bar is pinned */
+.sentinel {
+  height: 0;
+}
+
+/*
+ * Pinned: keep Grid/List clear of the fixed MenuButton (right 1.5rem + 80px wide + 1rem gap).
+ * The bar's right content edge sits (viewport − 1280px)/2 + gutter from the viewport edge; only the
+ * shortfall is added as margin, so it stays flush with the grid when there's room.
+ */
+.controls[data-stuck='true'] .viewSwitchWrap {
+  margin-right: max(0px, calc(6.5rem - (100vw - min(100vw, 1280px)) / 2 - var(--gutter, 1.5rem)));
 }
 
 .secondaryBar {
@@ -86,29 +98,6 @@
   height: 2rem;
   padding: 0 0.8rem;
   font-size: 0.8rem;
-}
-
-.resetPill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  height: 2rem;
-  padding: 0 0.75rem;
-  font-size: 0.76rem;
-  font-weight: 500;
-  color: var(--color-muted);
-  background: transparent;
-  border: 1px dashed var(--color-border);
-  border-radius: 999px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-.resetPill:hover {
-  color: var(--color-fg);
-  border-color: var(--color-fg);
 }
 
 /* Hide mobile controls on desktop/tablet */
@@ -132,6 +121,9 @@
   }
 
   .controls {
+    top: 0;
+    /* Solid: cards scrolling beneath the pinned bar shouldn't show through next to the pills */
+    background: var(--color-bg);
     margin-left: calc(-1 * var(--gutter, 1rem));
     margin-right: calc(-1 * var(--gutter, 1rem));
     padding-left: var(--gutter, 1rem);
@@ -162,6 +154,7 @@
     align-items: center;
     gap: 0.45rem;
     flex: 1;
+    flex-wrap: wrap; /* the Clear pill drops to a second line on the narrowest screens */
     min-width: 0;
   }
 
@@ -176,7 +169,7 @@
     padding: 0 0.75rem;
     gap: 0.35rem;
     border-radius: 999px;
-    background: transparent;
+    background: var(--color-surface-raised);
     border: 1px solid var(--color-border);
     color: var(--color-fg);
     font-size: 0.82rem;
@@ -224,6 +217,12 @@
     border-color: var(--color-fg);
   }
 
+  /* Icon-only round button */
+  .clearTrigger {
+    width: 2.25rem;
+    padding: 0;
+  }
+
   .triggerIcon {
     display: inline-flex;
     align-items: center;
@@ -263,6 +262,7 @@
     padding: 0 0.75rem;
     font-size: 0.78rem;
   }
+
 }
 
 @keyframes drawerSlideDown {
@@ -305,7 +305,7 @@
   font-weight: 500;
   border-radius: 999px;
   border: 1px solid var(--color-fg);
-  background: transparent;
+  background: var(--color-surface-raised);
   color: var(--color-fg);
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -314,4 +314,12 @@
 .emptyResetBtn:hover {
   background: var(--color-fg);
   color: var(--color-bg);
+}
+/* Results: a touch dimmed while a new filter is still rendering (after a short delay, so quick updates don't flicker) */
+.results {
+  transition: opacity 0.25s ease 0.12s;
+}
+
+.results[data-pending='true'] {
+  opacity: 0.55;
 }

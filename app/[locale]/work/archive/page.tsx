@@ -7,6 +7,7 @@ import { site } from '@/lib/site';
 import WorkExplorer from '@/components/work/WorkExplorer/WorkExplorer';
 import Footer from '@/components/layout/Footer/Footer';
 import JsonLd from '@/components/seo/JsonLd/JsonLd';
+import ProjectLinks from '@/components/seo/ProjectLinks/ProjectLinks';
 import styles from '../page.module.css';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,6 +33,7 @@ export default async function ArchivePage() {
       <JsonLd data={workCollectionSchema(locale, t, projects, true)} />
       <main className={styles.main}>
         <WorkExplorer projects={projects} title={t.work.archiveTitle} />
+        <ProjectLinks projects={projects} locale={locale} label={t.work.allProjects} />
       </main>
       <Footer />
     </>

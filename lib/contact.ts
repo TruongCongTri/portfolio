@@ -111,150 +111,97 @@ export async function sendContactMessage(
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.com";
   const currentYear = new Date().getFullYear();
 
-  // 1. Email template sent to YOU (the owner)
-  const ownerHtml = `
+  // Email styling mirrors the site: warm light paper, ink text, hairline borders, a serif display
+  // heading (falls back to Georgia where Cormorant isn't installed), small uppercase labels, pill button.
+  const SERIF = "'Cormorant Garamond', Cormorant, Georgia, 'Times New Roman', serif";
+  const SANS = "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+  const label = (text: string) =>
+    `<div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8a8a; font-weight: 600; margin-bottom: 10px;">${text}</div>`;
+  const pill = (href: string, text: string) =>
+    `<a href="${href}" style="display: inline-block; padding: 13px 28px; background-color: #1a1a1a; color: #f3f3f3; text-decoration: none; border-radius: 9999px; font-size: 13px; font-weight: 600;">${text}</a>`;
+  const layout = (title: string, metaLeft: string, metaRight: string, body: string, footer: string) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>New Portfolio Inquiry</title>
+  <meta name="color-scheme" content="light" />
+  <title>${title}</title>
 </head>
-<body style="margin: 0; padding: 40px 16px; background-color: #09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; -webkit-font-smoothing: antialiased;">
-  <table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width: 580px; margin: 0 auto; background-color: #121214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);">
-    <!-- MetaBar Header -->
+<body style="margin: 0; padding: 40px 16px; background-color: #f3f3f3; font-family: ${SANS}; color: #1a1a1a; -webkit-font-smoothing: antialiased;">
+  <table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width: 580px; margin: 0 auto; background-color: #fafafa; border: 1px solid #dcdcdc; border-radius: 20px; overflow: hidden;">
     <tr>
-      <td style="padding: 22px 32px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+      <td style="padding: 22px 32px; border-bottom: 1px solid #e4e4e4;">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #a1a1aa;">
-              PORTFOLIO / INQUIRY
-            </td>
-            <td align="right" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #71717a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
-              ${currentYear}
-            </td>
+            <td style="font-family: ${SERIF}; font-size: 22px; color: #1a1a1a;">Trương Công Trí</td>
+            <td align="right" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8a8a;">${metaLeft} &middot; ${metaRight}</td>
           </tr>
         </table>
       </td>
     </tr>
-
-    <!-- Body Content -->
     <tr>
-      <td style="padding: 36px 32px 32px;">
-        <h1 style="margin: 0 0 24px; font-size: 26px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.25; color: #ffffff;">
-          New transmission from <span style="color: #60a5fa;">${safeName}</span>
-        </h1>
-
-        <!-- Sender Detail Card -->
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #18181b; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; margin-bottom: 24px;">
-          <tr>
-            <td style="padding: 13px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 11px; color: #71717a; text-transform: uppercase; letter-spacing: 0.1em; width: 70px;">
-              From
-            </td>
-            <td style="padding: 13px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 14px; font-weight: 500; color: #fafafa;">
-              ${safeName}
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 13px 18px; font-size: 11px; color: #71717a; text-transform: uppercase; letter-spacing: 0.1em; width: 70px;">
-              Email
-            </td>
-            <td style="padding: 13px 18px; font-size: 14px; color: #fafafa;">
-              <a href="mailto:${safeEmail}" style="color: #ffffff; text-decoration: underline; text-underline-offset: 3px;">
-                ${safeEmail}
-              </a>
-            </td>
-          </tr>
-        </table>
-
-        <!-- Message Block -->
-        <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #71717a; font-weight: 600; margin-bottom: 10px;">
-          Message Content
-        </div>
-        <div style="padding: 20px; background-color: #18181b; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; font-size: 15px; line-height: 1.7; color: #d4d4d8; white-space: pre-wrap; margin-bottom: 32px;">${safeMessage}</div>
-
-        <!-- Pill Action Button -->
-        <div>
-          <a href="mailto:${safeEmail}?subject=Re:%20Portfolio%20Inquiry" style="display: inline-block; padding: 12px 26px; background-color: #ffffff; color: #09090b; text-decoration: none; border-radius: 9999px; font-size: 13px; font-weight: 600; letter-spacing: -0.01em;">
-            Reply to ${safeName} &nearr;
-          </a>
-        </div>
-      </td>
+      <td style="padding: 36px 32px 32px;">${body}</td>
     </tr>
-
-    <!-- Footer Rule & Note -->
     <tr>
-      <td style="padding: 18px 32px; background-color: #0c0c0e; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 11px; color: #52525b; text-align: center; letter-spacing: 0.04em;">
-        Dispatched automatically from your portfolio contact panel
-      </td>
+      <td style="padding: 18px 32px; background-color: #f3f3f3; border-top: 1px solid #e4e4e4; font-size: 11px; color: #8a8a8a; text-align: center; letter-spacing: 0.04em;">${footer}</td>
     </tr>
   </table>
 </body>
 </html>
   `.trim();
+
+  // 1. Email template sent to YOU (the owner)
+  const ownerHtml = layout(
+    "New Portfolio Inquiry",
+    "Inquiry",
+    String(currentYear),
+    `
+        <h1 style="margin: 0 0 28px; font-family: ${SERIF}; font-size: 40px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; color: #1a1a1a;">
+          New message from <em>${safeName}</em>
+        </h1>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border: 1px solid #e4e4e4; border-radius: 12px; margin-bottom: 24px;">
+          <tr>
+            <td style="padding: 13px 18px; border-bottom: 1px solid #eeeeee; font-size: 11px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.1em; width: 70px;">From</td>
+            <td style="padding: 13px 18px; border-bottom: 1px solid #eeeeee; font-size: 14px; font-weight: 500; color: #1a1a1a;">${safeName}</td>
+          </tr>
+          <tr>
+            <td style="padding: 13px 18px; font-size: 11px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.1em; width: 70px;">Email</td>
+            <td style="padding: 13px 18px; font-size: 14px; color: #1a1a1a;">
+              <a href="mailto:${safeEmail}" style="color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px;">${safeEmail}</a>
+            </td>
+          </tr>
+        </table>
+
+        ${label("Message")}
+        <div style="padding: 20px; background-color: #ffffff; border: 1px solid #e4e4e4; border-radius: 12px; font-size: 15px; line-height: 1.7; color: #3a3a3a; white-space: pre-wrap; margin-bottom: 32px;">${safeMessage}</div>
+
+        ${pill(`mailto:${safeEmail}?subject=Re:%20Portfolio%20Inquiry`, `Reply to ${safeName} &nearr;`)}
+    `,
+    "Sent automatically from your portfolio contact panel",
+  );
 
   // 2. Automated receipt sent to the SENDER
-  const senderReceiptHtml = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Message Received</title>
-</head>
-<body style="margin: 0; padding: 40px 16px; background-color: #09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; -webkit-font-smoothing: antialiased;">
-  <table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width: 580px; margin: 0 auto; background-color: #121214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);">
-    <!-- MetaBar Header -->
-    <tr>
-      <td style="padding: 22px 32px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <td style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #a1a1aa;">
-              MESSAGE ACKNOWLEDGEMENT
-            </td>
-            <td align="right" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #52525b; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
-              STATUS: DELIVERED
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-
-    <!-- Body Content -->
-    <tr>
-      <td style="padding: 36px 32px 32px;">
-        <h1 style="margin: 0 0 16px; font-size: 26px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.25; color: #ffffff;">
-          Thank you for reaching out, ${safeName}.
+  const senderReceiptHtml = layout(
+    "Message Received",
+    "Receipt",
+    "Delivered",
+    `
+        <h1 style="margin: 0 0 16px; font-family: ${SERIF}; font-size: 40px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; color: #1a1a1a;">
+          Thank you, <em>${safeName}</em>.
         </h1>
-        <p style="margin: 0 0 26px; font-size: 15px; line-height: 1.7; color: #a1a1aa;">
-          Your message has arrived in my inbox. I review every project brief and inquiry personally and will get back to you shortly.
+        <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.7; color: #5c5c5c;">
+          Your message has arrived in my inbox. I read every inquiry personally and will get back to you shortly.
         </p>
 
-        <!-- Sent Copy Block -->
-        <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #71717a; font-weight: 600; margin-bottom: 10px;">
-          Copy of your submission
-        </div>
-        <div style="padding: 20px; background-color: #18181b; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; font-size: 14px; line-height: 1.7; color: #d4d4d8; white-space: pre-wrap; margin-bottom: 32px;">${safeMessage}</div>
+        ${label("A copy of your message")}
+        <div style="padding: 20px; background-color: #ffffff; border: 1px solid #e4e4e4; border-radius: 12px; font-size: 14px; line-height: 1.7; color: #3a3a3a; white-space: pre-wrap; margin-bottom: 32px;">${safeMessage}</div>
 
-        <!-- Pill Link Button -->
-        <div>
-          <a href="${siteUrl}" style="display: inline-block; padding: 12px 26px; background-color: #ffffff; color: #09090b; text-decoration: none; border-radius: 9999px; font-size: 13px; font-weight: 600; letter-spacing: -0.01em;">
-            Back to Portfolio &nearr;
-          </a>
-        </div>
-      </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr>
-      <td style="padding: 18px 32px; background-color: #0c0c0e; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 11px; color: #52525b; text-align: center; letter-spacing: 0.04em;">
-        This automated receipt confirms that your transmission was successfully received.
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-  `.trim();
+        ${pill(siteUrl, "Back to portfolio &nearr;")}
+    `,
+    "This automated receipt confirms your message was received.",
+  );
 
   try {
     // 1. Deliver incoming inquiry to your inbox
