@@ -46,6 +46,20 @@ import thanhHoang06 from "../public/projects/thanh-hoang/06.png";
 import thanhHoang07 from "../public/projects/thanh-hoang/07.png";
 import thanhHoang08 from "../public/projects/thanh-hoang/08.png";
 import thanhHoang09 from "../public/projects/thanh-hoang/09.png";
+import pizzaPiattoHero from "../public/projects/pizza-piatto-portfolio/hero.png";
+import pizzaPiatto01 from "../public/projects/pizza-piatto-portfolio/01.png";
+import pizzaPiatto02 from "../public/projects/pizza-piatto-portfolio/02.png";
+import pizzaPiatto03 from "../public/projects/pizza-piatto-portfolio/03.png";
+import pizzaPiatto04 from "../public/projects/pizza-piatto-portfolio/04.png";
+import pizzaPiatto05 from "../public/projects/pizza-piatto-portfolio/05.png";
+import pizzaPiatto06 from "../public/projects/pizza-piatto-portfolio/06.png";
+import pizzaPiatto07 from "../public/projects/pizza-piatto-portfolio/07.png";
+import pizzaPiatto08 from "../public/projects/pizza-piatto-portfolio/08.png";
+import pizzaPiatto09 from "../public/projects/pizza-piatto-portfolio/09.png";
+import pizzaPiatto10 from "../public/projects/pizza-piatto-portfolio/10.png";
+import pizzaPiatto11 from "../public/projects/pizza-piatto-portfolio/11.png";
+import pizzaPiatto12 from "../public/projects/pizza-piatto-portfolio/12.png";
+import pizzaPiatto13 from "../public/projects/pizza-piatto-portfolio/13.png";
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
 export type ProjectImage = StaticImageData | string;
@@ -195,14 +209,29 @@ const sources: ProjectSource[] = [
     titleParts: ["Pizza", "Piatto"],
     categories: ["portfolio"],
     year: "2026",
-    url: undefined,
+    url: "https://pizza-piatto-portfolio-phi.vercel.app/vi",
     githubWeb: "https://github.com/TruongCongTri/pizza-piatto-portfolio",
     githubAPI: undefined,
     // Navy and gold from the Pizza Piatto logo.
     color: "#151d32",
     tone: "light",
     textColor: "#f2b950",
-    images: placeholderShots("Pizza Piatto", "#151d32", 4, "#f2b950"),
+    hero: pizzaPiattoHero,
+    images: [
+      pizzaPiatto01,
+      pizzaPiatto02,
+      pizzaPiatto03,
+      pizzaPiatto04,
+      pizzaPiatto05,
+      pizzaPiatto06,
+      pizzaPiatto07,
+      pizzaPiatto08,
+      pizzaPiatto09,
+      pizzaPiatto10,
+      pizzaPiatto11,
+      pizzaPiatto12,
+      pizzaPiatto13
+    ],
     copy: {
       en: {
         services: "Design + Development",
