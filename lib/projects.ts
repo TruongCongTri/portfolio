@@ -60,6 +60,17 @@ import pizzaPiatto10 from "../public/projects/pizza-piatto-portfolio/10.png";
 import pizzaPiatto11 from "../public/projects/pizza-piatto-portfolio/11.png";
 import pizzaPiatto12 from "../public/projects/pizza-piatto-portfolio/12.png";
 import pizzaPiatto13 from "../public/projects/pizza-piatto-portfolio/13.png";
+import airportDTHero from "../public/projects/airport-digital-twin/hero.png";
+import airportDT01 from "../public/projects/airport-digital-twin/01.png";
+import airportDT02 from "../public/projects/airport-digital-twin/02.png";
+import airportDT03 from "../public/projects/airport-digital-twin/03.png";
+import airportDT04 from "../public/projects/airport-digital-twin/04.png";
+import airportDT05 from "../public/projects/airport-digital-twin/05.png";
+import airportDT06 from "../public/projects/airport-digital-twin/06.png";
+import airportDT07 from "../public/projects/airport-digital-twin/07.png";
+import airportDT08 from "../public/projects/airport-digital-twin/08.png";
+import airportDT09 from "../public/projects/airport-digital-twin/09.png";
+
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
 export type ProjectImage = StaticImageData | string;
@@ -407,6 +418,59 @@ const sources: ProjectSource[] = [
     },
   },
   {
+    slug: "airport-digital-twin",
+    title: "Airport Digital Twin",
+    titleParts: ["Airport", "Digital Twin"],
+    categories: ["digitalTwin"],
+    year: "2025",
+    url: "https://digital-twin-airport-web-kukc.vercel.app",
+    githubWeb: "https://github.com/TruongCongTri/Digital-Twin-Airport-web",
+    githubAPI: "https://github.com/TruongCongTri/Digital-Twin-Airport-api",
+    // No brand color given — a deep aviation teal.
+    color: "#0d5c63",
+    tone: "light",
+    hero: airportDTHero,
+    images: [
+      airportDT01,
+      airportDT02,
+      airportDT03,
+      airportDT04,
+      airportDT05,
+      airportDT06,
+      airportDT07,
+      airportDT08,
+      airportDT09
+    ],
+    copy: {
+      en: {
+        services: "Full-stack Development",
+        overview:
+          "A digital twin platform that models airports and tracks live ground aircraft and sensors, both indoors and outdoors.",
+        challenge: [
+          "An airport produces a constant stream of data: aircraft moving across the airfield and sensors reporting from inside the terminals as well as outdoors.",
+          "Operators needed all of it on one accurate model of each airport, updating in real time, instead of scattered across separate systems.",
+        ],
+        approach: [
+          "We built the twin on ArcGIS, with a Next.js and Redux front end that renders each airport’s model and places live aircraft and sensor readings in context, indoors and out.",
+          "An Express.js back end ingests sensor events through webhooks, keeps fast-changing state in Redis and streams updates to every open view over WebSockets, so the model reflects what is happening on the ground.",
+        ],
+      },
+      vi: {
+        services: "Phát triển Full-stack",
+        overview:
+          "Nền tảng bản sao số mô hình hóa sân bay, theo dõi trực tiếp máy bay dưới mặt đất và cảm biến trong nhà lẫn ngoài trời.",
+        challenge: [
+          "Một sân bay tạo ra luồng dữ liệu liên tục: máy bay di chuyển trên sân đỗ và cảm biến báo về từ bên trong nhà ga lẫn ngoài trời.",
+          "Người vận hành cần tất cả dữ liệu đó trên một mô hình chính xác của từng sân bay, cập nhật theo thời gian thực, thay vì nằm rải rác trên nhiều hệ thống.",
+        ],
+        approach: [
+          "Chúng tôi xây dựng bản sao số trên ArcGIS, với frontend Next.js và Redux hiển thị mô hình từng sân bay, đặt máy bay và số liệu cảm biến trực tiếp vào đúng vị trí, cả trong nhà lẫn ngoài trời.",
+          "Backend Express.js tiếp nhận sự kiện cảm biến qua webhook, lưu trạng thái thay đổi nhanh trong Redis và truyền cập nhật đến mọi màn hình đang mở qua WebSocket, để mô hình luôn phản ánh những gì đang diễn ra dưới mặt đất.",
+        ],
+      },
+    },
+  },
+  {
     slug: "vietdynamic-elearning",
     title: "VietDynamic E-learning",
     titleParts: ["VietDynamic", "E-learning"],
@@ -500,48 +564,7 @@ const sources: ProjectSource[] = [
       },
     },
   },
-  {
-    slug: "airport-digital-twin",
-    title: "Airport Digital Twin",
-    titleParts: ["Airport", "Digital Twin"],
-    categories: ["digitalTwin"],
-    year: "2025",
-    url: undefined,
-    githubWeb: "https://github.com/TruongCongTri/Digital-Twin-Airport-web",
-    githubAPI: "https://github.com/TruongCongTri/Digital-Twin-Airport-api",
-    // No brand color given — a deep aviation teal.
-    color: "#0d5c63",
-    tone: "light",
-    images: placeholderShots("Airport Digital Twin", "#0d5c63", 4),
-    copy: {
-      en: {
-        services: "Full-stack Development",
-        overview:
-          "A digital twin platform that models airports and tracks live ground aircraft and sensors, both indoors and outdoors.",
-        challenge: [
-          "An airport produces a constant stream of data: aircraft moving across the airfield and sensors reporting from inside the terminals as well as outdoors.",
-          "Operators needed all of it on one accurate model of each airport, updating in real time, instead of scattered across separate systems.",
-        ],
-        approach: [
-          "We built the twin on ArcGIS, with a Next.js and Redux front end that renders each airport’s model and places live aircraft and sensor readings in context, indoors and out.",
-          "An Express.js back end ingests sensor events through webhooks, keeps fast-changing state in Redis and streams updates to every open view over WebSockets, so the model reflects what is happening on the ground.",
-        ],
-      },
-      vi: {
-        services: "Phát triển Full-stack",
-        overview:
-          "Nền tảng bản sao số mô hình hóa sân bay, theo dõi trực tiếp máy bay dưới mặt đất và cảm biến trong nhà lẫn ngoài trời.",
-        challenge: [
-          "Một sân bay tạo ra luồng dữ liệu liên tục: máy bay di chuyển trên sân đỗ và cảm biến báo về từ bên trong nhà ga lẫn ngoài trời.",
-          "Người vận hành cần tất cả dữ liệu đó trên một mô hình chính xác của từng sân bay, cập nhật theo thời gian thực, thay vì nằm rải rác trên nhiều hệ thống.",
-        ],
-        approach: [
-          "Chúng tôi xây dựng bản sao số trên ArcGIS, với frontend Next.js và Redux hiển thị mô hình từng sân bay, đặt máy bay và số liệu cảm biến trực tiếp vào đúng vị trí, cả trong nhà lẫn ngoài trời.",
-          "Backend Express.js tiếp nhận sự kiện cảm biến qua webhook, lưu trạng thái thay đổi nhanh trong Redis và truyền cập nhật đến mọi màn hình đang mở qua WebSocket, để mô hình luôn phản ánh những gì đang diễn ra dưới mặt đất.",
-        ],
-      },
-    },
-  },
+  
   {
     slug: "digital-twin",
     title: "Digital Twin",
