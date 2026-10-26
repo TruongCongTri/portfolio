@@ -418,6 +418,55 @@ const sources: ProjectSource[] = [
     },
   },
   {
+    slug: "room-management",
+    title: "Rental Room Management",
+    titleParts: ["Rental Room", "Management"],
+    categories: ["enterprise"],
+    year: "2026",
+    url: undefined,
+    githubWeb: "https://github.com/TruongCongTri/room-management-web",
+    githubAPI: "https://github.com/TruongCongTri/room-management-api",
+    // Orange accent with ink type; paper, paper-2 and ink take turns as section backgrounds.
+    color: "#f15534",
+    tone: "dark",
+    textColor: "#282828",
+    sectionColors: [
+      { color: "#f3f2ee", tone: "dark", textColor: "#282828" },
+      { color: "#e9e7e1", tone: "dark", textColor: "#282828" },
+      { color: "#f15534", tone: "dark", textColor: "#282828" },
+      { color: "#282828", tone: "light", textColor: "#f15534" },
+    ],
+    images: placeholderShots("Room Management", "#f3f2ee", 4, "#282828"),
+    copy: {
+      en: {
+        services: "Full-stack Development",
+        overview:
+          "An end-to-end rental platform for an 80-room building: a public website where renters browse rooms and real prices, backed by an API that runs leases, meter readings, billing and Vietnamese compliance.",
+        challenge: [
+          "Renters rarely know what a room really costs until they sign: rent, fees, furniture and utilities arrive as separate surprises, and the listing they saw is often out of date. The public site had to show every room type, where each room sits in the building, what is free right now and the full monthly price.",
+          "Behind it, one room is rented under one contract but often shared by several people, each with their own ID document and residence declaration, and the contract has to pass to another occupant when the holder moves out. Every month the landlord also collects meter readings for 80 rooms, bills electricity on EVN’s tiered rates, takes payments and keeps up with the 2026 rental tax, residence registration and personal-data rules.",
+        ],
+        approach: [
+          "The website is built with Next.js, Redux Toolkit and RTK Query in Vietnamese and English, with Lenis smooth scrolling, page transitions and drawn floor plans. Visitors explore the building floor by floor, compare room types and estimate their monthly total with a price calculator. Rooms, prices and availability come from the backend’s public listing API through a server-side client with ETag caching. When staff change something, the backend asks the site to revalidate, so the change shows up at once.",
+          "The API runs on NestJS, TypeORM and PostgreSQL. Row-level security keeps each building’s data apart, a CASL permission matrix covers landlords, managers, accountants, guards and tenants, and ID numbers are encrypted field by field. Guards upload meter photos through presigned URLs, and a month-end run issues invoices under Redis locks. Tenants pay by ZaloPay QR, with Zalo messages that fall back to SMS. Statutory PDFs and tax exports keep every lease accurate and auditable, from move-in to checkout and deposit settlement.",
+        ],
+      },
+      vi: {
+        services: "Phát triển Full-stack",
+        overview:
+          "Nền tảng cho thuê phòng toàn trình cho tòa nhà 80 phòng: website công khai nơi người thuê xem phòng và giá thật, cùng API vận hành hợp đồng, chỉ số điện nước, hóa đơn và tuân thủ pháp luật Việt Nam.",
+        challenge: [
+          "Người thuê hiếm khi biết một căn phòng thực sự tốn bao nhiêu cho đến lúc ký: tiền phòng, phí dịch vụ, nội thất và điện nước lần lượt xuất hiện như những khoản bất ngờ, còn tin đăng họ thấy thường đã cũ. Website công khai phải cho thấy mọi loại phòng, vị trí từng phòng trong tòa nhà, phòng nào đang trống và tổng chi phí hằng tháng.",
+          "Phía sau, mỗi phòng được thuê theo một hợp đồng nhưng thường có nhiều người ở, mỗi người có giấy tờ tùy thân và khai báo tạm trú riêng, và hợp đồng phải chuyển sang người khác khi người đứng tên chuyển đi. Hằng tháng, chủ nhà còn phải ghi chỉ số công tơ cho 80 phòng, tính tiền điện theo bậc thang EVN, thu tiền và tuân thủ quy định thuế cho thuê nhà 2026, đăng ký cư trú và bảo vệ dữ liệu cá nhân.",
+        ],
+        approach: [
+          "Website được xây dựng bằng Next.js, Redux Toolkit và RTK Query, có tiếng Việt và tiếng Anh, với cuộn trang mượt bằng Lenis, chuyển trang và bản vẽ mặt bằng. Người xem khám phá tòa nhà theo từng tầng, so sánh các loại phòng và ước tính tổng chi phí hằng tháng bằng công cụ tính giá. Phòng, giá và tình trạng trống lấy từ API public listing của backend qua client phía server có cache ETag. Khi nhân viên thay đổi dữ liệu, backend yêu cầu website làm mới, nên thay đổi hiển thị ngay lập tức.",
+          "API chạy trên NestJS, TypeORM và PostgreSQL. Row-level security tách riêng dữ liệu của từng tòa nhà, ma trận phân quyền CASL bao quát chủ nhà, quản lý, kế toán, bảo vệ và khách thuê, còn số CCCD được mã hóa theo từng trường. Bảo vệ tải ảnh công tơ qua presigned URL, và đợt chốt cuối tháng phát hành hóa đơn dưới khóa Redis. Khách thuê thanh toán bằng mã QR ZaloPay, với tin nhắn Zalo tự chuyển sang SMS khi cần. PDF theo mẫu pháp lý và báo cáo thuế giữ cho mọi hợp đồng chính xác và có thể kiểm toán, từ nhận phòng đến trả phòng và quyết toán cọc.",
+        ],
+      },
+    },
+  },
+  {
     slug: "airport-digital-twin",
     title: "Airport Digital Twin",
     titleParts: ["Airport", "Digital Twin"],
