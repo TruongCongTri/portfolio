@@ -70,6 +70,14 @@ import airportDT06 from "../public/projects/airport-digital-twin/06.png";
 import airportDT07 from "../public/projects/airport-digital-twin/07.png";
 import airportDT08 from "../public/projects/airport-digital-twin/08.png";
 import airportDT09 from "../public/projects/airport-digital-twin/09.png";
+import roomManageHero from "../public/projects/room-management/hero.png";
+import roomManage01 from "../public/projects/room-management/01.png";
+import roomManage02 from "../public/projects/room-management/02.png";
+import roomManage03 from "../public/projects/room-management/03.png";
+import roomManage04 from "../public/projects/room-management/04.png";
+import roomManage05 from "../public/projects/room-management/05.png";
+import roomManage06 from "../public/projects/room-management/06.png";
+import roomManage07 from "../public/projects/room-management/07.png";
 
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
@@ -436,7 +444,16 @@ const sources: ProjectSource[] = [
       { color: "#f15534", tone: "dark", textColor: "#282828" },
       { color: "#282828", tone: "light", textColor: "#f15534" },
     ],
-    images: placeholderShots("Room Management", "#f3f2ee", 4, "#282828"),
+    hero: roomManageHero,
+    images: [
+      roomManage01,
+      roomManage02,
+      roomManage03,
+      roomManage04,
+      roomManage05,
+      roomManage06,
+      roomManage07
+    ],
     copy: {
       en: {
         services: "Full-stack Development",
