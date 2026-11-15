@@ -8,6 +8,8 @@
 /* Same spacing as the home page's "More work" button */
 .more {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 0.75rem;
   margin-top: clamp(4rem, 8vw, 7rem);
 }

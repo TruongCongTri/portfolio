@@ -10,6 +10,7 @@ import Footer from '@/components/layout/Footer/Footer';
 import JsonLd from '@/components/seo/JsonLd/JsonLd';
 import ProjectLinks from '@/components/seo/ProjectLinks/ProjectLinks';
 import PillButton from '@/components/ui/PillButton/PillButton';
+import PrivateWorkButton from '@/components/private/PrivateWorkButton/PrivateWorkButton';
 import styles from './page.module.css';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,13 +37,15 @@ export default async function WorkPage() {
       <main className={styles.main}>
         <WorkExplorer projects={projects} />
         <ProjectLinks projects={projects} locale={locale} label={t.work.allProjects} />
-        {archivedCount > 0 && (
-          <div className={styles.more}>
+        <div className={styles.more}>
+          {archivedCount > 0 && (
             <PillButton href={localizePath(locale, '/work/archive')} variant="solid" size="lg" count={archivedCount} magnetic>
               {t.work.archive}
             </PillButton>
-          </div>
-        )}
+          )}
+          {/* Only in a browser that has unlocked private work */}
+          <PrivateWorkButton />
+        </div>
       </main>
       <Footer />
     </>

@@ -93,7 +93,7 @@ export const blurPlaceholder = (image: ProjectImage) =>
 
 export type CategoryId = keyof Dictionary["work"]["categories"];
 
-type LocalizedCopy = {
+export type LocalizedCopy = {
   services: string;
   /** One sentence: shown as the "{Project} — {overview}" headline. */
   overview: string;
@@ -104,7 +104,7 @@ type LocalizedCopy = {
   disclaimer?: string;
 };
 
-type ProjectSource = {
+export type ProjectSource = {
   slug: string;
   title: string;
   /**
@@ -148,7 +148,7 @@ export type SectionColors = Pick<ProjectSource, "color" | "tone" | "textColor">;
 export type Project = Omit<ProjectSource, "copy"> & LocalizedCopy;
 
 /** Placeholder screens tinted with the project colors — swap for real screenshots. */
-function placeholderShots(
+export function placeholderShots(
   title: string,
   color: string,
   count: number,
@@ -762,7 +762,7 @@ const sources: ProjectSource[] = [
   },
 ];
 
-function localize(
+export function localize(
   { copy, ...project }: ProjectSource,
   locale: Locale,
 ): Project {

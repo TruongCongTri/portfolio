@@ -4,11 +4,16 @@ import { useRef } from 'react';
 import { gsap, MASK_START, PLAY_ONCE, roomyMasks, SplitText, useGSAP } from '@/lib/gsap';
 import FitText from '@/components/ui/FitText/FitText';
 import LinkCursor from '@/components/ui/LinkCursor/LinkCursor';
+import { usePrivateUnlock } from '@/components/private/PrivateUnlock/PrivateUnlock';
 import styles from './Footer.module.css';
 
-/** Full-width name that rises letter by letter as the footer scrolls into view. */
+/**
+ * Full-width name that rises letter by letter as the footer scrolls into view. Clicking it five times
+ * quickly is the hidden way into private work (see PrivateUnlock).
+ */
 export default function FooterWordmark({ text }: { text: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const privateUnlock = usePrivateUnlock();
 
   useGSAP(
     () => {
@@ -27,10 +32,13 @@ export default function FooterWordmark({ text }: { text: string }) {
 
   return (
     // Hovering the name swaps the cursor for the pixel portrait
-    <LinkCursor variant="portrait">
-      <div ref={ref} className={styles.wordmark} aria-hidden>
-        <FitText>{text}</FitText>
-      </div>
-    </LinkCursor>
+    <>
+      <LinkCursor variant="portrait">
+        <div ref={ref} className={styles.wordmark} aria-hidden onClick={privateUnlock.onClick}>
+          <FitText>{text}</FitText>
+        </div>
+      </LinkCursor>
+      {privateUnlock.dialog}
+    </>
   );
 }

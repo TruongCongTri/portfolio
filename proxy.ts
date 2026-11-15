@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { defaultLocale, hasLocale, locales, LOCALE_COOKIE, type Locale } from '@/lib/i18n/config';
+import { handlePrivateWork } from '@/lib/privateAccess';
 
 /** Saved choice first, then the browser's Accept-Language order, then the default. */
 function detectLocale(request: NextRequest): Locale {
@@ -17,7 +18,11 @@ function detectLocale(request: NextRequest): Locale {
   return accepted.map((a) => a.lang).find(hasLocale) ?? defaultLocale;
 }
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+  // Private work: unlock links, the access gate and hidden project routing (see lib/privateAccess).
+  const privateResponse = await handlePrivateWork(request);
+  if (privateResponse) return privateResponse;
+
   const { pathname } = request.nextUrl;
   const hasPrefix = locales.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`));
   if (hasPrefix) return;
