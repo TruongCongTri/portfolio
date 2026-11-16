@@ -7,9 +7,11 @@ import { useI18n } from '@/lib/i18n/client';
 import { isLowEndDevice } from '@/lib/perf';
 import { blurPlaceholder, type Project } from '@/lib/projects';
 import ContactTrigger from '@/components/contact/ContactTrigger/ContactTrigger';
-import getInTouch from '../../../public/get-in-touch.jpg';
-// import getInTouch from '../../../public/Renaissance_Fresco-Creation_of_the_Cat.png';
+import { r2Image } from '@/lib/r2Images';
 import styles from './ScatterScene.module.css';
+
+const getInTouch = r2Image('get-in-touch');
+// const getInTouch = r2Image('Renaissance_Fresco-Creation_of_the_Cat');
 
 /** The middle of the gap between the cat and the reaching hand in the get-in-touch picture, as a share of its width and height (used on tall screens, where only a slice of the picture shows). */
 const HANDS = { x: 0.28, y: 0.43 };

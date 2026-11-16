@@ -1,83 +1,85 @@
 import type { StaticImageData } from "next/image";
 import type { Locale } from "./i18n/config";
 import type { Dictionary } from "./i18n/dictionaries";
+import { r2Image } from "./r2Images";
 
 /*
- * Project screenshots live in public/projects/<slug>/, numbered in display order:
+ * Project screenshot sources live in assets/images/projects/<slug>/, numbered in display order:
  *
- *   public/projects/chinh-nam-portfolio/hero.png ← full-bleed image in the detail page's hero
- *   public/projects/chinh-nam-portfolio/01.png   ← cover (grid card, hover preview, share card)
- *   public/projects/chinh-nam-portfolio/02.png   ← gallery continues in number order…
+ *   assets/images/projects/chinh-nam-portfolio/hero.png ← full-bleed image in the detail page's hero
+ *   assets/images/projects/chinh-nam-portfolio/01.png   ← cover (grid card, hover preview, share card)
+ *   assets/images/projects/chinh-nam-portfolio/02.png   ← gallery continues in number order…
  *
- * Import them here (static imports give Next each file's size, a blur placeholder and a
- * cache-forever URL; next/image then serves resized AVIF/WebP, so large PNG sources are fine).
+ * After adding or replacing one, run `npm run images:upload`: it converts them to WebP, uploads them to
+ * Cloudflare R2 and records each one's size and blur placeholder in lib/r2Images.json. Reference them
+ * here with r2Image("projects/<slug>/<name>"); next/image then serves resized versions.
  */
-import chinhNamHero from "../public/projects/chinh-nam-portfolio/hero.png";
-import chinhNam01 from "../public/projects/chinh-nam-portfolio/01.png";
-import chinhNam02 from "../public/projects/chinh-nam-portfolio/02.png";
-import chinhNam03 from "../public/projects/chinh-nam-portfolio/03.png";
-import chinhNam04 from "../public/projects/chinh-nam-portfolio/04.png";
-import chinhNam05 from "../public/projects/chinh-nam-portfolio/05.png";
-import chinhNamErpHero from "../public/projects/chinh-nam-erp/hero.png";
-import chinhNamErp01 from "../public/projects/chinh-nam-erp/01.png";
-import chinhNamErp02 from "../public/projects/chinh-nam-erp/02.png";
-import chinhNamErp03 from "../public/projects/chinh-nam-erp/03.png";
-import chinhNamErp04 from "../public/projects/chinh-nam-erp/04.png";
-import chinhNamErp05 from "../public/projects/chinh-nam-erp/05.png";
-import chinhNamErp06 from "../public/projects/chinh-nam-erp/06.png";
-import chinhNamErp07 from "../public/projects/chinh-nam-erp/07.png";
-import chinhNamErp08 from "../public/projects/chinh-nam-erp/08.png";
-import chinhNamErp10 from "../public/projects/chinh-nam-erp/10.png";
-import vietDynamicHero from "../public/projects/viet-dynamic-elearning/hero.png";
-import vietDynamic01 from "../public/projects/viet-dynamic-elearning/01.png";
-import vietDynamic02 from "../public/projects/viet-dynamic-elearning/02.png";
-import vietDynamic03 from "../public/projects/viet-dynamic-elearning/03.png";
-import vietDynamic04 from "../public/projects/viet-dynamic-elearning/04.png";
-import vietDynamic05 from "../public/projects/viet-dynamic-elearning/05.png";
-import vietDynamic06 from "../public/projects/viet-dynamic-elearning/06.png";
-import thanhHoangHero from "../public/projects/thanh-hoang/hero.png";
-import thanhHoang01 from "../public/projects/thanh-hoang/01.png";
-import thanhHoang10 from "../public/projects/thanh-hoang/10.png";
-import thanhHoang02 from "../public/projects/thanh-hoang/02.png";
-import thanhHoang03 from "../public/projects/thanh-hoang/03.png";
-import thanhHoang04 from "../public/projects/thanh-hoang/04.png";
-import thanhHoang05 from "../public/projects/thanh-hoang/05.png";
-import thanhHoang06 from "../public/projects/thanh-hoang/06.png";
-import thanhHoang07 from "../public/projects/thanh-hoang/07.png";
-import thanhHoang08 from "../public/projects/thanh-hoang/08.png";
-import thanhHoang09 from "../public/projects/thanh-hoang/09.png";
-import pizzaPiattoHero from "../public/projects/pizza-piatto-portfolio/hero.png";
-import pizzaPiatto01 from "../public/projects/pizza-piatto-portfolio/01.png";
-import pizzaPiatto02 from "../public/projects/pizza-piatto-portfolio/02.png";
-import pizzaPiatto03 from "../public/projects/pizza-piatto-portfolio/03.png";
-import pizzaPiatto04 from "../public/projects/pizza-piatto-portfolio/04.png";
-import pizzaPiatto05 from "../public/projects/pizza-piatto-portfolio/05.png";
-import pizzaPiatto06 from "../public/projects/pizza-piatto-portfolio/06.png";
-import pizzaPiatto07 from "../public/projects/pizza-piatto-portfolio/07.png";
-import pizzaPiatto08 from "../public/projects/pizza-piatto-portfolio/08.png";
-import pizzaPiatto09 from "../public/projects/pizza-piatto-portfolio/09.png";
-import pizzaPiatto10 from "../public/projects/pizza-piatto-portfolio/10.png";
-import pizzaPiatto11 from "../public/projects/pizza-piatto-portfolio/11.png";
-import pizzaPiatto12 from "../public/projects/pizza-piatto-portfolio/12.png";
-import pizzaPiatto13 from "../public/projects/pizza-piatto-portfolio/13.png";
-import airportDTHero from "../public/projects/airport-digital-twin/hero.png";
-import airportDT01 from "../public/projects/airport-digital-twin/01.png";
-import airportDT02 from "../public/projects/airport-digital-twin/02.png";
-import airportDT03 from "../public/projects/airport-digital-twin/03.png";
-import airportDT04 from "../public/projects/airport-digital-twin/04.png";
-import airportDT05 from "../public/projects/airport-digital-twin/05.png";
-import airportDT06 from "../public/projects/airport-digital-twin/06.png";
-import airportDT07 from "../public/projects/airport-digital-twin/07.png";
-import airportDT08 from "../public/projects/airport-digital-twin/08.png";
-import airportDT09 from "../public/projects/airport-digital-twin/09.png";
-import roomManageHero from "../public/projects/room-management/hero.png";
-import roomManage01 from "../public/projects/room-management/01.png";
-import roomManage02 from "../public/projects/room-management/02.png";
-import roomManage03 from "../public/projects/room-management/03.png";
-import roomManage04 from "../public/projects/room-management/04.png";
-import roomManage05 from "../public/projects/room-management/05.png";
-import roomManage06 from "../public/projects/room-management/06.png";
-import roomManage07 from "../public/projects/room-management/07.png";
+const chinhNamHero = r2Image("projects/chinh-nam-portfolio/hero");
+const chinhNam01 = r2Image("projects/chinh-nam-portfolio/01");
+const chinhNam02 = r2Image("projects/chinh-nam-portfolio/02");
+const chinhNam03 = r2Image("projects/chinh-nam-portfolio/03");
+const chinhNam04 = r2Image("projects/chinh-nam-portfolio/04");
+const chinhNam05 = r2Image("projects/chinh-nam-portfolio/05");
+const chinhNamErpHero = r2Image("projects/chinh-nam-erp/hero");
+const chinhNamErp01 = r2Image("projects/chinh-nam-erp/01");
+const chinhNamErp02 = r2Image("projects/chinh-nam-erp/02");
+const chinhNamErp03 = r2Image("projects/chinh-nam-erp/03");
+const chinhNamErp04 = r2Image("projects/chinh-nam-erp/04");
+const chinhNamErp05 = r2Image("projects/chinh-nam-erp/05");
+const chinhNamErp06 = r2Image("projects/chinh-nam-erp/06");
+const chinhNamErp07 = r2Image("projects/chinh-nam-erp/07");
+const chinhNamErp08 = r2Image("projects/chinh-nam-erp/08");
+const chinhNamErp10 = r2Image("projects/chinh-nam-erp/10");
+const vietDynamicHero = r2Image("projects/viet-dynamic-elearning/hero");
+const vietDynamic01 = r2Image("projects/viet-dynamic-elearning/01");
+const vietDynamic02 = r2Image("projects/viet-dynamic-elearning/02");
+const vietDynamic03 = r2Image("projects/viet-dynamic-elearning/03");
+const vietDynamic04 = r2Image("projects/viet-dynamic-elearning/04");
+const vietDynamic05 = r2Image("projects/viet-dynamic-elearning/05");
+const vietDynamic06 = r2Image("projects/viet-dynamic-elearning/06");
+const thanhHoangHero = r2Image("projects/thanh-hoang/hero");
+const thanhHoang01 = r2Image("projects/thanh-hoang/01");
+const thanhHoang10 = r2Image("projects/thanh-hoang/10");
+const thanhHoang02 = r2Image("projects/thanh-hoang/02");
+const thanhHoang03 = r2Image("projects/thanh-hoang/03");
+const thanhHoang04 = r2Image("projects/thanh-hoang/04");
+const thanhHoang05 = r2Image("projects/thanh-hoang/05");
+const thanhHoang06 = r2Image("projects/thanh-hoang/06");
+const thanhHoang07 = r2Image("projects/thanh-hoang/07");
+const thanhHoang08 = r2Image("projects/thanh-hoang/08");
+const thanhHoang09 = r2Image("projects/thanh-hoang/09");
+const pizzaPiattoHero = r2Image("projects/pizza-piatto-portfolio/hero");
+const pizzaPiatto01 = r2Image("projects/pizza-piatto-portfolio/01");
+const pizzaPiatto02 = r2Image("projects/pizza-piatto-portfolio/02");
+const pizzaPiatto03 = r2Image("projects/pizza-piatto-portfolio/03");
+const pizzaPiatto04 = r2Image("projects/pizza-piatto-portfolio/04");
+const pizzaPiatto05 = r2Image("projects/pizza-piatto-portfolio/05");
+const pizzaPiatto06 = r2Image("projects/pizza-piatto-portfolio/06");
+const pizzaPiatto07 = r2Image("projects/pizza-piatto-portfolio/07");
+const pizzaPiatto08 = r2Image("projects/pizza-piatto-portfolio/08");
+const pizzaPiatto09 = r2Image("projects/pizza-piatto-portfolio/09");
+const pizzaPiatto10 = r2Image("projects/pizza-piatto-portfolio/10");
+const pizzaPiatto11 = r2Image("projects/pizza-piatto-portfolio/11");
+const pizzaPiatto12 = r2Image("projects/pizza-piatto-portfolio/12");
+const pizzaPiatto13 = r2Image("projects/pizza-piatto-portfolio/13");
+const airportDTHero = r2Image("projects/airport-digital-twin/hero");
+const airportDT01 = r2Image("projects/airport-digital-twin/01");
+const airportDT02 = r2Image("projects/airport-digital-twin/02");
+const airportDT03 = r2Image("projects/airport-digital-twin/03");
+const airportDT04 = r2Image("projects/airport-digital-twin/04");
+const airportDT05 = r2Image("projects/airport-digital-twin/05");
+const airportDT06 = r2Image("projects/airport-digital-twin/06");
+const airportDT07 = r2Image("projects/airport-digital-twin/07");
+const airportDT08 = r2Image("projects/airport-digital-twin/08");
+const airportDT09 = r2Image("projects/airport-digital-twin/09");
+const roomManageHero = r2Image("projects/room-management/hero");
+const roomManage01 = r2Image("projects/room-management/01");
+const roomManage02 = r2Image("projects/room-management/02");
+const roomManage03 = r2Image("projects/room-management/03");
+const roomManage04 = r2Image("projects/room-management/04");
+const roomManage05 = r2Image("projects/room-management/05");
+const roomManage06 = r2Image("projects/room-management/06");
+const roomManage07 = r2Image("projects/room-management/07");
 
 
 /** A statically imported screenshot, or a remote URL (the placeholders). */
@@ -135,7 +137,7 @@ export type ProjectSource = {
   githubAPI?: string;
   /** Older work: listed on /work/archive instead of /work and the home page; its detail page stays. */
   isArchive?: boolean;
-  /** Detail page hero image (public/projects/<slug>/hero.png); falls back to the cover. */
+  /** Detail page hero image (assets/images/projects/<slug>/hero.png); falls back to the cover. */
   hero?: ProjectImage;
   /** Display order; the first is the cover. */
   images: ProjectImage[];
@@ -851,6 +853,8 @@ export function projectPalette(
   return {
     "--color-bg": project.color,
     "--color-section": section,
+    // Outline buttons sit on this with `fg` text; left at the theme's white, light brand text vanished on them.
+    "--color-surface-raised": project.color,
     "--color-fg-rgb": fg,
     "--color-fg": `rgb(${fg})`,
     "--color-muted": `rgb(${fg} / 0.6)`,

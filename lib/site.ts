@@ -1,17 +1,17 @@
 import type { Dictionary } from './i18n/dictionaries';
-import portrait from '../public/portrait.webp';
+import { r2Image } from './r2Images';
 
 /**
  * Personal details.
- * `portrait` is a cut-out (transparent background) image, generated from public/portrait.png by
- * `npm run images`. Imported statically: Next reads its size and serves it under a hashed URL that
- * can be cached forever.
+ * `portrait` is a cut-out (transparent background) image, generated from assets/images/portrait.png by
+ * `npm run images` and served from R2 (`npm run images:upload`). The manifest gives Next its size, and its
+ * content-hashed URL can be cached forever.
  */
 export const site = {
   name: 'Trương Công Trí',
   email: 'tri.tcong@gmail.com',
   phone: { display: '+84 933 048 894', href: 'tel:+84933048894' },
-  portrait,
+  portrait: r2Image('portrait'),
 };
 
 /**

@@ -22,7 +22,7 @@
 }
 
 /*
- * The image the scene grows into (public/get-in-touch.webp, an enlarged + sharpened copy of
+ * The image the scene grows into (assets/webp/get-in-touch.webp on R2, an enlarged + sharpened copy of
  * get-in-touch.jpg made by `npm run images`, rendered with next/image). A dark scrim over it keeps the white
  * line and call-to-action readable on a light, busy picture; `cover` crops it to any frame shape.
  */

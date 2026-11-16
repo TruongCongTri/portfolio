@@ -1,0 +1,428 @@
+{
+  "8-bit pixel portrait": {
+    "key": "images/8-bit pixel portrait.4e0edc8420.webp",
+    "width": 500,
+    "height": 500,
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoIAAgAAkA4JbACdAYoBYnSnWAA/t/9ew7fqugCt0Flzy+IwjCLZZInEiGjqbz82HKWOuDG0VBo2h/qI71n8/NZv/BTrjsPxd1/Jj6JAAA="
+  },
+  "get-in-touch": {
+    "key": "images/get-in-touch.69d2abc282.webp",
+    "width": 1920,
+    "height": 1158,
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoIAAUAAkA4JQBOgCPQS3IdcAD+7mM2Ts5pXMl1vAU/ZoxiUUwIzbnSaKu/yX3U6vOoCV2bQuxWNAbAmGAAAA=="
+  },
+  "portrait": {
+    "key": "images/portrait.1737f34237.webp",
+    "width": 911,
+    "height": 1075,
+    "blurDataURL": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4WAoAAAAQAAAABwAACAAAQUxQSEEAAAABYBPZtpP3iRUK6DGEDixQIYEqZycgAhFUOb/3g4iImACAYO1BHvFzpAgHW/Ix1QHc6kScQ0hQ/rwJlfGtOhbFhQBWUDggUAAAANABAJ0BKggACQACQDglAE6AF6BLxE4AAP6ty2ZdP9ENFEKGZZf5SqbPPnO3x9nL/+Ify16KYOJl2bDIMgua3/rf/1BRDJijfVFLMRHUowAA"
+  },
+  "portrait-02": {
+    "key": "images/portrait-02.4207bd2f91.webp",
+    "width": 1080,
+    "height": 1440,
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACQAgCdASoIAAsAAkA4JYgCdAaTjmg9sIpJcOqkAAD+x2+E+vplrH4kdvodfW/fTlwcAlSSWGH+aHOooImhZHzmTIVPL5s9jVoYIfnqKm+vsiMa+lvyxk4tRKlZKAAA"
+  },
+  "projects/airport-digital-twin/01": {
+    "key": "images/projects/airport-digital-twin/01.868b55f65f.webp",
+    "width": 2560,
+    "height": 1365,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoIAAQAAkA4JaQAAu18Zx6AAP782lnYMa5UJ8gAAAA="
+  },
+  "projects/airport-digital-twin/02": {
+    "key": "images/projects/airport-digital-twin/02.865ec40a12.webp",
+    "width": 2560,
+    "height": 1365,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoIAAQAAkA4JaQAAu18MK4AAP79L46udmhbtJYuAAA="
+  },
+  "projects/airport-digital-twin/03": {
+    "key": "images/projects/airport-digital-twin/03.11ee64adc9.webp",
+    "width": 2560,
+    "height": 1358,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoIAAQAAkA4JaQAAuTqLAAA/vz3o4FBJ2uxSF+iIihQAA=="
+  },
+  "projects/airport-digital-twin/04": {
+    "key": "images/projects/airport-digital-twin/04.166219c931.webp",
+    "width": 2560,
+    "height": 1364,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAAAwAQCdASoIAAQAAkA4JaQAA3AA/vqX7+HMfNR1/NZRIrFAAAA="
+  },
+  "projects/airport-digital-twin/05": {
+    "key": "images/projects/airport-digital-twin/05.6642ca1e62.webp",
+    "width": 2560,
+    "height": 1360,
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAAAwAQCdASoIAAQAAkA4JaQAA3AA/vqrKQvRWiHg4DZwAA=="
+  },
+  "projects/airport-digital-twin/06": {
+    "key": "images/projects/airport-digital-twin/06.bd9c319e9d.webp",
+    "width": 2560,
+    "height": 1365,
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACwAQCdASoIAAQAAkA4JaQAAueBcPoAAP79e05wPMAAAA=="
+  },
+  "projects/airport-digital-twin/07": {
+    "key": "images/projects/airport-digital-twin/07.8c85f90194.webp",
+    "width": 2560,
+    "height": 1358,
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoIAAQAAkA4JaQAAudZtgAA/v2IeB5g4SfAAAAA"
+  },
+  "projects/airport-digital-twin/08": {
+    "key": "images/projects/airport-digital-twin/08.bbbc192afa.webp",
+    "width": 2560,
+    "height": 1360,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAAAwAQCdASoIAAQAAkA4JaQAA3AA/voxB/Y5/+ikJf5DynZQAAA="
+  },
+  "projects/airport-digital-twin/09": {
+    "key": "images/projects/airport-digital-twin/09.dea003bf3a.webp",
+    "width": 2560,
+    "height": 1360,
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoIAAQAAkA4JaQAApz9zgAA/v09imEwr9Ia4PrMlVw/g514EAA="
+  },
+  "projects/airport-digital-twin/hero": {
+    "key": "images/projects/airport-digital-twin/hero.142ebe713a.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACQAQCdASoIAAYAAkA4JaQAApexCwAA/q39O819XkzTBOFkYo/Zfzdd5wNItVwJnf2HK2go6fjSmU1UAAAAAA=="
+  },
+  "projects/chinh-nam-erp/01": {
+    "key": "images/projects/chinh-nam-erp/01.e9a292d408.webp",
+    "width": 2560,
+    "height": 1317,
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoIAAQAAkA4JZwC7ADdA6CAAPaxSNyHYpqfu9pfIwxFBFgN8rknXOtOAAA="
+  },
+  "projects/chinh-nam-erp/02": {
+    "key": "images/projects/chinh-nam-erp/02.47694b6eb4.webp",
+    "width": 2560,
+    "height": 1300,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACQAQCdASoIAAQAAkA4JZwAAudQDBAA/vrlKry0vQkbFbAleVseD0pxCxBwAA=="
+  },
+  "projects/chinh-nam-erp/03": {
+    "key": "images/projects/chinh-nam-erp/03.a7298c8024.webp",
+    "width": 2560,
+    "height": 1304,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACQAQCdASoIAAQAAkA4JZwAAudZt7gA/vrkkbh3tM8BimurPIcDA/cRYfZwAA=="
+  },
+  "projects/chinh-nam-erp/04": {
+    "key": "images/projects/chinh-nam-erp/04.becc0dd746.webp",
+    "width": 2560,
+    "height": 1298,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZwAAvh1CCAAAP76WHBHYoowLVlQE0rMh5H1YkAAAA=="
+  },
+  "projects/chinh-nam-erp/05": {
+    "key": "images/projects/chinh-nam-erp/05.a21bae9982.webp",
+    "width": 2560,
+    "height": 1298,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZwAAveELvHAAP765JG4ZZ+0vmfABzV+e+pzQkmQAA=="
+  },
+  "projects/chinh-nam-erp/06": {
+    "key": "images/projects/chinh-nam-erp/06.76dc22dee2.webp",
+    "width": 2560,
+    "height": 1296,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoIAAQAAkA4JZwAAudR6yQAAP76WHc8kqhQhwl7chp3f76nNCSZAAAA"
+  },
+  "projects/chinh-nam-erp/07": {
+    "key": "images/projects/chinh-nam-erp/07.e7989466d8.webp",
+    "width": 2560,
+    "height": 1305,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZwAAudh0dDAAP76WHBHYv6z3pLXQh1aQ9KpQwjgAA=="
+  },
+  "projects/chinh-nam-erp/08": {
+    "key": "images/projects/chinh-nam-erp/08.2f40f15959.webp",
+    "width": 2560,
+    "height": 1308,
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoIAAQAAkA4JaQAAp02KwAA/uivuFRu+OZKeYDzFv6VtlCUSBKA7DpAAAA="
+  },
+  "projects/chinh-nam-erp/10": {
+    "key": "images/projects/chinh-nam-erp/10.5750900dd3.webp",
+    "width": 2560,
+    "height": 1292,
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADwAQCdASoIAAQAAkA4JaQAAp1bJLCYaAAA/vyPSUJY9nwm4qg+uVilFAA="
+  },
+  "projects/chinh-nam-erp/hero": {
+    "key": "images/projects/chinh-nam-erp/hero.b0953b5df2.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoIAAYAAkA4JQBOgB6C/oL4AP68a1kOWu6ncJpqTN1u1GTeLSw5SyWyAyqqzb7czgOC2B2VUk5Dn3RdLkQ0zJb5TaEwAAAA"
+  },
+  "projects/chinh-nam-portfolio/01": {
+    "key": "images/projects/chinh-nam-portfolio/01.b3e5bdc85d.webp",
+    "width": 2560,
+    "height": 1295,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoIAAQAAkA4JZwCw7D0jJ6a4AD+3bo7Cq5b90heaD+ymQHcISRfgAAA"
+  },
+  "projects/chinh-nam-portfolio/02": {
+    "key": "images/projects/chinh-nam-portfolio/02.6dc29c47c4.webp",
+    "width": 2560,
+    "height": 1285,
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAQCdASoIAAQAAkA4JbACdADx4igAAP76jsBk0noRPt3F3T5DW2dfhXg+xvkmlvh9dXI8XJu5o8L68ipfdAAA"
+  },
+  "projects/chinh-nam-portfolio/03": {
+    "key": "images/projects/chinh-nam-portfolio/03.df35bb1093.webp",
+    "width": 2560,
+    "height": 1289,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoIAAQAAkA4JYwCdAEO+nH5AAD++45+2Rd1O54i+qDAkrVm1rxAAA=="
+  },
+  "projects/chinh-nam-portfolio/04": {
+    "key": "images/projects/chinh-nam-portfolio/04.f3d5463e63.webp",
+    "width": 2560,
+    "height": 1294,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoIAAQAAkA4JagCdAD0gbSgAP76aQW/ijIIxed3B7/lRfBX+Kf187o6yv2mb7MIbAAAAA=="
+  },
+  "projects/chinh-nam-portfolio/05": {
+    "key": "images/projects/chinh-nam-portfolio/05.edb3e1339d.webp",
+    "width": 2560,
+    "height": 1286,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoIAAQAAkA4JZQCdADyfwWAAMo2/pLXk5W8/e0G6tIhPB18bzTHbbgA"
+  },
+  "projects/chinh-nam-portfolio/hero": {
+    "key": "images/projects/chinh-nam-portfolio/hero.66e0acdb49.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoIAAYAAkA4JYgCdAEWToJCsAD+5rNRMwQDgT4i4VG3pxMb4+DZQrCY1nllBWoqe6WkeYcPBHJRwe2EvOX0m9YAAAA="
+  },
+  "projects/pizza-piatto-portfolio/01": {
+    "key": "images/projects/pizza-piatto-portfolio/01.48d77f5828.webp",
+    "width": 2560,
+    "height": 1357,
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAQCdASoIAAQAAkA4JYwCdAEegkYIsAAA/qnpAWVBT5dnW7QNjNNhhORiFbS+zyAAAA=="
+  },
+  "projects/pizza-piatto-portfolio/02": {
+    "key": "images/projects/pizza-piatto-portfolio/02.22ea8da895.webp",
+    "width": 2560,
+    "height": 1367,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoIAAQAAkA4JZwAAxecsaAAAP73kdObr4phNovRmuAAAA=="
+  },
+  "projects/pizza-piatto-portfolio/03": {
+    "key": "images/projects/pizza-piatto-portfolio/03.e9332e9d83.webp",
+    "width": 2560,
+    "height": 1355,
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoIAAQAAkA4JQBOgCIj2+A8AP7zTIllOJXuLrKCJaRsTqZ4rhuysGJEcPOqAAAA"
+  },
+  "projects/pizza-piatto-portfolio/04": {
+    "key": "images/projects/pizza-piatto-portfolio/04.5760611ddf.webp",
+    "width": 2560,
+    "height": 1362,
+    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACwAQCdASoIAAQAAkA4JZACdAD0gbSgAP3HvRkR5DV2c6qDzMlgn7b+LIL25Nsat9aQYFxsFBvWAAAA"
+  },
+  "projects/pizza-piatto-portfolio/05": {
+    "key": "images/projects/pizza-piatto-portfolio/05.7abe80b250.webp",
+    "width": 2560,
+    "height": 1356,
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoIAAQAAkA4JQBOiOAAPQ87fAAA/vTEKYsPfcQHVDtvhX93gaDDBSDBpz3WllG6qOL8v1KsWo/YgAAA"
+  },
+  "projects/pizza-piatto-portfolio/06": {
+    "key": "images/projects/pizza-piatto-portfolio/06.304f21add0.webp",
+    "width": 2560,
+    "height": 1362,
+    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoIAAQAAkA4JQBOhxAAKUg5duAA/vfBiTZok51VRd0gusFvbSkyh7RFrm8mzdycbPBzrAAA"
+  },
+  "projects/pizza-piatto-portfolio/07": {
+    "key": "images/projects/pizza-piatto-portfolio/07.ab06edea53.webp",
+    "width": 2560,
+    "height": 1359,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADQAQCdASoIAAQAAkA4JQBOgCPtwh+WAAD+8bF+5tcZe+Deh6xUJUUv6c3FB9cCCPNLlEjwQgK1iD9sgAA="
+  },
+  "projects/pizza-piatto-portfolio/08": {
+    "key": "images/projects/pizza-piatto-portfolio/08.0f48a9e24b.webp",
+    "width": 2560,
+    "height": 1367,
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoIAAQAAkA4JQBOgCHfTDWAAP7CsAzFVbHNMKM2Dfm0/UZH+UfVkYnh7lDAAA=="
+  },
+  "projects/pizza-piatto-portfolio/09": {
+    "key": "images/projects/pizza-piatto-portfolio/09.0d1ddcded2.webp",
+    "width": 2560,
+    "height": 1364,
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoIAAQAAkA4JZwAAudP4iAA+6XzDTtzZ4vTMajcbQL0wPDxIeoKgSEz/AA="
+  },
+  "projects/pizza-piatto-portfolio/10": {
+    "key": "images/projects/pizza-piatto-portfolio/10.2a886784e7.webp",
+    "width": 2560,
+    "height": 1367,
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoIAAQAAkA4JYwC7ADdBGQwAP7xUq7ym1UntyDGvjq+tgSZM4MsxToEPcSkAA=="
+  },
+  "projects/pizza-piatto-portfolio/11": {
+    "key": "images/projects/pizza-piatto-portfolio/11.b9b2692db8.webp",
+    "width": 2560,
+    "height": 1349,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoIAAQAAkA4JQBOgCICejKwAP76bCGmN+rLUQ5BFuAAAA=="
+  },
+  "projects/pizza-piatto-portfolio/12": {
+    "key": "images/projects/pizza-piatto-portfolio/12.33c9a1e780.webp",
+    "width": 2560,
+    "height": 1355,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JQBOgB8xEQgAAP751EvfvWMdWwAlzdJ+p/mBggAAAA=="
+  },
+  "projects/pizza-piatto-portfolio/13": {
+    "key": "images/projects/pizza-piatto-portfolio/13.b63f1cffbe.webp",
+    "width": 2560,
+    "height": 1360,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoIAAQAAkA4JQBOgCHhv+sAAP76ZH3XIYS6T9T/MDBAAA=="
+  },
+  "projects/pizza-piatto-portfolio/hero": {
+    "key": "images/projects/pizza-piatto-portfolio/hero.705633a6c1.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoIAAYAAkA4JQBOgB6Mx89BkAD+5Suq8Y+e/L9H1kgtA0JZoxKR7nRLCFd1FgjNU3jzu9RInztimSPcJuXWufsAAAA="
+  },
+  "projects/room-management/01": {
+    "key": "images/projects/room-management/01.d80f55c0c5.webp",
+    "width": 2560,
+    "height": 1370,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAQAAkA4JZwAAu18LwIAAP76yE/hYd93YCigPmSK0swA"
+  },
+  "projects/room-management/02": {
+    "key": "images/projects/room-management/02.24f421d4ac.webp",
+    "width": 2560,
+    "height": 1376,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZwAAudg5dsAAP76x/HB0XyNqFwktzwqoXbbXpZgAA=="
+  },
+  "projects/room-management/03": {
+    "key": "images/projects/room-management/03.dfd4281cc7.webp",
+    "width": 2560,
+    "height": 1380,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoIAAQAAkA4JZwAAudZuFQA/vtWhuYN8KEQ2AU2m4igAA=="
+  },
+  "projects/room-management/04": {
+    "key": "images/projects/room-management/04.04945a429c.webp",
+    "width": 2560,
+    "height": 1370,
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoIAAQAAkA4JZwAAp05uB8AAP77t8nVtlGwubGZ7rtHrorclsxv3uCAAAA="
+  },
+  "projects/room-management/05": {
+    "key": "images/projects/room-management/05.823aa78ed3.webp",
+    "width": 2560,
+    "height": 1378,
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAQCdASoIAAQAAkA4JZQCdAEfbi3/vQAA/vs+p8isQ7mhq5BWnVSraCxjNCQAAAA="
+  },
+  "projects/room-management/06": {
+    "key": "images/projects/room-management/06.1e85c56613.webp",
+    "width": 2560,
+    "height": 1378,
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoIAAQAAkA4JZwAAudLMAQA/vqxbldLnvW94uAA"
+  },
+  "projects/room-management/07": {
+    "key": "images/projects/room-management/07.ebae83e351.webp",
+    "width": 2560,
+    "height": 1376,
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoIAAQAAkA4JZwAAxZgovm4AP78OALFtzzlpeSOkw1BPSzAAAA="
+  },
+  "projects/room-management/hero": {
+    "key": "images/projects/room-management/hero.d2802ea0d5.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoIAAYAAkA4JQBOgCKTPkAoAOJ+vFUjvmH/8JduT2ciLqx7slWQi8sBkAroYSr3PWS0aFuJnrfaGCJJQXLhKhEGJOVJfCvAAAA="
+  },
+  "projects/thanh-hoang/01": {
+    "key": "images/projects/thanh-hoang/01.1d9cd570b0.webp",
+    "width": 2560,
+    "height": 1356,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoIAAQAAkA4JZwAAuYbxYAA/vy3L280YYZb1GzCdj9YcJ6RENioAAAA"
+  },
+  "projects/thanh-hoang/02": {
+    "key": "images/projects/thanh-hoang/02.758ac0e025.webp",
+    "width": 2560,
+    "height": 1342,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAQAAkA4JZwAAudiRZ2AAP7+S3lyD1F9AD0wk8eSkAAA"
+  },
+  "projects/thanh-hoang/03": {
+    "key": "images/projects/thanh-hoang/03.098342afc7.webp",
+    "width": 2560,
+    "height": 1358,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAQAAkA4JZwAAudQDLQAAP7+IeOQd3+5XL1Os4JqDZAA"
+  },
+  "projects/thanh-hoang/04": {
+    "key": "images/projects/thanh-hoang/04.2fb80dc910.webp",
+    "width": 2560,
+    "height": 1351,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoIAAQAAkA4JZwAAudh0dDAAP7+SUKvjLYMgj9eaAA="
+  },
+  "projects/thanh-hoang/05": {
+    "key": "images/projects/thanh-hoang/05.4aee1b8d0f.webp",
+    "width": 2560,
+    "height": 1356,
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAADQAQCdASoIAAQAAkA4JaQAAudlxd50AAD+/kjDo7XtGBAA"
+  },
+  "projects/thanh-hoang/06": {
+    "key": "images/projects/thanh-hoang/06.ac440afa30.webp",
+    "width": 2560,
+    "height": 1344,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZwAAud7zzPIAP79oH7A2IggrPyDIkTzvE+bbeaAAA=="
+  },
+  "projects/thanh-hoang/07": {
+    "key": "images/projects/thanh-hoang/07.72a2043310.webp",
+    "width": 2560,
+    "height": 1362,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADwAQCdASoIAAQAAkA4JaQAAu0e0ll30AAA/v4aIAmauOOfJVHQatgA"
+  },
+  "projects/thanh-hoang/08": {
+    "key": "images/projects/thanh-hoang/08.64f7758605.webp",
+    "width": 2560,
+    "height": 1355,
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoIAAQAAkA4JZwAAuYcErwAAP7+J0SjN5CrywM4n7NGdO4qAAA="
+  },
+  "projects/thanh-hoang/09": {
+    "key": "images/projects/thanh-hoang/09.4fb684491a.webp",
+    "width": 2560,
+    "height": 1358,
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADQAQCdASoIAAQAAkA4JZwCdAEPAQE7YAD++lkufT0CD7hiymEQAf7cYH/8Tl0gZr5qX8cAAAA="
+  },
+  "projects/thanh-hoang/10": {
+    "key": "images/projects/thanh-hoang/10.5d080766bf.webp",
+    "width": 2560,
+    "height": 1365,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAQAAkA4JZQCdAEO+mBgAP76t060b34fZoIlQc7SqTF60i5AAA=="
+  },
+  "projects/thanh-hoang/hero": {
+    "key": "images/projects/thanh-hoang/hero.c6529a8174.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAQCdASoIAAYAAkA4JQBOgCKTPunAAPl2dOH6+P/wlGLNausA/5CwEwSh/SttcTjlAmmSvhjTviX4WRTU8LGGc9NSH6dWSBgAAA=="
+  },
+  "projects/viet-dynamic-elearning/01": {
+    "key": "images/projects/viet-dynamic-elearning/01.9230b9b459.webp",
+    "width": 2560,
+    "height": 1239,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoIAAQAAkA4JaQAAup2wi4AAP79fW4TbaVDkuzsCsHAAA=="
+  },
+  "projects/viet-dynamic-elearning/02": {
+    "key": "images/projects/viet-dynamic-elearning/02.3ecfcc1330.webp",
+    "width": 2560,
+    "height": 1239,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAQAAkA4JaQAAp1UHAAAAP78kIPCgF/JJr/z+9V4AAAA"
+  },
+  "projects/viet-dynamic-elearning/03": {
+    "key": "images/projects/viet-dynamic-elearning/03.4502a34621.webp",
+    "width": 2560,
+    "height": 1239,
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoIAAQAAkA4JaQAAp1HI1AA/v1GuJ0h/oXZuS9tOSfFQDwAAAA="
+  },
+  "projects/viet-dynamic-elearning/04": {
+    "key": "images/projects/viet-dynamic-elearning/04.94842378d4.webp",
+    "width": 2560,
+    "height": 1234,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoIAAQAAkA4JZwAAueFBsAAAP79v08Dj9zvdiqM31eiAAAA"
+  },
+  "projects/viet-dynamic-elearning/05": {
+    "key": "images/projects/viet-dynamic-elearning/05.5806045850.webp",
+    "width": 2560,
+    "height": 1232,
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoIAAQAAkA4JZwAAup23yWQAP75u6tL3/ykfuNtotQWWz4kHXkT14s29wAAAA=="
+  },
+  "projects/viet-dynamic-elearning/06": {
+    "key": "images/projects/viet-dynamic-elearning/06.fd3e8348ef.webp",
+    "width": 2560,
+    "height": 1239,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoIAAQAAkA4JZQAAudQDBAA/vyjdrGqaA21iJ4gCr4WOV6xiQXIAAAA"
+  },
+  "projects/viet-dynamic-elearning/hero": {
+    "key": "images/projects/viet-dynamic-elearning/hero.5161f7be6d.webp",
+    "width": 1448,
+    "height": 1086,
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoIAAYAAkA4JQBOgB5th9wAAOJ/OH+lA2J/+ClVie/TUxXdj/KCL4038lI8yyPQzEbGC6Y/BMfDZDn3RdLkQ0zJcCIplgwA"
+  },
+  "Renaissance_Fresco-Creation_of_the_Cat": {
+    "key": "images/Renaissance_Fresco-Creation_of_the_Cat.89ec757bd2.webp",
+    "width": 1616,
+    "height": 973,
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoIAAUAAkA4JQBOgCPQFSk4AAD+7mMXThUBsaoW+5mxbnesgQl+Hx1ucYvvxwkyr6+pkHHEJtlbJnoA/IAAAA=="
+  }
+}

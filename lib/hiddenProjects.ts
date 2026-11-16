@@ -2,6 +2,7 @@ import 'server-only';
 import type { Locale } from './i18n/config';
 import { hiddenSlugs } from './hiddenSlugs';
 import { localize, placeholderShots, projectSlugs, type ProjectSource } from './projects';
+import { privateR2Image } from './r2Images.private';
 
 /*
  * Personal projects, kept off every public list. They're listed only on /work/private; their detail
@@ -11,7 +12,25 @@ import { localize, placeholderShots, projectSlugs, type ProjectSource } from './
  * Kept apart from lib/projects.ts on purpose: that module is also bundled for the browser (the page
  * transition reads project titles), and 'server-only' makes sure none of this ships to visitors.
  * Slugs must not clash with lib/projects.ts, nor be "archive" or "private".
+ *
+ * Image sources go in assets/images/private/projects/<slug>/ (then `npm run images:upload`).
  */
+
+const foodHero = privateR2Image("projects/food-lucky-wheel/hero");
+const food01 = privateR2Image("projects/food-lucky-wheel/01");
+const food02 = privateR2Image("projects/food-lucky-wheel/02");
+const food03 = privateR2Image("projects/food-lucky-wheel/03");
+const food04 = privateR2Image("projects/food-lucky-wheel/04");
+const food05 = privateR2Image("projects/food-lucky-wheel/05");
+
+const filmHero = privateR2Image("projects/film-files/hero");
+const film01 = privateR2Image("projects/film-files/01");
+const film02 = privateR2Image("projects/film-files/02");
+const film03 = privateR2Image("projects/film-files/03");
+const film04 = privateR2Image("projects/film-files/04");
+const film05 = privateR2Image("projects/film-files/05");
+const film06 = privateR2Image("projects/film-files/06");
+
 
 /** Copy for the /work/private page itself (not in the dictionaries, which are bundled for the browser). */
 export const privatePageCopy: Record<Locale, { title: string; metaTitle: string }> = {
@@ -39,7 +58,14 @@ const sources: ProjectSource[] = [
       { color: "#6e1f2a", tone: "light", textColor: "#f2c14e" },
       { color: "#f2c14e", tone: "dark", textColor: "#1a1414" },
     ],
-    images: placeholderShots("Food Lucky Wheel", "#f3ede3", 4, "#e4411f"),
+    hero: foodHero,
+    images: [
+      food01,
+      food02,
+      food03,
+      food04,
+      food05,
+    ],
     copy: {
       en: {
         services: "Frontend Development + Motion",
@@ -88,7 +114,16 @@ const sources: ProjectSource[] = [
       { color: "#ffe927", tone: "dark", textColor: "#191919" },
       { color: "#191919", tone: "light", textColor: "#fdfaf7" },
     ],
-    images: placeholderShots("Personal Movie Blog", "#191919", 4, "#ffe927"),
+    
+    hero: filmHero,
+    images: [
+      film01,
+      film02,
+      film03,
+      film04,
+      film05,
+      film06,
+    ],
     copy: {
       en: {
         services: "Frontend Development + Editorial Design",

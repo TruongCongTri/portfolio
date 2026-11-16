@@ -1,12 +1,15 @@
 /**
- * Generates web-ready images from the source files in /public. Re-run after replacing a source:
+ * Generates web-ready images from the sources in assets/images. Re-run after replacing a source:
  *
  *   npm run images
  *
- * - public/portrait.png               → public/portrait.webp (hero portrait, much smaller)
- * - public/8-bit pixel portrait.jpg   → public/icons/* + app/favicon.ico (round, crisp pixel-art icons)
- * - public/get-in-touch.jpg           → public/get-in-touch.webp (enlarged + sharpened for full screen)
- *                                     → public/og-image.jpg (1200×630 social share card)
+ * Sources live in assets/images (not deployed); the WebPs go to assets/webp, which `npm run images:upload`
+ * sends to Cloudflare R2. Icons and the share card stay in /public (platforms want PNG/JPG, same-origin).
+ *
+ * - assets/images/portrait.png               → assets/webp/portrait.webp (hero portrait, much smaller)
+ * - assets/images/8-bit pixel portrait.jpg   → public/icons/* + app/favicon.ico (round, crisp pixel-art icons)
+ * - assets/images/get-in-touch.jpg           → assets/webp/get-in-touch.webp (enlarged + sharpened for full screen)
+ *                                            → public/og-image.jpg (1200×630 social share card)
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
@@ -16,11 +19,12 @@ const NAME = 'Trương Công Trí';
 const ROLE = 'Full-stack Developer';
 const STACK = 'Node.js · NestJS · Express.js · React · Next.js';
 
-const PORTRAIT = 'public/portrait.png';
-const GET_IN_TOUCH = 'public/get-in-touch.jpg';
-const ICON = 'public/8-bit pixel portrait.jpg';
+const PORTRAIT = 'assets/images/portrait.png';
+const GET_IN_TOUCH = 'assets/images/get-in-touch.jpg';
+const ICON = 'assets/images/8-bit pixel portrait.jpg';
 
 await mkdir('public/icons', { recursive: true });
+await mkdir('assets/webp', { recursive: true });
 
 // 1. Hero portrait: keep the alpha channel, trim the empty transparent margins (so the person fills
 //    the hero's portrait box, which is sized by the image), cap the height at 2× the largest on-screen size.
@@ -28,7 +32,7 @@ const portrait = await sharp(PORTRAIT)
   .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 10 })
   .resize({ height: 1400, withoutEnlargement: true })
   .webp({ quality: 82, alphaQuality: 90, effort: 6 })
-  .toFile('public/portrait.webp');
+  .toFile('assets/webp/portrait.webp');
 console.log(`portrait.webp  ${portrait.width}×${portrait.height}  ${(portrait.size / 1024) | 0} KB`);
 
 // 2. Icons: nearest-neighbour keeps the pixel art sharp at every size, then a circular mask makes
@@ -94,7 +98,7 @@ const touch = await sharp(GET_IN_TOUCH)
   .modulate({ saturation: 1.06 })
   .linear(1.04, -4) // a touch more contrast
   .webp({ quality: 86, effort: 6 })
-  .toFile('public/get-in-touch.webp');
+  .toFile('assets/webp/get-in-touch.webp');
 console.log(`get-in-touch.webp  ${touchMeta.width}×${touchMeta.height} → ${touch.width}×${touch.height}  ${(touch.size / 1024) | 0} KB`);
 
 // 4. Open Graph card (1200×630): pixel portrait on the left, name and role on the right.

@@ -1,4 +1,5 @@
 import { getT } from '@/lib/i18n/server';
+import { r2Image } from '@/lib/r2Images';
 import { site } from '@/lib/site';
 import SplitReveal from '@/components/ui/SplitReveal/SplitReveal';
 import ParallaxImage from '@/components/ui/ParallaxImage/ParallaxImage';
@@ -40,7 +41,7 @@ export default async function AboutIntro() {
             ))}
           </div>
           <ParallaxImage
-            src="/portrait-02.jpg"
+            src={r2Image('portrait-02').src}
             alt={t.imageAlt}
             className={`${styles.media} ${styles.landscape}`}
             sizes="(min-width: 900px) 40vw, 100vw"

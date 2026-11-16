@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+// Site images are served from Cloudflare R2 (see scripts/upload-images.mjs).
+const r2PublicUrl = process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
+if (!r2PublicUrl) throw new Error("NEXT_PUBLIC_R2_PUBLIC_URL is not set: images are served from Cloudflare R2.");
+const r2 = new URL(r2PublicUrl);
+
 const nextConfig: NextConfig = {
   // Files in /public have no hash in their URL, so Next leaves them uncached: give the ones that rarely change a
   // week in the browser (and a day of stale-while-revalidate), so repeat visits don't re-download them.
@@ -12,8 +17,12 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    // Placeholder project screens; add your own image host here when real screenshots replace them.
-    remotePatterns: [{ protocol: "https", hostname: "placehold.co", pathname: "/**" }],
+    remotePatterns: [
+      // Site images and project screenshots (content-hashed WebP under images/).
+      { protocol: r2.protocol.replace(":", "") as "https", hostname: r2.hostname, pathname: "/images/**" },
+      // Placeholder project screens.
+      { protocol: "https", hostname: "placehold.co", pathname: "/**" },
+    ],
     // WebP only: nearly as small as AVIF, but far quicker to encode on a first request (AVIF can take
     // seconds per image) and to decode, which is what keeps the first load snappy.
     formats: ["image/webp"],
